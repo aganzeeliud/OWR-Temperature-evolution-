@@ -19,11 +19,14 @@ Le tableau de bord propose six onglets en français : **Vue d’ensemble**, **Pe
 | [`Meteo_owr.xlsx`](Meteo_owr.xlsx) | Même série journalière en classeur Excel, avec feuille de notes sur les colonnes et la provenance | 1986-01-01 – 2026-10-25 | [Classeur Excel](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/Meteo_owr.xlsx) |
 | [`TreeCoverLoss_owr.csv`](TreeCoverLoss_owr.csv) | Estimation annuelle de perte de couvert arboré en hectares | 2001–2025 | [CSV brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/TreeCoverLoss_owr.csv) |
 | [`ForestAlerts_2026_owr.csv`](ForestAlerts_2026_owr.csv) | Détections mensuelles provisoires de pixels d’alerte | 2026, observations jusqu’au 2026-10-04 | [CSV brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/ForestAlerts_2026_owr.csv) |
+| [`Zone agricole .csv`](Zone%20agricole%20.csv) | Valeurs annuelles de perte déclarées et colonnes détaillées par zone | 2001–2024 | [CSV brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/Zone%20agricole%20.csv) |
 | [`earth_engine/okapi_mining_deforestation.js`](earth_engine/okapi_mining_deforestation.js) | Script d’analyse exploratoire Landsat/Sentinel et export par zone | 2000–2026 | [Script Earth Engine](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/earth_engine/okapi_mining_deforestation.js) |
 | [`index.html`](index.html) | Tableau de bord autonome en français | Version courante du dépôt | [HTML brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/index.html) |
 | [`OWR_Climate.pbip`](OWR_Climate.pbip) | Projet Power BI (à ouvrir avec Power BI Desktop) | Sources CSV du dépôt | [Projet PBIP](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/OWR_Climate.pbip) |
 
 Le classeur Excel et le CSV météo contiennent la même série et les mêmes valeurs ; le classeur fournit les colonnes de date, année, mois et jour dans des cellules Excel typées et conserve les valeurs absentes comme cellules vides. Les CSV utilisent des en-têtes explicites, des dates ISO (`AAAA-MM-JJ`) et des valeurs numériques directement exploitables dans un tableur, Python, R ou Power BI. Les en-têtes nécessaires au modèle Power BI sont conservés.
+
+**Zone agricole :** l’onglet forestier trace la colonne `Perte annuelle (ha)` fournie dans `Zone agricole .csv` (2001–2024), sans en déduire une cause agricole vérifiée. Le fichier ne documente ni sa provenance, ni sa méthode, ni sa définition spatiale. La colonne annuelle agrégée ne concorde pas avec la somme des colonnes des zones nommées ; elles sont donc conservées séparément et les valeurs doivent être validées auprès de la source avant toute interprétation comme déforestation attribuable à l’agriculture.
 
 **Résultats miniers Earth Engine :** aucun CSV de résultats calculés n’est distribué ici. Téléchargez le script, configurez une limite de réserve et, si un proxy de proximité est souhaité, un inventaire minier daté ; lancez ensuite l’export dans Earth Engine. Le fichier généré est importable depuis l’onglet **Activités minières** du tableau de bord. Sans inventaire minier, les seuls CSV forestiers disponibles ne permettent pas d’attribuer une perte aux mines.
 
@@ -32,13 +35,13 @@ Le classeur Excel et le CSV météo contiennent la même série et les mêmes va
 La page est organisée en six onglets :
 
 1. **Vue d’ensemble** — filtres d’années, indicateurs météo, tendances annuelles et saisonnières.
-2. **Perte forestière & alertes** — perte annuelle GFW/UMD (2001–2025), alertes provisoires 2026, indicateurs et table des valeurs.
+2. **Perte forestière & alertes** — perte annuelle GFW/UMD (2001–2025), alertes provisoires 2026 et évolution des valeurs déclarées en zone agricole (2001–2024), avec indicateurs et table des valeurs.
 3. **Activités minières** — comparateur par zone pour GFW, Hansen et transitions candidates ; estimation près des mines disponible uniquement après export Earth Engine avec inventaire vérifié.
 4. **Méthode & vérifications** — calcul des indicateurs, contrôles et limites d’interprétation.
 5. **Références scientifiques** — liens vers les documentations et sources de données.
 6. **Téléchargements** — CSV, classeur Excel, script Earth Engine, HTML et projet Power BI.
 
-Dans la vue d’ensemble, sélectionnez une plage d’années et choisissez d’afficher la température ou les précipitations. Les indicateurs et les graphiques climatiques sont recalculés à partir des jours disponibles. L’onglet **Perte forestière & alertes** rassemble les estimations annuelles de perte et les alertes provisoires 2026, présentées comme des produits distincts.
+Dans la vue d’ensemble, sélectionnez une plage d’années et choisissez d’afficher la température ou les précipitations. Les indicateurs et les graphiques climatiques sont recalculés à partir des jours disponibles. L’onglet **Perte forestière & alertes** rassemble les estimations annuelles de perte, les alertes provisoires 2026 et une série distincte des valeurs déclarées en zone agricole. La provenance de cette dernière n’étant pas documentée et son total ne concordant pas avec les colonnes détaillées, elle n’est pas présentée comme une mesure validée de déforestation causée par l’agriculture.
 
 L’onglet **Activités minières** présente une chaîne reproductible Google Earth Engine et les sources satellitaires pour 2000–2026. Le calcul doit être lancé par un utilisateur Earth Engine après import de la limite de la réserve ; les résultats ne sont pas calculés ni fournis dans ce dépôt. Sans inventaire de sites vérifiés, les changements détectés restent des signaux candidats et ne sont pas attribués à l’exploitation minière.
 
