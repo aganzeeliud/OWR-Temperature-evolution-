@@ -1095,6 +1095,213 @@
       :root { scroll-behavior: auto; }
       *, *::before, *::after { scroll-behavior: auto !important; }
     }
+    :root {
+      --ink: #26392f;
+      --muted: #65756a;
+      --paper: #f2f5ef;
+      --card: #fff;
+      --line: #dce5da;
+      --forest: #204a35;
+      --forest-2: #3d704b;
+      --teal: #4b827b;
+      --mint: #e3ecdc;
+      --gold: #b8873c;
+      --blue: #548591;
+      --earth: #a96e4c;
+      --leaf: #78905c;
+      --shadow: 0 4px 14px rgba(35, 58, 41, .045);
+    }
+    body {
+      background: #f2f5ef;
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+    .shell { width: min(1320px, calc(100% - 40px)); }
+    .masthead {
+      background:
+        radial-gradient(ellipse at 90% 5%, rgba(164, 187, 128, .2), transparent 30rem),
+        linear-gradient(120deg, #17392b, #28553a 72%, #3b6343);
+    }
+    .masthead::after { top: -390px; right: -190px; opacity: .65; }
+    .topline { min-height: 62px; padding: 8px 0; }
+    .brand { gap: 10px; font-size: 10px; letter-spacing: .1em; }
+    .brand-logo { width: 104px; height: 54px; padding: 3px; border-radius: 7px; }
+    .primary-nav { gap: clamp(10px, 1.3vw, 18px); }
+    .primary-nav a { font-size: 10px; }
+    .data-badge { padding: 6px 9px; font-size: 10px; }
+    .hero { grid-template-columns: 1fr; gap: 0; padding: 28px 0 31px; }
+    .hero-art { display: none; }
+    h1 { max-width: 850px; font-size: clamp(34px, 4.2vw, 52px); line-height: 1.05; letter-spacing: -.045em; }
+    .eyebrow { margin-bottom: 8px; font-size: 9px; letter-spacing: .14em; }
+    .intro { max-width: 760px; margin-top: 9px; font-size: 13px; line-height: 1.55; }
+    .hero-meta { gap: 7px; margin-top: 14px; }
+    .hero-meta span { padding: 5px 8px; font-size: 9px; }
+    main { padding: 16px 0 36px; }
+    .section-nav {
+      top: 6px;
+      gap: 3px;
+      margin-bottom: 13px;
+      padding: 5px;
+      border-color: #d9e3d8;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .97);
+      box-shadow: 0 4px 14px rgba(31, 56, 39, .07);
+    }
+    .section-nav button { min-height: 36px; padding: 7px 10px; border-radius: 8px; font-size: 10px; }
+    .section-nav button .icon { width: 14px; height: 14px; }
+    .section-nav button[aria-selected="true"] { background: #28553a; box-shadow: none; }
+    .tab-panel {
+      padding: clamp(13px, 1.5vw, 20px);
+      border: 1px solid #dfe7dd;
+      border-radius: 15px;
+      background: #f7f9f5;
+      box-shadow: none;
+    }
+    .tab-panel > .toolbar:first-child { padding-bottom: 10px; border-bottom-color: #e2e9e0; }
+    .toolbar { gap: 10px; margin-bottom: 12px; }
+    .toolbar h2 { font-size: clamp(18px, 1.7vw, 22px); }
+    .section-label { margin-bottom: 3px; font-size: 9px; letter-spacing: .12em; }
+    .filters { gap: 7px; }
+    .field { gap: 3px; }
+    .field label { font-size: 10px; }
+    select, .button, .cross-controls input[type="file"], .cross-controls select { min-height: 35px; border-radius: 8px; }
+    select { padding: 6px 25px 6px 8px; }
+    .button { padding: 6px 10px; font-size: 11px; }
+    .stats, .forest-stats, .agri-stats { gap: 9px; margin-bottom: 11px; }
+    .stat, .panel, .info-card, .relation-card, .check-card { border-color: #dfe7dd; border-radius: 12px; box-shadow: var(--shadow); }
+    .stat {
+      min-height: 108px;
+      padding: 13px 14px 11px;
+      background: #fff;
+      transition: border-color .16s ease, box-shadow .16s ease;
+    }
+    .stat:hover { transform: none; border-color: #c8d7c8; box-shadow: 0 6px 18px rgba(35,58,41,.07); }
+    .stat::before { height: 2px; background: #718e5d; }
+    .forest-stats .stat::before { background: #b8873c; }
+    .agri-stats .stat::before { background: #a96e4c; }
+    .stat-label { font-size: 10px; line-height: 1.35; }
+    .stat-value { margin-top: 8px; font-size: clamp(22px, 2vw, 27px); }
+    .stat-icon { top: 9px; right: 10px; width: 27px; height: 27px; border-radius: 8px; }
+    .stat-icon .icon { width: 15px; height: 15px; }
+    .stat-detail { margin-top: 5px; font-size: 10px; line-height: 1.35; }
+    .content-grid, .forest-grid, .info-grid, .relation-grid { gap: 10px; }
+    .panel { padding: 15px 16px 13px; }
+    .panel-head { gap: 9px; margin-bottom: 8px; }
+    .panel h3 { font-size: 13px; }
+    .panel-sub { margin-top: 3px; font-size: 10px; line-height: 1.45; }
+    .card-icon { width: 29px; height: 29px; border-radius: 8px; }
+    .card-icon .icon { width: 15px; height: 15px; }
+    .chart-key { gap: 8px; font-size: 9px; }
+    .chart-wrap { padding: 5px 4px 1px; border-color: #e7ece5; border-radius: 9px; }
+    .trend-chart, .season-chart { min-height: 205px; }
+    .forest-chart, .forest-alert-chart { min-height: 220px; }
+    .mining-evidence .chart-wrap { min-height: 190px; }
+    .chart-note, .chart-meta { gap: 6px 10px; font-size: 9px; line-height: 1.45; }
+    .chart-meta { margin-top: 7px; padding-top: 6px; }
+    .chart-source { flex-basis: 250px; }
+    .forest-heading { gap: 9px; margin-bottom: 11px; }
+    .forest-heading h2 { font-size: clamp(19px, 2vw, 24px); }
+    .forest-heading p:not(.section-label) { margin-top: 4px; font-size: 11px; line-height: 1.5; }
+    .forest-section { margin-top: 0; }
+    .forest-tag, .pill { padding: 4px 8px; border-radius: 99px; font-size: 9px; }
+    .forest-note, .quality, .relation-callout, .mining-evidence-note, .mining-status {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+    .conservation-highlight { gap: 11px; margin-bottom: 11px; padding: 11px 13px; border-radius: 11px; }
+    .conservation-kpi { gap: 0; padding-right: 11px; }
+    .conservation-kpi strong { font-size: 25px; }
+    .conservation-kpi span, .conservation-kpi small, .conservation-source { font-size: 9px; }
+    .conservation-fact, .conservation-fact strong { font-size: 10px; line-height: 1.45; }
+    .mining-evidence { gap: 10px; }
+    .mining-evidence-heading { gap: 9px; }
+    .mining-evidence-heading h3 { font-size: 18px; }
+    .mining-evidence-heading p { font-size: 10px; line-height: 1.45; }
+    .mining-record-grid, .mining-timeline { gap: 10px; }
+    .mining-record-panel { border-radius: 11px; }
+    .mining-record-panel h4 { padding: 11px 12px 7px; font-size: 12px; }
+    .mining-record-panel > p { padding: 0 12px 8px; font-size: 9px; line-height: 1.45; }
+    .mining-record-table { font-size: 9px; }
+    .mining-record-table th, .mining-record-table td { padding: 6px 8px; }
+    .mining-record-table caption { padding: 8px 10px; font-size: 9px; }
+    .mining-evidence-note { margin-top: 0; }
+    .relation-card, .check-card { padding: 13px; }
+    .relation-card h3, .check-card strong { font-size: 11px; }
+    .relation-card p, .check-card span { font-size: 10px; }
+    .relation-stats { gap: 6px; margin-top: 10px; }
+    .relation-stat { padding: 8px; border-radius: 8px; }
+    .relation-stat span { font-size: 8px; }
+    .relation-stat strong { font-size: 13px; }
+    .relation-callout { margin: 10px 0 12px; }
+    .relation-matrix-wrap { margin: 10px 0 12px; }
+    .relation-matrix th, .relation-matrix td { padding: 7px 9px; }
+    .info-card { padding: 15px; }
+    .info-card h3 { min-height: 0; margin: 0 0 8px; font-size: 13px; }
+    .info-card p { margin-bottom: 8px; font-size: 11px; line-height: 1.5; }
+    .download-list, .reference-list, .process-list { gap: 7px; margin-top: 9px; }
+    .download-item { padding: 9px 10px; border-radius: 9px; }
+    .download-item strong { font-size: 11px; }
+    .download-item small, .download-note { font-size: 9px; }
+    .download-link { min-height: 32px; padding: 6px 9px; border-radius: 8px; font-size: 10px; }
+    .reference-list li, .process-list li { padding: 9px 10px; font-size: 10px; line-height: 1.5; }
+    .method-workflow { margin-bottom: 10px; }
+    .method-workflow > p { font-size: 11px; line-height: 1.55; }
+    .method-workflow .process-list { gap: 6px; }
+    .method-workflow .process-list li { padding: 9px 10px; }
+    .forest-table-details { margin-top: 9px; }
+    .forest-table-details summary { padding: 9px 11px; font-size: 10px; }
+    .forest-table th, .forest-table td { padding: 6px 9px; }
+    footer { margin-top: 18px; padding: 12px 0 18px; border-color: #dce5da; font-size: 9px; }
+    @media (max-width: 900px) {
+      .shell { width: min(100% - 32px, 1320px); }
+      .brand-name { display: inline; }
+      .hero { grid-template-columns: 1fr; }
+      .section-nav { overflow-x: auto; }
+      .section-nav button { flex: 0 0 auto; }
+    }
+    @media (max-width: 640px) {
+      .shell { width: calc(100% - 24px); }
+      .topline { min-height: 54px; gap: 8px; }
+      .brand-name, .primary-nav { display: none; }
+      .brand-logo { width: 88px; height: 46px; }
+      .data-badge { padding: 5px 7px; font-size: 9px; }
+      .hero { padding: 21px 0 23px; }
+      h1 { font-size: clamp(30px, 9vw, 42px); }
+      .intro { font-size: 12px; line-height: 1.5; }
+      .hero-meta { margin-top: 10px; }
+      main { padding-top: 10px; }
+      .section-nav { top: 4px; margin: 0 -1px 10px; }
+      .section-nav button { min-height: 34px; padding: 6px 8px; font-size: 9px; }
+      .tab-panel { padding: 10px; border-radius: 12px; }
+      .toolbar { align-items: start; }
+      .toolbar h2 { font-size: 18px; }
+      .filters { width: 100%; gap: 6px; }
+      .field { flex: 1; min-width: 78px; }
+      select { width: 100%; min-width: 0; }
+      .range-sep { padding-bottom: 7px; font-size: 10px; }
+      .stats, .forest-stats, .agri-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+      .stat { min-height: 96px; padding: 11px; }
+      .stat-value { margin-top: 7px; font-size: 22px; }
+      .stat-icon { top: 8px; right: 8px; width: 24px; height: 24px; }
+      .panel, .content-grid .panel { padding: 12px 10px 10px; }
+      .panel-head { flex-direction: column; }
+      .chart-key { white-space: normal; }
+      .trend-chart, .season-chart { min-height: 180px; }
+      .forest-chart, .forest-alert-chart { min-height: 190px; }
+      .chart-meta { align-items: flex-start; flex-direction: column; }
+      .chart-trend, .chart-source { flex-basis: auto; }
+      .conservation-highlight { grid-template-columns: minmax(86px, .3fr) 1fr; gap: 8px; padding: 9px; }
+      .conservation-kpi { grid-row: span 2; padding-right: 8px; }
+      .conservation-kpi strong { font-size: 22px; }
+      .conservation-source { grid-column: 2; }
+      .mining-chart-grid { grid-template-columns: 1fr; }
+      .mining-timeline { grid-template-columns: 1fr; }
+      .info-grid, #panel-references .info-grid { grid-template-columns: 1fr; }
+      .download-item { align-items: start; flex-direction: row; }
+    }
   </style>
 </head>
 <body>
