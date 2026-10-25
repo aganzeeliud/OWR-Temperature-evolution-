@@ -96,8 +96,8 @@
     .hero-art::before, .hero-art::after { position: absolute; border: 1px solid rgba(81,126,85,.12); border-radius: 50%; content: ""; }
     .hero-art::before { inset: 23px; }
     .hero-art::after { inset: 48px; }
-    .hero-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .art-caption { position: absolute; right: 15px; bottom: 14px; z-index: 1; padding: 7px 10px; border: 1px solid #dfe9dc; border-radius: 8px; background: rgba(255,255,255,.88); color: #607166; font-size: 10px; }
+    .hero-art { display: grid; place-items: center; padding: 24px; background: #fff; }
+    .hero-art img { display: block; width: 100%; height: 100%; object-fit: contain; }
     main { padding: 28px 0 58px; }
     .section-nav { position: sticky; top: 10px; z-index: 5; display: flex; align-items: center; gap: 5px; margin-bottom: 25px; padding: 7px; border: 1px solid #e0e7de; border-radius: 14px; background: rgba(255,255,255,.95); box-shadow: 0 8px 24px rgba(29,48,43,.07); backdrop-filter: blur(12px); }
     .section-nav button { padding: 10px 16px; border: 0; border-radius: 9px; background: transparent; color: #64736a; cursor: pointer; font-size: 12px; font-weight: 680; white-space: nowrap; transition: background .16s ease, color .16s ease, box-shadow .16s ease; }
@@ -500,16 +500,6 @@
       background: linear-gradient(145deg, #f0f1df, #c7d8b9);
       box-shadow: 0 25px 65px rgba(4, 24, 16, .28);
     }
-    .art-caption {
-      right: 18px;
-      bottom: 17px;
-      padding: 8px 11px;
-      border-color: rgba(225, 234, 216, .9);
-      border-radius: 99px;
-      color: #526658;
-      font-weight: 700;
-      letter-spacing: .06em;
-    }
     main { padding: 30px 0 64px; }
     .section-nav {
       top: 12px;
@@ -677,7 +667,7 @@
       h1 { font-size: clamp(42px, 12vw, 56px); }
       .hero-meta { gap: 7px; }
       .hero-meta span { font-size: 9px; }
-      .hero-art { min-height: 185px; border-radius: 19px; }
+      .hero-art { min-height: 185px; padding: 15px; border-radius: 19px; }
       main { padding-top: 18px; }
       .section-nav { top: 5px; margin: 0 -3px 21px; }
       .section-nav button { min-height: 39px; font-size: 10px; }
@@ -734,42 +724,8 @@
             <span><svg class="icon"><use href="#i-chart"/></svg>Relevés journaliers et réanalyse</span>
           </div>
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <svg viewBox="0 0 520 300" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <linearGradient id="canopy" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#a8b97d"/>
-                <stop offset="1" stop-color="#47704b"/>
-              </linearGradient>
-              <linearGradient id="river" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#b4c8aa" stop-opacity=".35"/>
-                <stop offset="1" stop-color="#6f9d8d" stop-opacity=".75"/>
-              </linearGradient>
-            </defs>
-            <path d="M0 224 C85 185 118 230 190 190 S310 161 372 196 456 181 520 143 V300 H0Z" fill="#dfe5c9"/>
-            <path d="M0 250 C77 216 145 267 224 218 S361 194 420 225 482 205 520 195 V300 H0Z" fill="#cbd8b4"/>
-            <path d="M0 269 C90 245 141 279 223 250 S345 231 403 253 465 235 520 229" fill="none" stroke="url(#river)" stroke-width="9"/>
-            <g fill="url(#canopy)" opacity=".92">
-              <circle cx="83" cy="147" r="31"/><circle cx="115" cy="136" r="36"/><circle cx="145" cy="157" r="28"/>
-              <circle cx="337" cy="131" r="39"/><circle cx="375" cy="145" r="32"/><circle cx="405" cy="126" r="36"/>
-              <circle cx="204" cy="188" r="28"/><circle cx="234" cy="176" r="35"/><circle cx="267" cy="190" r="27"/>
-            </g>
-            <g fill="#3b6844">
-              <path d="M111 164v49h7v-49l22-26h-15l-11-18-11 18H88z"/>
-              <path d="M369 168v48h7v-48l20-24h-14l-10-18-10 18h-14z"/>
-              <path d="M233 198v48h7v-48l20-25h-14l-10-18-10 18h-14z"/>
-            </g>
-            <g fill="none" stroke="#899c67" stroke-width="1" opacity=".6">
-              <path d="M33 95h115M346 75h114M396 89h54M68 108h38"/>
-              <circle cx="414" cy="99" r="50"/><circle cx="414" cy="99" r="66"/>
-            </g>
-            <g transform="translate(280 72)">
-              <circle r="17" fill="#fff" stroke="#52764b" stroke-width="2"/>
-              <circle r="6" fill="#52764b"/>
-              <path d="M0 16v32" stroke="#52764b" stroke-width="2"/>
-            </g>
-          </svg>
-          <span class="art-caption">RÉSERVE DE FAUNE À OKAPIS · ITURI</span>
+        <div class="hero-art">
+          <img src="OWR_logo_HOR_COL.jpg" width="7506" height="3878" alt="Logo officiel de l’Okapi Wildlife Reserve">
         </div>
       </div>
     </div>
