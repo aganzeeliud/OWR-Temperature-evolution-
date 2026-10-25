@@ -682,6 +682,61 @@
       .relation-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .relation-overview .stat-value { font-size: 23px; }
     }
+    body {
+      background:
+        radial-gradient(ellipse at 8% 18%, rgba(214, 229, 202, .42), transparent 31rem),
+        radial-gradient(ellipse at 92% 56%, rgba(225, 232, 210, .32), transparent 28rem),
+        #f3f5ef;
+    }
+    .tab-panel {
+      position: relative;
+      padding: clamp(18px, 2.2vw, 30px);
+      border: 1px solid #e0e8dd;
+      border-radius: 22px;
+      background: rgba(250, 252, 248, .82);
+      box-shadow: 0 14px 40px rgba(26, 54, 39, .045);
+    }
+    .tab-panel > .toolbar:first-child { padding-bottom: 15px; border-bottom: 1px solid #e6ede3; }
+    .conservation-highlight {
+      display: grid;
+      grid-template-columns: minmax(145px, .28fr) minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      margin: 0 0 18px;
+      padding: 16px 19px;
+      border: 1px solid #d9e5d5;
+      border-radius: 15px;
+      background:
+        linear-gradient(108deg, rgba(231, 240, 223, .96), rgba(248, 250, 244, .98) 55%, #fff);
+      box-shadow: 0 5px 16px rgba(30, 62, 42, .035);
+    }
+    .conservation-kpi { display: grid; gap: 1px; padding-right: 16px; border-right: 1px solid #d8e3d4; }
+    .conservation-kpi span { color: #657968; font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .conservation-kpi strong { color: #1e5137; font-family: Georgia, "Times New Roman", serif; font-size: 31px; font-weight: 600; letter-spacing: -.04em; line-height: 1.15; }
+    .conservation-kpi small { color: #758476; font-size: 10px; }
+    .conservation-fact { margin: 0; color: #52665a; font-size: 11px; line-height: 1.65; }
+    .conservation-fact strong { display: block; margin-bottom: 2px; color: #2d5239; font-size: 11px; }
+    .conservation-source { color: #376c4a; font-size: 10px; font-weight: 750; text-decoration-thickness: 1px; text-underline-offset: 3px; white-space: nowrap; }
+    .conservation-source:hover { color: #214c32; }
+    .tab-panel .stats, .tab-panel .forest-stats { margin-bottom: 18px; }
+    .tab-panel .stat { border-radius: 14px; background: linear-gradient(155deg, #fff 45%, #fbfcf9); }
+    .section-label { color: #71836f; }
+    .panel, .info-card, .relation-card, .check-card { box-shadow: 0 5px 18px rgba(30, 56, 40, .04); }
+    .forest-note { border-left: 3px solid #8ca476; }
+    footer { padding-top: 22px; }
+    @media (max-width: 760px) {
+      .tab-panel { padding: 17px; border-radius: 17px; }
+      .conservation-highlight { grid-template-columns: minmax(105px, .32fr) 1fr; gap: 12px; padding: 14px; }
+      .conservation-kpi { grid-row: span 2; }
+      .conservation-source { grid-column: 2; }
+    }
+    @media (max-width: 480px) {
+      .tab-panel { padding: 12px; border-radius: 15px; }
+      .conservation-highlight { grid-template-columns: 1fr; gap: 9px; }
+      .conservation-kpi { grid-row: auto; padding: 0 0 8px; border-right: 0; border-bottom: 1px solid #d8e3d4; }
+      .conservation-kpi strong { font-size: 27px; }
+      .conservation-source { grid-column: auto; }
+    }
   </style>
 </head>
 <body>
@@ -759,6 +814,12 @@
       </div>
     </section>
 
+    <aside class="conservation-highlight" aria-label="Repère de conservation documenté par l’UNESCO">
+      <div class="conservation-kpi"><span>Repère UNESCO</span><strong>1/5</strong><small>de la forêt de l’Ituri</small></div>
+      <p class="conservation-fact"><strong>Un paysage forestier d’importance mondiale</strong>La fiche du bien indique que la Réserve protège environ un cinquième de la forêt de l’Ituri. Ce repère de contexte ne constitue pas une mesure annuelle de l’état forestier.</p>
+      <a class="conservation-source" href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">Fiche UNESCO ↗</a>
+    </aside>
+
     <section class="stats" id="weather-overview" aria-label="Indicateurs de la période sélectionnée">
       <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-thermometer"/></svg></span><div class="stat-label">Température maximale moyenne</div><div class="stat-value" id="avg-high">—</div><div class="stat-detail">Sur les observations journalières disponibles</div></article>
       <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-thermometer"/></svg></span><div class="stat-label">Température minimale moyenne</div><div class="stat-value" id="avg-low">—</div><div class="stat-detail">Sur les observations journalières disponibles</div></article>
@@ -826,6 +887,11 @@
           <a class="source-link" href="https://gfw.global/eWfDix" target="_blank" rel="noopener noreferrer">Ouvrir la zone d’étude Global Nature Watch ↗</a>
         </div>
       </div>
+      <aside class="conservation-highlight" aria-label="Repère de conservation documenté par l’UNESCO">
+        <div class="conservation-kpi"><span>Repère UNESCO</span><strong>1/6</strong><small>population d’okapis</small></div>
+        <p class="conservation-fact"><strong>Un refuge pour l’okapi</strong>La fiche UNESCO indique que la Réserve abrite environ un sixième de la population existante d’okapis. Il s’agit d’un repère descriptif, pas d’un recensement récent.</p>
+        <a class="conservation-source" href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">Fiche UNESCO ↗</a>
+      </aside>
       <div class="forest-stats" aria-label="Résumé des changements forestiers">
         <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-tree"/></svg></span><div class="stat-label">Somme des pertes annuelles</div><div class="stat-value" id="forest-total">—</div><div class="stat-detail">2001–2025 · ha additionnés par année</div></article>
         <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></span><div class="stat-label">Perte annuelle la plus élevée</div><div class="stat-value" id="forest-peak">—</div><div class="stat-detail" id="forest-peak-year">Dans la série annuelle</div></article>
@@ -896,6 +962,11 @@
         <span><strong>Le calcul doit être exécuté dans Google Earth Engine</strong>Un script d’analyse est fourni pour créer des composites annuels, visualiser les couches et exporter les surfaces candidates en CSV. Il nécessite une limite de réserve importée dans un compte Earth Engine ; l’attribution minière nécessite aussi un inventaire de sites vérifiés avec dates d’activité. Aucun résultat satellitaire calculé n’est inclus dans le dépôt à ce stade.</span>
       </div>
       <p class="tab-intro">L’analyse sépare la réserve de la couronne extérieure de 10 km. Landsat constitue l’archive commune pour 2000–2026 ; les indices Sentinel-2 et Landsat sont comparés à 30 m. Sentinel-1, ASTER et MODIS apportent des couches complémentaires, avec leurs résolutions et couvertures propres.</p>
+      <aside class="conservation-highlight" aria-label="Repère de conservation documenté par l’UNESCO">
+        <div class="conservation-kpi"><span>Repère UNESCO</span><strong>50 km</strong><small>largeur de zone tampon</small></div>
+        <p class="conservation-fact"><strong>À distinguer de la couronne analysée ici</strong>L’UNESCO décrit une zone tampon de 50 km autour du bien. La couronne de 10 km de ce tableau de bord est un périmètre d’analyse distinct, et ne représente pas la zone tampon UNESCO.</p>
+        <a class="conservation-source" href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">Fiche UNESCO ↗</a>
+      </aside>
       <div class="mining-status" role="note">
         <span class="mining-status-icon" aria-hidden="true">↳</span>
         <span><strong>Obtenir le script et lancer l’analyse</strong><a href="earth_engine/okapi_mining_deforestation.js" download>Télécharger le script Google Earth Engine</a> · Remplacez l’identifiant d’exemple par l’asset de limite de réserve dans votre compte, puis exécutez-le dans le <a href="https://code.earthengine.google.com/" target="_blank" rel="noopener noreferrer">Code Editor Earth Engine</a>. Lancez la tâche d’export pour créer le CSV annuel par zone. L’inventaire de sites miniers est facultatif pour les changements forestiers ; sans lui, aucun impact n’est attribué à l’exploitation minière.</span>
@@ -979,6 +1050,11 @@
     <section class="tab-panel" id="panel-downloads" role="tabpanel" aria-labelledby="tab-downloads" hidden>
       <header class="toolbar"><div><p class="section-label">Données ouvertes</p><h2>Télécharger les données du projet</h2></div><span class="pill">CSV · Power BI</span></header>
       <p class="tab-intro">Les fichiers CSV sont les exports de référence utilisés pour l’analyse et le modèle Power BI. Les en-têtes d’origine sont conservés pour assurer la compatibilité avec les outils et les scripts.</p>
+      <aside class="conservation-highlight" aria-label="Repère de conservation documenté par l’UNESCO">
+        <div class="conservation-kpi"><span>Repère UNESCO</span><strong>1/6</strong><small>population d’okapis</small></div>
+        <p class="conservation-fact"><strong>Pourquoi rendre les données accessibles ?</strong>La fiche UNESCO présente la Réserve comme un refuge pour environ un sixième de la population existante d’okapis. Cette donnée contextuelle n’est pas un indicateur de tendance démographique.</p>
+        <a class="conservation-source" href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">Fiche UNESCO ↗</a>
+      </aside>
       <div class="info-grid">
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-download"/></svg></span>Données téléchargeables</h3><p>Enregistrements météorologiques journaliers, perte annuelle de couvert et alertes satellitaires provisoires.</p>
           <ul class="download-list">
@@ -1005,6 +1081,11 @@
     <section class="tab-panel" id="panel-references" role="tabpanel" aria-labelledby="tab-references" hidden>
       <header class="toolbar"><div><p class="section-label">Sources et traçabilité</p><h2>Références scientifiques et données</h2></div><span class="pill">Liens vérifiables</span></header>
       <p class="tab-intro">Références bibliographiques, catalogues des produits et limites de périmètre. Les jeux de données décrivent des variables différentes et ne sont pas directement interchangeables.</p>
+      <aside class="conservation-highlight" aria-label="Repère de biodiversité documenté par l’UNESCO">
+        <div class="conservation-kpi"><span>Repère UNESCO</span><strong>17</strong><small>espèces de primates</small></div>
+        <p class="conservation-fact"><strong>Une biodiversité documentée</strong>La description du bien répertorie 17 espèces de primates, dont 13 diurnes et 4 nocturnes. Ce chiffre provient de la fiche UNESCO et ne doit pas être lu comme un inventaire actualisé.</p>
+        <a class="conservation-source" href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">Fiche UNESCO ↗</a>
+      </aside>
       <div class="info-grid">
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-rain"/></svg></span>Climat et réanalyse</h3>
           <ul class="reference-list">
@@ -1030,6 +1111,11 @@
             <li><a href="https://www.openstreetmap.org/relation/401017" target="_blank" rel="noopener noreferrer">OpenStreetMap · relation 401017</a><br>Périmètre substitutif utilisé pour l’extraction des données de superficie.</li>
           </ul>
         </article>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-shield"/></svg></span>Conservation et biodiversité</h3>
+          <ul class="reference-list">
+            <li><a href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">UNESCO · Réserve de faune à okapis, bien n° 718</a><br>Source des repères de conservation affichés dans les cartes : importance de la forêt de l’Ituri, population d’okapis, nombres d’espèces et zone tampon. Ces éléments descriptifs ne remplacent pas un suivi de terrain récent.</li>
+          </ul>
+        </article>
       </div>
     </section>
 
@@ -1039,6 +1125,11 @@
         <span class="pill">Analyse exploratoire · 24 années communes</span>
       </header>
       <p class="tab-intro">Cette page rapproche les séries annuelles effectivement disponibles sur les années communes. Les résultats décrivent des covariations ; ils ne démontrent ni cause, ni mécanisme, ni impact direct.</p>
+      <aside class="conservation-highlight" aria-label="Repère de biodiversité documenté par l’UNESCO">
+        <div class="conservation-kpi"><span>Repère UNESCO</span><strong>101</strong><small>espèces de mammifères</small></div>
+        <p class="conservation-fact"><strong>La biodiversité est le contexte, pas une variable mesurée ici</strong>La fiche du bien documente 101 espèces de mammifères dans la Réserve. Les séries corrélées sur cette page ne mesurent pas directement leur abondance ni leur évolution.</p>
+        <a class="conservation-source" href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">Fiche UNESCO ↗</a>
+      </aside>
       <div class="relation-callout" role="note">
         <strong>Comment lire les cartes :</strong> Pearson mesure une association linéaire brute ; Spearman mesure une association monotone par rangs ; « après retrait de tendance » recalcule Pearson après avoir retiré séparément une droite temporelle à chaque série ; « variation annuelle » corrèle les différences entre années consécutives ; « sensibilité ±1 année » donne l’étendue de Pearson quand chaque année est retirée à tour de rôle. Ces contrôles sont descriptifs, non corrigés de l’autocorrélation, et ne constituent pas des tests de significativité. La série agricole a une provenance et une emprise non documentées ; la série minière n’est pas calculable sans export Earth Engine et inventaire vérifié.
       </div>
@@ -1111,6 +1202,11 @@
     <section class="tab-panel" id="panel-method" role="tabpanel" aria-labelledby="tab-method" hidden>
       <header class="toolbar"><div><p class="section-label">Transparence analytique</p><h2>Méthode, qualité et vérifications</h2></div><span class="pill">Limites explicites</span></header>
       <p class="tab-intro">Statut au 25 octobre 2026. Les contrôles structurels des CSV sont reproductibles ; ils ne remplacent ni une validation des produits à la source, ni une vérification indépendante sur le terrain.</p>
+      <aside class="conservation-highlight" aria-label="Repère de biodiversité documenté par l’UNESCO">
+        <div class="conservation-kpi"><span>Repère UNESCO</span><strong>376</strong><small>espèces d’oiseaux</small></div>
+        <p class="conservation-fact"><strong>Un repère de richesse spécifique</strong>La fiche UNESCO recense 376 espèces d’oiseaux pour le bien. Ce chiffre descriptif n’est pas un résultat du suivi satellitaire ou une estimation actualisée par ce tableau de bord.</p>
+        <a class="conservation-source" href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">Fiche UNESCO ↗</a>
+      </aside>
       <div class="info-grid">
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-chart"/></svg></span>Traitement et indicateurs</h3>
           <ol class="process-list">

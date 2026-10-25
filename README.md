@@ -11,6 +11,10 @@ Tableau de bord autonome consacré à l’évolution du climat et du couvert arb
 
 Le tableau de bord propose sept onglets en français : **Vue d’ensemble**, **Perte forestière & alertes**, **Activités minières**, **Relations entre facteurs**, **Méthode & vérifications**, **Références scientifiques** et **Téléchargements**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour conserver le logo et le favicon dans la page téléchargée, placez `OWR_logo_HOR_COL.jpg` et `favicon.svg` dans le même dossier que `index.html`. Pour utiliser aussi les liens de téléchargement locaux, placez les fichiers CSV dans ce dossier. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès aux fichiers source ou à leur téléchargement, et non à une page interactive hébergée.
 
+## Repères de conservation
+
+Chaque onglet présente un repère de conservation attribué à la [fiche UNESCO de la Réserve de faune à okapis](https://whc.unesco.org/en/list/718/) : environ un cinquième de la forêt de l’Ituri, un sixième de la population existante d’okapis, 101 espèces de mammifères, 376 espèces d’oiseaux, 17 espèces de primates (13 diurnes et 4 nocturnes), et une zone tampon décrite comme large de 50 km. Ces chiffres sont des éléments descriptifs de la fiche UNESCO, pas des résultats du tableau de bord, un recensement récent, ni des indicateurs de tendance. La couronne analytique de 10 km utilisée dans l’onglet minier est distincte de la zone tampon UNESCO. Les fiches de chaque onglet renvoient à la source.
+
 ## Données téléchargeables
 
 | Fichier | Contenu | Période / couverture | Téléchargement |
