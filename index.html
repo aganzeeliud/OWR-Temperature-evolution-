@@ -215,10 +215,10 @@
     .relation-card { padding: 20px; border: 1px solid #e1e8df; border-radius: 16px; background: #fff; box-shadow: var(--shadow); }
     .relation-card h3 { margin: 0; color: #294d35; font-size: 14px; }
     .relation-card p { margin: 7px 0 0; color: #718078; font-size: 11px; }
-    .relation-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 15px; }
+    .relation-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-top: 15px; }
     .relation-stat { padding: 10px 9px; border-radius: 10px; background: #f4f7f2; }
     .relation-stat span { display: block; color: #718078; font-size: 9px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
-    .relation-stat strong { display: block; margin-top: 5px; color: #294d35; font-size: 16px; font-variant-numeric: tabular-nums; }
+    .relation-stat strong { display: block; margin-top: 5px; color: #294d35; font-size: 15px; font-variant-numeric: tabular-nums; }
     .relation-status { margin-top: 12px; padding-top: 10px; border-top: 1px solid #edf1ec; color: #6e7b72; font-size: 10px; line-height: 1.6; }
     .relation-unavailable { border-color: #ead9b5; background: #fcf8ef; }
     .relation-unavailable h3, .relation-unavailable strong { color: #765f2f; }
@@ -785,7 +785,7 @@
       </header>
       <p class="tab-intro">Cette page rapproche les séries annuelles effectivement disponibles sur les années communes. Les résultats décrivent des covariations ; ils ne démontrent ni cause, ni mécanisme, ni impact direct.</p>
       <div class="relation-callout" role="note">
-        <strong>Comment lire les cartes :</strong> Pearson mesure une association linéaire brute ; Spearman mesure une association monotone par rangs ; « après retrait de tendance » recalcule Pearson après avoir retiré séparément une droite temporelle à chaque série ; « variation annuelle » corrèle les différences entre années consécutives. Ces vérifications sont descriptives, non corrigées de l’autocorrélation, et ne constituent pas des tests de significativité. La série agricole a une provenance et une emprise non documentées ; la série minière n’est pas calculable sans export Earth Engine et inventaire vérifié.
+        <strong>Comment lire les cartes :</strong> Pearson mesure une association linéaire brute ; Spearman mesure une association monotone par rangs ; « après retrait de tendance » recalcule Pearson après avoir retiré séparément une droite temporelle à chaque série ; « variation annuelle » corrèle les différences entre années consécutives ; « sensibilité ±1 année » donne l’étendue de Pearson quand chaque année est retirée à tour de rôle. Ces contrôles sont descriptifs, non corrigés de l’autocorrélation, et ne constituent pas des tests de significativité. La série agricole a une provenance et une emprise non documentées ; la série minière n’est pas calculable sans export Earth Engine et inventaire vérifié.
       </div>
       <div class="stats relation-overview" aria-label="Périmètre de la comparaison">
         <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span><div class="stat-label">Période réellement commune</div><div class="stat-value" id="relation-period">—</div><div class="stat-detail">Années complètes présentes dans les séries</div></article>
@@ -797,31 +797,31 @@
         <article class="relation-card">
           <h3>Perte forestière ↔ température maximale</h3>
           <p>Moyenne annuelle Tmax (°C) comparée à la perte GFW/UMD (ha/an).</p>
-          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-tmax-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-tmax-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-tmax-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-tmax-delta">—</strong></div></div>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-tmax-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-tmax-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-tmax-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-tmax-delta">—</strong></div><div class="relation-stat"><span>Sensibilité ±1 an</span><strong id="rel-tmax-loo">—</strong></div></div>
           <div class="relation-status" id="rel-tmax-status">Calcul sur années communes.</div>
         </article>
         <article class="relation-card">
           <h3>Perte forestière ↔ précipitations</h3>
           <p>Somme annuelle des précipitations disponibles (mm/an) comparée à GFW/UMD.</p>
-          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-rain-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-rain-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-rain-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-rain-delta">—</strong></div></div>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-rain-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-rain-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-rain-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-rain-delta">—</strong></div><div class="relation-stat"><span>Sensibilité ±1 an</span><strong id="rel-rain-loo">—</strong></div></div>
           <div class="relation-status" id="rel-rain-status">Calcul sur années communes.</div>
         </article>
         <article class="relation-card">
           <h3>Perte forestière ↔ valeurs agricoles déclarées</h3>
           <p>Perte GFW/UMD comparée à la colonne « Perte annuelle (ha) » du CSV agricole.</p>
-          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-agri-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-agri-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-agri-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-agri-delta">—</strong></div></div>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-agri-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-agri-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-agri-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-agri-delta">—</strong></div><div class="relation-stat"><span>Sensibilité ±1 an</span><strong id="rel-agri-loo">—</strong></div></div>
           <div class="relation-status" id="rel-agri-status">Calcul sur années communes.</div>
         </article>
         <article class="relation-card">
           <h3>Perte forestière ↔ température minimale</h3>
           <p>Moyenne annuelle Tmin (°C) comparée à la perte GFW/UMD (ha/an).</p>
-          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-tmin-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-tmin-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-tmin-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-tmin-delta">—</strong></div></div>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-tmin-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-tmin-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-tmin-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-tmin-delta">—</strong></div><div class="relation-stat"><span>Sensibilité ±1 an</span><strong id="rel-tmin-loo">—</strong></div></div>
           <div class="relation-status" id="rel-tmin-status">Calcul sur années communes.</div>
         </article>
         <article class="relation-card relation-unavailable" id="rel-mining-card">
           <h3>Perte forestière ↔ proxy minier</h3>
           <p>Une relation minière ne peut être calculée qu’à partir d’un export Earth Engine comprenant la colonne `candidate_loss_within_500m_mines_ha` et un inventaire géolocalisé daté.</p>
-          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-mining-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-mining-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-mining-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-mining-delta">—</strong></div></div>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-mining-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-mining-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-mining-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-mining-delta">—</strong></div><div class="relation-stat"><span>Sensibilité ±1 an</span><strong id="rel-mining-loo">—</strong></div></div>
           <div class="relation-status" id="rel-mining-status">Non calculable avec les fichiers actuels ; proximité à une mine ne prouve pas une causalité.</div>
         </article>
       </div>
@@ -838,7 +838,7 @@
           <ul class="process-list">
             <li><strong>Comparabilité.</strong> Le périmètre GFW/UMD est une approximation de la réserve ; l’emprise du CSV agricole et celle de la météo ne sont pas documentées comme strictement identiques. Les niveaux et sommes ne doivent pas être interprétés comme des mesures parfaitement co-localisées.</li>
             <li><strong>Séries temporelles.</strong> Les observations annuelles peuvent être autocorrélées et les relations brutes influencées par des tendances communes. Le retrait d’une tendance linéaire et les variations annuelles servent de contrôles exploratoires, mais ne remplacent pas une analyse de séries temporelles ou un plan causal.</li>
-            <li><strong>Interprétation.</strong> Aucun coefficient présenté n’est un effet causal. Pas de p-value ni de seuil de significativité affiché ; 24 observations annuelles sont insuffisantes pour tirer des conclusions causales robustes ou contrôler tous les facteurs de confusion.</li>
+            <li><strong>Interprétation.</strong> Aucun coefficient présenté n’est un effet causal. La sensibilité au retrait d’une année est affichée, mais aucun intervalle de confiance, p-value ni seuil de significativité n’est fourni ; 24 observations annuelles ne permettent pas de contrôler tous les facteurs de confusion.</li>
           </ul>
         </article>
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-book"/></svg></span>Sources et méthodes</h3>
@@ -1011,17 +1011,36 @@
           deltas.push([ordered[index].left-ordered[index-1].left,ordered[index].right-ordered[index-1].right]);
         }
       }
+      const leaveOneOut=ordered.map((_,excluded)=>correlation(
+        left.filter((value,index)=>index!==excluded),
+        right.filter((value,index)=>index!==excluded)
+      )).filter(Number.isFinite);
       return {
         n:ordered.length,
         pearson:correlation(left,right),
         spearman:correlation(rankValues(left),rankValues(right)),
         detrended:correlation(leftResiduals,rightResiduals),
         delta:correlation(deltas.map(pair=>pair[0]),deltas.map(pair=>pair[1])),
-        deltaN:deltas.length
+        deltaN:deltas.length,
+        leaveOneOutMin:leaveOneOut.length?Math.min(...leaveOneOut):null,
+        leaveOneOutMax:leaveOneOut.length?Math.max(...leaveOneOut):null
       };
     }
     function formatCorrelation(value) {
       return Number.isFinite(value)?fmt.format(value):"—";
+    }
+    function associationDirection(value) {
+      if(!Number.isFinite(value)||Math.abs(value)<.1)return "faible ou nulle";
+      return value>0?"positive":"négative";
+    }
+    function associationSummary(stats) {
+      const range=Number.isFinite(stats.leaveOneOutMin)&&Number.isFinite(stats.leaveOneOutMax)
+        ?`r entre ${fmt.format(stats.leaveOneOutMin)} et ${fmt.format(stats.leaveOneOutMax)} en retirant une année à la fois`
+        :"sensibilité à une année non calculable";
+      const stable=Number.isFinite(stats.leaveOneOutMin)&&Number.isFinite(stats.leaveOneOutMax)
+        &&(stats.leaveOneOutMin>0||stats.leaveOneOutMax<0);
+      const stability=stable?"le signe résiste aux retraits individuels":"le signe change ou inclut zéro selon l’année retirée";
+      return `Constat descriptif : association brute ${associationDirection(stats.pearson)} (r=${formatCorrelation(stats.pearson)}), Spearman ρ=${formatCorrelation(stats.spearman)} ; sans tendance r=${formatCorrelation(stats.detrended)} ; variations annuelles r=${formatCorrelation(stats.delta)}. ${range} ; ${stability}.`;
     }
     function svgEl(name, attrs = {}, text = "") {
       const node = document.createElementNS("http://www.w3.org/2000/svg", name);
@@ -1296,7 +1315,9 @@
         document.getElementById(`rel-${id}-spearman`).textContent=fmtMetric(stats.spearman);
         document.getElementById(`rel-${id}-detrended`).textContent=fmtMetric(stats.detrended);
         document.getElementById(`rel-${id}-delta`).textContent=fmtMetric(stats.delta);
-        document.getElementById(`rel-${id}-status`).textContent=`${stats.n} années appariées ; ${stats.deltaN} variations consécutives. Les coefficients bruts et contrôles de tendance peuvent diverger.`;
+        document.getElementById(`rel-${id}-loo`).textContent=Number.isFinite(stats.leaveOneOutMin)&&Number.isFinite(stats.leaveOneOutMax)
+          ?`${fmtMetric(stats.leaveOneOutMin)} à ${fmtMetric(stats.leaveOneOutMax)}`:"—";
+        document.getElementById(`rel-${id}-status`).textContent=`${stats.n} années appariées ; ${stats.deltaN} variations consécutives. ${associationSummary(stats)}`;
       }
 
       const matrixBody=document.getElementById("relation-matrix-body");
@@ -1323,8 +1344,10 @@
       document.getElementById("rel-mining-spearman").textContent=hasMineData?fmtMetric(mineStats.spearman):"—";
       document.getElementById("rel-mining-detrended").textContent=hasMineData?fmtMetric(mineStats.detrended):"—";
       document.getElementById("rel-mining-delta").textContent=hasMineData?fmtMetric(mineStats.delta):"—";
+      document.getElementById("rel-mining-loo").textContent=hasMineData&&Number.isFinite(mineStats.leaveOneOutMin)&&Number.isFinite(mineStats.leaveOneOutMax)
+        ?`${fmtMetric(mineStats.leaveOneOutMin)} à ${fmtMetric(mineStats.leaveOneOutMax)}`:"—";
       document.getElementById("rel-mining-status").textContent=hasMineData
-        ?`${mineStats.n} années appariées · ${zone} · comparaison avec la référence Hansen importée. Association descriptive uniquement ; les candidats proches des sites ne prouvent pas un effet minier.`
+        ?`${mineStats.n} années appariées · ${zone} · comparaison avec la référence Hansen importée. ${associationSummary(mineStats)} Les candidats proches des sites ne prouvent pas un effet minier.`
         :"Non calculable pour cette zone : chargez un export avec au moins trois années contenant les colonnes Hansen et candidate_loss_within_500m_mines_ha, calculées avec un inventaire daté.";
       document.getElementById("relation-mining-status").textContent=hasMineData?`${mineStats.n} ans`:"Indisponible";
     }
