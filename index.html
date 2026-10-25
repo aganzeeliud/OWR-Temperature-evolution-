@@ -1025,6 +1025,17 @@
     }
     .download-link:hover { background: #e4efdf; }
     .reference-list li, .process-list li { border-radius: 0 11px 11px 0; line-height: 1.65; }
+    #panel-downloads .info-card > h4 {
+      margin: 20px 0 9px;
+      color: #294d38;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: .04em;
+    }
+    .method-workflow { margin-bottom: 16px; }
+    .method-workflow > p { color: #65766b; font-size: 12px; line-height: 1.7; }
+    .method-workflow .process-list { gap: 9px; }
+    .method-workflow .process-list li { padding: 14px 16px; }
     footer { margin-top: 34px; padding: 22px 0 30px; }
     @media (max-width: 900px) {
       .shell { width: min(100% - 40px, 1360px); }
@@ -1407,7 +1418,8 @@
 
     <section class="tab-panel" id="panel-downloads" role="tabpanel" aria-labelledby="tab-downloads" hidden>
       <header class="toolbar"><div><p class="section-label">Données ouvertes</p><h2>Télécharger les données du projet</h2></div><span class="pill">CSV · Power BI</span></header>
-      <p class="tab-intro">Les fichiers CSV sont les exports de référence utilisés pour l’analyse et le modèle Power BI. Les en-têtes d’origine sont conservés pour assurer la compatibilité avec les outils et les scripts.</p>
+      <p class="tab-intro">Choisissez le fichier selon la question étudiée : météo, forêt ou activités minières. Les CSV contiennent des tableaux lisibles dans un tableur ou un outil d’analyse ; le classeur Excel facilite une première consultation. Les fichiers dérivés et leur méthode sont décrits dans le README.</p>
+      <div class="relation-callout" role="note"><strong>Pour ouvrir le tableau de bord hors ligne :</strong> téléchargez le dépôt complet (ou clonez-le avec Git) et conservez ensemble <code>index.html</code>, le dossier <code>assets/</code> et les dossiers de données. Le HTML seul ne contient pas les données minières, le logo ni le favicon. Les données météo sont intégrées à la page ; les liens vers les CSV ouvrent les fichiers distribués dans le dépôt.</div>
       <aside class="conservation-highlight" aria-label="Repère de conservation documenté par l’UNESCO">
         <div class="conservation-kpi"><span>Repère UNESCO</span><strong>1/6</strong><small>population d’okapis</small></div>
         <p class="conservation-fact"><strong>Pourquoi rendre les données accessibles ?</strong>La fiche UNESCO présente la Réserve comme un refuge pour environ un sixième de la population existante d’okapis. Cette donnée contextuelle n’est pas un indicateur de tendance démographique.</p>
@@ -1415,11 +1427,15 @@
       </aside>
       <div class="info-grid">
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-download"/></svg></span>Données téléchargeables</h3><p>Enregistrements météorologiques journaliers, perte annuelle de couvert et alertes satellitaires provisoires.</p>
+          <h4>Climat et forêt</h4>
           <ul class="download-list">
             <li class="download-item"><span><strong>Météo quotidienne · 1986–2026</strong><small>14 908 jours · Tmax, Tmin et précipitations</small></span><span class="download-actions"><a class="download-link" href="data/climate/Meteo_owr.csv" download>Télécharger le CSV</a><a class="download-link" href="data/climate/Meteo_owr.xlsx" download>Télécharger Excel</a></span></li>
             <li class="download-item"><span><strong>Perte de couvert arboré · 2001–2025</strong><small>Estimations annuelles Global Forest Watch / UMD</small></span><a class="download-link" href="data/forest/TreeCoverLoss_owr.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Alertes forestières · 2026</strong><small>Détections mensuelles provisoires, version v20261025</small></span><a class="download-link" href="data/forest/ForestAlerts_2026_owr.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Zone agricole · 2001–2024</strong><small>Perte annuelle déclarée et valeurs par zone, à valider</small></span><a class="download-link" href="data/forest/Zone%20agricole%20.csv" download>Télécharger le CSV</a></li>
+          </ul>
+          <h4>Registres et dépistages miniers</h4>
+          <ul class="download-list">
             <li class="download-item"><span><strong>Polygones et demande CAMI · zone OSM</strong><small>9 polygones de la couche exploitation (15766 est un PR au registre) et 1 demande intersectant OSM 401017</small></span><a class="download-link" href="data/mining/cami_rights.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Sites miniers artisanaux IPIS</strong><small>8 sites distincts, dédupliqués par code de site</small></span><a class="download-link" href="data/mining/ipis_sites.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Visites de sites IPIS</strong><small>11 enregistrements historiques dans la zone</small></span><a class="download-link" href="data/mining/ipis_visits.csv" download>Télécharger le CSV</a></li>
@@ -1428,13 +1444,14 @@
             <li class="download-item"><span><strong>Script de mise à jour des données minières</strong><small>Requête IPIS/CAMI et jointure spatiale sur la limite OSM</small></span><a class="download-link" href="scripts/refresh_mining.py" download>Télécharger le script</a></li>
             <li class="download-item"><span><strong>Script d’analyse minière et forestière</strong><small>Google Earth Engine · Landsat, Sentinel, ASTER et MODIS</small></span><a class="download-link" href="earth_engine/mining_forest_change.js" download>Télécharger le script</a></li>
           </ul>
-          <p class="download-note">Le CSV et le classeur Excel météo sont synchronisés. Le dépistage Hansen autour des points IPIS est une proximité spatiale historique ; il ne prouve pas que les sites étaient actifs l’année de perte ni que la perte est liée aux mines.</p>
+          <p class="download-note">Les CSV sont des tables de données ; n’ouvrez pas le fichier JavaScript minier dans un tableur. Il alimente les cartes du tableau de bord. Les données minières et les scripts sont des extraits dérivés, pas des registres exhaustifs. Consultez la méthode et les limites avant de comparer les séries.</p>
         </article>
-        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-file"/></svg></span>Projet et partage</h3><p>Le tableau de bord est autonome : téléchargez le fichier HTML et ouvrez-le dans un navigateur récent. Les graphiques météo utilisent des données intégrées dans la page ; les exports CSV restent accessibles séparément.</p>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-file"/></svg></span>Projet, partage et réutilisation</h3><p>Pour afficher toutes les fonctions, conservez la structure du dépôt. Ouvrez <code>index.html</code> dans un navigateur récent depuis le dépôt téléchargé ; les données météorologiques sont intégrées, tandis que les données minières, le logo et le favicon sont des fichiers associés.</p>
           <ul class="download-list">
-            <li class="download-item"><span><strong>Tableau de bord HTML</strong><small>Conservez mining_data.js, OWR_logo_HOR_COL.jpg et favicon.svg à côté du HTML</small></span><a class="download-link" href="index.html" download>Télécharger le HTML</a></li>
-            <li class="download-item"><span><strong>Données minières embarquées</strong><small>Script de données requis pour les cartes et tableaux miniers hors ligne</small></span><a class="download-link" href="assets/mining_data.js" download>Télécharger le fichier JS</a></li>
-            <li class="download-item"><span><strong>Logo de la réserve</strong><small>Image conservée dans le dossier assets</small></span><a class="download-link" href="assets/OWR_logo_HOR_COL.jpg" download>Télécharger le logo</a></li>
+            <li class="download-item"><span><strong>Tableau de bord HTML</strong><small>Page d’interface ; requiert les fichiers associés de ce dépôt</small></span><a class="download-link" href="index.html" download>Télécharger le HTML</a></li>
+            <li class="download-item"><span><strong>Données minières embarquées</strong><small>Fichier utilisé par le tableau de bord, pas un CSV de téléchargement tabulaire</small></span><a class="download-link" href="assets/mining_data.js" download>Télécharger le fichier JS</a></li>
+            <li class="download-item"><span><strong>Guide débutant et méthode</strong><small>Étapes d’analyse, définitions, sources et limites</small></span><a class="download-link" href="README.md">Lire le README</a></li>
+            <li class="download-item"><span><strong>Guide Power BI</strong><small>Ouverture du projet et actualisation des tables</small></span><a class="download-link" href="README_POWERBI.md">Lire le guide</a></li>
             <li class="download-item"><span><strong>Projet Power BI (PBIP)</strong><small>À ouvrir dans Power BI Desktop pour produire un PBIX</small></span><a class="download-link" href="OWR_Climate.pbip">Ouvrir le projet</a></li>
             <li class="download-item"><span><strong>Dépôt GitHub</strong><small>Code, sources, exports et historique des versions</small></span><a class="download-link" href="https://github.com/aganzeeliud/OWR-Temperature-evolution-" target="_blank" rel="noopener noreferrer">Voir le dépôt ↗</a></li>
           </ul>
@@ -1445,7 +1462,7 @@
 
     <section class="tab-panel" id="panel-references" role="tabpanel" aria-labelledby="tab-references" hidden>
       <header class="toolbar"><div><p class="section-label">Sources et traçabilité</p><h2>Références scientifiques et données</h2></div><span class="pill">Liens vérifiables</span></header>
-      <p class="tab-intro">Références bibliographiques, catalogues des produits et limites de périmètre. Les jeux de données décrivent des variables différentes et ne sont pas directement interchangeables.</p>
+      <p class="tab-intro">Cette page indique d’où viennent les données et quelles publications ou documentations expliquent les produits. Une référence aide à comprendre un jeu de données ; elle ne certifie pas, à elle seule, que chaque valeur du dépôt a été mesurée ou validée sur le terrain.</p>
       <aside class="conservation-highlight" aria-label="Repère de biodiversité documenté par l’UNESCO">
         <div class="conservation-kpi"><span>Repère UNESCO</span><strong>17</strong><small>espèces de primates</small></div>
         <p class="conservation-fact"><strong>Une biodiversité documentée</strong>La description du bien répertorie 17 espèces de primates, dont 13 diurnes et 4 nocturnes. Ce chiffre provient de la fiche UNESCO et ne doit pas être lu comme un inventaire actualisé.</p>
@@ -1476,9 +1493,24 @@
             <li><a href="https://www.openstreetmap.org/relation/401017" target="_blank" rel="noopener noreferrer">OpenStreetMap · relation 401017</a><br>Périmètre substitutif utilisé pour l’extraction des données de superficie.</li>
           </ul>
         </article>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-satellite"/></svg></span>Mines et registres publics</h3>
+          <ul class="reference-list">
+            <li><a href="https://ipisresearch.be/home/maps-data/open-data/" target="_blank" rel="noopener noreferrer">IPIS · Open Data</a><br>Source des observations de visites et sites artisanaux. L’extrait utilisé est daté de mai 2026 ; les observations disponibles ne constituent ni un inventaire exhaustif ni un calendrier d’activité. L’Open Data IPIS est publié sous licence <a href="https://opendatacommons.org/licenses/by/1-0/" target="_blank" rel="noopener noreferrer">ODC-BY 1.0</a> : attribuez la source et consultez ses conditions de réutilisation.</li>
+            <li><a href="https://drclicences.cami.cd/EN/" target="_blank" rel="noopener noreferrer">CAMI · Cadastre minier de la RDC</a><br>Portail cadastral utilisé pour interroger des géométries de droits et demandes. Une couche cartographique ne prouve pas une exploitation effective ; vérifiez les statuts et dates dans les documents officiels correspondants.</li>
+            <li><a href="https://www.miningdatawarehouse.cd/operateur/all" target="_blank" rel="noopener noreferrer">Mining Data Warehouse · opérateurs</a><br>Recherche de titulaires par nom. Une correspondance ne valide ni un droit CAMI, ni une localisation, ni une activité ; l’absence de correspondance exacte ne prouve pas l’absence d’un opérateur.</li>
+          </ul>
+        </article>
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-shield"/></svg></span>Conservation et biodiversité</h3>
           <ul class="reference-list">
             <li><a href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">UNESCO · Réserve de faune à okapis, bien n° 718</a><br>Source des repères de conservation affichés dans les cartes : importance de la forêt de l’Ituri, population d’okapis, nombres d’espèces et zone tampon. Ces éléments descriptifs ne remplacent pas un suivi de terrain récent.</li>
+          </ul>
+        </article>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-file"/></svg></span>Comment citer et vérifier</h3>
+          <ul class="process-list">
+            <li><strong>Citez d’abord le produit.</strong> Pour une analyse climatique, citez Open-Meteo et signalez que le modèle de chaque date n’est pas documenté dans le CSV. Pour la perte forestière, citez GFW/UMD et la période du fichier ; la version d’extraction de ce CSV est inconnue.</li>
+            <li><strong>Citez ensuite la version utilisée.</strong> Pour le dépistage Hansen, indiquez UMD/Hansen v1.12, le seuil de couvert arboré de 2000 (≥ 30 %) et les années de perte (2001–2024). Pour les mines, citez CAMI ou IPIS selon le fichier et précisez la date de consultation ou l’export.</li>
+            <li><strong>Décrivez vos propres choix.</strong> Notez l’emprise géographique, les dates, unités, filtres, seuils, exclusions et traitements. Utilisez le fichier README et le script correspondant pour retracer les étapes, puis conservez une copie datée des données réellement analysées.</li>
+            <li><strong>Ne transformez pas une association en cause.</strong> Une corrélation décrit une variation conjointe ; proximité d’un site et perte forestière ne prouvent ni activité minière à cette date, ni causalité. Vérifiez le résultat avec des données indépendantes et une validation de terrain adaptée.</li>
           </ul>
         </article>
       </div>
@@ -1566,12 +1598,24 @@
 
     <section class="tab-panel" id="panel-method" role="tabpanel" aria-labelledby="tab-method" hidden>
       <header class="toolbar"><div><p class="section-label">Transparence analytique</p><h2>Méthode, qualité et vérifications</h2></div><span class="pill">Limites explicites</span></header>
-      <p class="tab-intro">Statut au 25 octobre 2026. Les contrôles structurels des CSV sont reproductibles ; ils ne remplacent ni une validation des produits à la source, ni une vérification indépendante sur le terrain.</p>
+      <p class="tab-intro">Cette analyse suit une démarche scientifique simple : poser une question, identifier des données adaptées, les contrôler, appliquer des calculs définis, puis présenter les résultats avec leurs limites. Les contrôles informatiques confirment la structure des fichiers ; ils ne prouvent pas que les observations sont exactes ou complètes.</p>
       <aside class="conservation-highlight" aria-label="Repère de biodiversité documenté par l’UNESCO">
         <div class="conservation-kpi"><span>Repère UNESCO</span><strong>376</strong><small>espèces d’oiseaux</small></div>
         <p class="conservation-fact"><strong>Un repère de richesse spécifique</strong>La fiche UNESCO recense 376 espèces d’oiseaux pour le bien. Ce chiffre descriptif n’est pas un résultat du suivi satellitaire ou une estimation actualisée par ce tableau de bord.</p>
         <a class="conservation-source" href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">Fiche UNESCO ↗</a>
       </aside>
+      <article class="info-card method-workflow">
+        <h3><span class="card-icon"><svg class="icon"><use href="#i-chart"/></svg></span>Le processus, étape par étape</h3>
+        <p>Exemple de question : « Comment les séries météo et les estimations de perte forestière évoluent-elles dans le temps ? » Chaque étape ci-dessous évite de tirer une conclusion plus forte que les données ne le permettent.</p>
+        <ol class="process-list">
+          <li><strong>1 · Définir la question.</strong> Précisez ce que vous cherchez à décrire, la zone et la période. Une question sur une tendance n’est pas la même qu’une question sur la cause d’une perte. Dans ce projet, la relation 401017 d’OpenStreetMap sert de périmètre approximatif ; ce n’est pas une limite juridique validée.</li>
+          <li><strong>2 · Choisir et documenter les sources.</strong> Repérez la table, la période, les unités et la définition du produit. La météo est une estimation de grille, GFW/UMD est un produit de perte de couvert, IPIS documente des visites minières et CAMI publie des droits ou demandes. Ces sources ne mesurent pas la même chose.</li>
+          <li><strong>3 · Préparer sans masquer les lacunes.</strong> Vérifiez les en-têtes, dates, unités, doublons, valeurs manquantes et emprise. Alignez les observations par année uniquement pour comparer des séries annuelles. Les valeurs manquantes météo de 1991 sont exclues ; elles ne sont ni remplacées ni interpolées.</li>
+          <li><strong>4 · Calculer avec des règles explicites.</strong> Le tableau de bord moyenne les températures disponibles, additionne les précipitations disponibles par année, et affiche la moyenne quotidienne des pluies par mois. Les pertes annuelles sont reprises du CSV. Les graphiques montrent une pente linéaire descriptive ; les analyses de relations utilisent des années communes.</li>
+          <li><strong>5 · Contrôler les résultats.</strong> Comparez les totaux et les périodes affichés aux fichiers sources, confirmez les unités et inspectez les années partielles. Les alertes 2026 sont des détections provisoires, pas des hectares uniques. Une cohérence informatique n’équivaut pas à une validation scientifique ou terrain.</li>
+          <li><strong>6 · Interpréter, citer et partager.</strong> Décrivez ce qui est observé, la période, la source et l’incertitude. Une tendance ou une corrélation n’établit pas une cause. Conservez les données, le script, les paramètres et la date d’extraction pour que quelqu’un d’autre puisse refaire le calcul.</li>
+        </ol>
+      </article>
       <div class="info-grid">
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-chart"/></svg></span>Traitement et indicateurs</h3>
           <ol class="process-list">

@@ -28,11 +28,28 @@ Le tableau de bord propose sept onglets en français : **Vue d’ensemble**, **P
 └── README*.md                  # Documentation du projet
 ```
 
+## Démarche scientifique expliquée aux débutants
+
+Une analyse scientifique ne commence pas par un graphique : elle commence par une question précise, puis vérifie si les données disponibles peuvent réellement y répondre. Voici le parcours suivi par ce projet et les précautions utiles pour le reproduire.
+
+1. **Poser une question descriptive.** Par exemple : « Comment les températures annuelles et la perte de couvert arboré évoluent-elles pendant les années documentées ? » Définissez la zone et la période. Cette question ne demande pas d’expliquer la cause de la perte.
+2. **Choisir une source adaptée et la citer.** Le fichier météo contient des estimations de grille pour des coordonnées approximatives ; il ne s’agit pas de mesures de station dans la réserve. Le CSV GFW/UMD donne une série annuelle de perte de couvert. Les alertes sont des détections provisoires. Les registres CAMI décrivent des droits/demandes, tandis qu’IPIS documente des observations de terrain. Ces jeux ne sont pas interchangeables.
+3. **Lire les métadonnées avant de calculer.** Vérifiez la période, les unités, la géométrie, la définition de chaque variable, la date d’extraction et les valeurs manquantes. Dans ce dépôt, l’emprise OSM relation 401017 est une approximation, pas une limite juridique certifiée. Le modèle/source de chaque date météo n’est pas documenté dans le CSV.
+4. **Préparer les données de façon traçable.** Vérifiez les dates, doublons, champs numériques et totaux ; conservez les valeurs absentes comme absentes. Les données sont agrégées à l’année pour les comparaisons annuelles. Pour comparer des facteurs, seules les années communes et complètes sont utilisées. N’inventez pas les années manquantes et n’assimilez pas les visites IPIS à des périodes d’activité minière.
+5. **Appliquer une règle de calcul explicite.** Les moyennes annuelles de température sont calculées à partir des jours disponibles ; les précipitations annuelles sont additionnées à partir des valeurs journalières disponibles ; le profil saisonnier utilise une moyenne journalière par mois. La perte forestière est reprise du CSV annuel. Le calcul des corrélations est décrit dans l’onglet **Relations entre facteurs** ; ce sont des associations descriptives.
+6. **Contrôler les résultats.** Comparez le nombre d’années et les totaux aux fichiers sources, vérifiez les unités et repérez les périodes partielles. Le tableau de bord contrôle notamment les dates météo, les années de perte et le total d’alertes. Un contrôle logiciel confirme une structure ou une cohérence interne ; il ne valide pas une mesure par observation indépendante ou terrain.
+7. **Interpréter sans dépasser les preuves.** Une pente décrit une tendance ajustée, et une corrélation décrit une association ; aucune ne prouve une cause. Une alerte n’est pas automatiquement une perte confirmée ou une surface unique. La perte proche d’un point IPIS ne prouve pas que la mine était active à ce moment-là. Pour une conclusion causale ou opérationnelle, il faudrait notamment une limite vérifiée, des périodes d’activité documentées et une validation indépendante adaptée.
+8. **Rendre l’analyse reproductible.** Citez le produit, sa version si elle est connue, la date d’accès, la période, l’emprise, les filtres et les règles de calcul. Gardez les fichiers sources et le code correspondant. Les données minières dérivées sont régénérées par `scripts/refresh_mining.py`; le dépistage optique Earth Engine nécessite une configuration et une exécution utilisateur, il n’est pas fourni comme résultat prêt à l’emploi.
+
+**Pour reproduire une première lecture :** ouvrez un CSV dans un tableur, vérifiez son en-tête et sa période, puis comparez une seule variable à la fois. Dans le tableau de bord, filtrez les années météo, consultez les notes de qualité, puis ouvrez **Méthode & vérifications** et **Références scientifiques** avant de décrire un résultat. N’interprétez pas une valeur isolée comme une preuve d’évolution ou de cause.
+
 ## Repères de conservation
 
 Chaque onglet présente un repère de conservation attribué à la [fiche UNESCO de la Réserve de faune à okapis](https://whc.unesco.org/en/list/718/) : environ un cinquième de la forêt de l’Ituri, un sixième de la population existante d’okapis, 101 espèces de mammifères, 376 espèces d’oiseaux, 17 espèces de primates (13 diurnes et 4 nocturnes), et une zone tampon décrite comme large de 50 km. Ces chiffres sont des éléments descriptifs de la fiche UNESCO, pas des résultats du tableau de bord, un recensement récent, ni des indicateurs de tendance. La couronne analytique de 10 km utilisée dans l’onglet minier est distincte de la zone tampon UNESCO. Les fiches de chaque onglet renvoient à la source.
 
 ## Données téléchargeables
+
+Les liens ci-dessous pointent vers les fichiers exacts du dépôt. Pour analyser les données, utilisez les CSV ; le classeur Excel météo est une autre présentation de la même série. Les scripts sont des outils de traitement, pas des jeux d’observations. `assets/mining_data.js` est le format de données utilisé par l’interface minière et n’est pas destiné à être ouvert comme tableau dans un tableur.
 
 | Fichier | Contenu | Période / couverture | Téléchargement |
 |---|---|---|---|
@@ -122,6 +139,8 @@ Le script calcule les indices NDVI, NBR, MNDWI et BSI sur des composites médian
 
 ## Méthode et vérifications
 
+Les étapes ci-dessous expliquent les transformations et leurs limites ; les contrôles ne transforment pas une estimation satellite ou une source secondaire en mesure validée sur le terrain.
+
 - **Contrôles reproductibles des CSV (état au 25 octobre 2026) :**
   - `data/climate/Meteo_owr.csv` contient **14 908 dates uniques et consécutives**, du 1986-01-01 au 2026-10-25. Le contrôle structurel trouve 31 valeurs Tmax, 31 Tmin et 215 précipitations absentes ; elles sont toutes en 1991. Elles sont exclues des statistiques concernées, sans interpolation.
   - La dernière journée météo a été revérifiée via Open-Meteo le 2026-10-25 ; les trois valeurs de cette date sont synchronisées dans le CSV, le classeur Excel et le tableau de bord HTML.
@@ -133,6 +152,8 @@ Le script calcule les indices NDVI, NBR, MNDWI et BSI sur des composites médian
 - Les détections d’alertes et la perte annuelle sont des produits distincts : les alertes ne sont ni des hectares uniques ni une perte confirmée ; des détections répétées sont possibles. Elles ne sont pas additionnées à la série de perte.
 - Le comparateur Earth Engine met en regard, sans les agréger, le CSV GFW du dépôt, Hansen v1.12 (2001–2024 ; `treecover2000 ≥ 30 %`) et les transitions optiques candidates. Les périodes, géométries, résolutions, seuils et masques diffèrent. L’année 2000 est une référence ; aucune perte annuelle GFW/Hansen finalisée pour 2026 n’est fournie.
 - Les contrôles automatisés établissent la structure et la cohérence interne des fichiers ; ils ne valident ni les estimations à la source, ni la limite OSM, ni les alertes par examen indépendant. Le dépistage Hansen autour des huit points IPIS historiques est une proximité spatiale, sans périodes d’activité ni validation terrain ; il n’établit ni activité minière au moment de la perte ni causalité. L’export distinct des transitions optiques candidates Earth Engine n’a pas été exécuté dans ce dépôt avec une limite juridique vérifiée et un inventaire minier daté.
+
+**Pour citer une analyse dérivée :** indiquez le nom du jeu source, sa version et sa date d’accès (si connues), la période retenue, le périmètre utilisé, les unités, les filtres/seuils et le script ou la méthode de calcul. Quand une version n’est pas documentée, écrivez explicitement « version non consignée » au lieu de lui attribuer la version actuelle du catalogue. Distinguez les faits de la source des calculs produits par le tableau de bord.
 
 ## Projet Power BI
 
