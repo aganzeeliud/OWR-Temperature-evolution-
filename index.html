@@ -925,11 +925,6 @@
         return year >= from && year <= to;
       });
     }
-    const wettest=monthly.reduce((best,item)=>(item.rain||0)>(best.rain||0)?item:best,monthly[0]);
-    const driest=monthly.reduce((best,item)=>(item.rain||0)<(best.rain||0)?item:best,monthly[0]);
-    const badge=document.getElementById("season-trend");
-    badge.textContent=`Profil saisonnier : pluies max. ${wettest.monthName} · min. ${driest.monthName} (pas une tendance interannuelle)`;
-    badge.dataset.direction="";
     function average(values) {
       const usable = values.filter(Number.isFinite);
       return usable.length ? usable.reduce((sum, value) => sum + value, 0) / usable.length : null;
@@ -1579,6 +1574,14 @@
         const group=rows.filter(r=>Number(r[0].slice(5,7))===index+1);
         return {month, monthName:MONTHS_LONG[index], high:average(group.map(r=>r[1])), low:average(group.map(r=>r[2])), rain:average(group.map(r=>r[3]))};
       });
+      const rainyMonths=monthly.filter(item=>Number.isFinite(item.rain));
+      const wettest=rainyMonths.reduce((best,item)=>item.rain>best.rain?item:best,rainyMonths[0]);
+      const driest=rainyMonths.reduce((best,item)=>item.rain<best.rain?item:best,rainyMonths[0]);
+      const badge=document.getElementById("season-trend");
+      badge.textContent=wettest&&driest
+        ?`Profil saisonnier : pluies max. ${wettest.monthName} · min. ${driest.monthName} (pas une tendance interannuelle)`
+        :"Profil saisonnier : données de précipitations insuffisantes";
+      badge.dataset.direction="";
       const temps=monthly.flatMap(d=>[d.high,d.low]).filter(Number.isFinite);
       if (!temps.length) return;
       const tmin=Math.floor((Math.min(...temps)-2)/5)*5, tmax=Math.ceil((Math.max(...temps)+2)/5)*5;
