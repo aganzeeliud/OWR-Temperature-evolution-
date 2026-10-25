@@ -744,6 +744,14 @@
     .mining-evidence .stats { margin: 0; }
     .mining-evidence .panel { margin: 0; }
     .mining-evidence .chart-wrap { min-height: 230px; }
+    .mining-chart-grid { display: grid; gap: 15px; }
+    .permit-chart-layout { display: grid; grid-template-columns: minmax(120px, .9fr) minmax(110px, 1fr); align-items: center; gap: 10px; margin-top: 14px; }
+    .permit-donut { width: 100%; max-width: 220px; margin: 0 auto; }
+    .permit-legend { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+    .permit-legend li { display: grid; grid-template-columns: 10px minmax(0, 1fr); align-items: start; gap: 8px; color: #66766c; font-size: 10px; line-height: 1.45; }
+    .permit-legend i { width: 10px; height: 10px; margin-top: 2px; border-radius: 3px; }
+    .permit-legend strong { display: block; color: #315a3f; font-size: 12px; font-variant-numeric: tabular-nums; }
+    .permit-chart-note { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid #edf1ec; color: #718078; font-size: 10px; line-height: 1.55; }
     .mining-record-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
     .mining-record-panel { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
     .mining-record-panel h4 { margin: 0; padding: 14px 15px 9px; color: var(--forest); font-size: 13px; }
@@ -759,11 +767,13 @@
     .mining-evidence-note { margin: 0; padding: 12px 14px; border-left: 3px solid #9aa96b; border-radius: 8px; background: #f3f6ef; color: #5b6c5f; font-size: 10px; line-height: 1.65; }
     .mining-evidence-note a { color: #35694a; font-weight: 700; }
     @media (min-width: 900px) {
+      .mining-chart-grid { grid-template-columns: minmax(0, 1.5fr) minmax(270px, .75fr); }
       .mining-record-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
     }
     @media (max-width: 640px) {
       .mining-evidence-heading { align-items: start; flex-direction: column; }
       .mining-evidence .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .permit-chart-layout { grid-template-columns: minmax(110px, .8fr) minmax(100px, 1fr); }
     }
     .chart-wrap {
       padding: 8px 8px 2px;
@@ -1336,11 +1346,21 @@
           <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-pin"/></svg></span><div class="stat-label">Sites IPIS distincts</div><div class="stat-value" id="mining-ipis-sites">—</div><div class="stat-detail">D’après 11 enregistrements de visite</div></article>
           <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span><div class="stat-label">Dernière visite IPIS localisée</div><div class="stat-value" id="mining-ipis-latest">—</div><div class="stat-detail">Observation historique, pas un statut actuel</div></article>
         </div>
-        <article class="panel">
-          <div class="panel-head"><div><h3>Dates consignées dans les sources</h3><p class="panel-sub">Octrois PE/PEPM au registre du 30 septembre 2026 et visites IPIS de sites dans la zone</p></div><div class="chart-key" aria-label="Légende des dates minières"><span class="key-item"><i class="key-bar gfw"></i>Octrois CAMI (titres/an)</span><span class="key-item"><i class="key-bar agriculture"></i>Visites IPIS (fiches/an)</span></div></div>
-          <div class="chart-wrap"><svg id="mining-evidence-chart" role="img" aria-label="Nombre d’entrées PE ou PEPM du registre CAMI par année d’octroi et de fiches IPIS par année de visite, de 2000 à 2026"></svg></div>
-          <div class="chart-note"><span>Événements consignés dans les extractions publiques, pas un recensement annuel des mines en activité.</span><span>enregistrements / an</span></div>
-        </article>
+        <div class="mining-chart-grid">
+          <article class="panel">
+            <div class="panel-head"><div><h3>Dates consignées dans les sources</h3><p class="panel-sub">Octrois PE/PEPM au registre du 30 septembre 2026 et visites IPIS de sites dans la zone</p></div><div class="chart-key" aria-label="Légende des dates minières"><span class="key-item"><i class="key-bar gfw"></i>Octrois CAMI (titres/an)</span><span class="key-item"><i class="key-bar agriculture"></i>Visites IPIS (fiches/an)</span></div></div>
+            <div class="chart-wrap"><svg id="mining-evidence-chart" role="img" aria-label="Nombre d’entrées PE ou PEPM du registre CAMI par année d’octroi et de fiches IPIS par année de visite, de 2000 à 2026"></svg></div>
+            <div class="chart-note"><span>Événements consignés dans les extractions publiques, pas un recensement annuel des mines en activité.</span><span>enregistrements / an</span></div>
+          </article>
+          <article class="panel">
+            <div class="panel-head"><div><h3>Types au registre CAMI</h3><p class="panel-sub">Répartition des géométries de la couche exploitation recoupant la limite OSM</p></div></div>
+            <div class="permit-chart-layout">
+              <svg id="mining-permit-donut" class="permit-donut" viewBox="0 0 240 240" role="img" aria-label="Répartition des droits miniers par type au registre"></svg>
+              <ul class="permit-legend" id="mining-permit-legend" aria-label="Légende des types de droits CAMI"></ul>
+            </div>
+            <p class="permit-chart-note">Comptage de géométries par type indiqué au registre, pas de superficie ni de preuve d’exploitation active. Le PR 15766 est indiqué comme en transformation vers PEPM ; la demande distincte est exclue.</p>
+          </article>
+        </div>
         <div class="mining-record-grid">
           <article class="mining-record-panel">
             <h4>Polygones et demande CAMI recoupant la limite OSM</h4>
@@ -1934,6 +1954,7 @@
     function renderMiningEvidence() {
       const licenses=MINING_DATA.licenses;
       const permits=licenses.filter(record=>["PE","PEPM"].includes(record.CAMI_register_type));
+      const mappedRights=licenses.filter(record=>record.record_category==="CAMI exploitation layer");
       const applications=licenses.filter(record=>record.record_category==="Application");
       const sites=MINING_DATA.ipis_sites;
       const visits=MINING_DATA.ipis_visits;
@@ -1944,6 +1965,62 @@
       document.getElementById("mining-ipis-latest").textContent=latestVisit?latestVisit.slice(0,4):"—";
       document.getElementById("mining-data-snapshot").textContent=
         `CAMI · ${MINING_DATA.cami_portal_updated.split(" at ")[0]} · instantané ${MINING_DATA.snapshot_date}`;
+
+      const permitTypes=[
+        {type:"PE",label:"PE · exploitation",color:"#557b4b"},
+        {type:"PEPM",label:"PEPM · petite mine",color:"#b58a43"},
+        {type:"PR",label:"PR · recherche",color:"#54838a"}
+      ];
+      const permitCounts=new Map(permitTypes.map(item=>[item.type,0]));
+      let otherCount=0;
+      for(const record of mappedRights){
+        if(permitCounts.has(record.CAMI_register_type))
+          permitCounts.set(record.CAMI_register_type,permitCounts.get(record.CAMI_register_type)+1);
+        else otherCount++;
+      }
+      if(otherCount)permitTypes.push({type:"other",label:"Autre / non classé",color:"#9b7861"});
+      if(otherCount)permitCounts.set("other",otherCount);
+      const permitTotal=mappedRights.length;
+      const donut=document.getElementById("mining-permit-donut");
+      donut.replaceChildren();
+      donut.setAttribute("aria-label",
+        `Répartition au registre de ${fmt.format(permitTotal)} géométries CAMI : ${permitTypes.map(item=>`${fmt.format(permitCounts.get(item.type))} ${item.type==="other"?"autres":item.type}`).join(", ")}`);
+      const ringRadius=76,circumference=2*Math.PI*ringRadius;
+      donut.appendChild(svgEl("circle",{cx:120,cy:120,r:ringRadius,fill:"none",stroke:"#edf1ec","stroke-width":30}));
+      let ringOffset=0;
+      for(const item of permitTypes){
+        const count=permitCounts.get(item.type);
+        if(!permitTotal||!count)continue;
+        const segmentLength=count/permitTotal*circumference;
+        donut.appendChild(svgEl("circle",{
+          cx:120,cy:120,r:ringRadius,fill:"none",stroke:item.color,"stroke-width":30,
+          "stroke-dasharray":`${segmentLength} ${circumference-segmentLength}`,
+          "stroke-dashoffset":-ringOffset,transform:"rotate(-90 120 120)"
+        }));
+        ringOffset+=segmentLength;
+      }
+      const centerCount=svgEl("text",{x:120,y:116,"text-anchor":"middle",fill:"#294d35","font-size":31,"font-weight":750});
+      centerCount.textContent=fmt.format(permitTotal);
+      donut.appendChild(centerCount);
+      const centerLabel=svgEl("text",{x:120,y:139,"text-anchor":"middle",fill:"#718078","font-size":10});
+      centerLabel.textContent="géométries";
+      donut.appendChild(centerLabel);
+      const permitLegend=document.getElementById("mining-permit-legend");
+      permitLegend.replaceChildren();
+      for(const item of permitTypes){
+        const count=permitCounts.get(item.type);
+        if(!count)continue;
+        const entry=document.createElement("li");
+        const swatch=document.createElement("i");
+        swatch.style.backgroundColor=item.color;
+        swatch.setAttribute("aria-hidden","true");
+        const label=document.createElement("span");
+        const value=document.createElement("strong");
+        value.textContent=`${fmt.format(count)} · ${permitTotal?Math.round(count/permitTotal*100):0} %`;
+        label.append(value,document.createTextNode(item.label));
+        entry.append(swatch,label);
+        permitLegend.appendChild(entry);
+      }
 
       const licenseBody=document.getElementById("mining-license-body");
       licenseBody.replaceChildren();
