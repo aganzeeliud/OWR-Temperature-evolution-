@@ -344,7 +344,7 @@ panel.add(ui.Label(
 panel.add(ui.Label(
   hasMiningInventory
     ? 'Inventaire minier chargé : renseigner start_year et end_year numériques pour filtrer les sites actifs par année.'
-    : 'Aucun inventaire minier vérifié chargé : les résultats restent des changements candidats et ne sont pas attribués à des mines.',
+    : 'Aucun inventaire minier avec périodes d’activité vérifiées chargé : les points IPIS historiques du dépôt ne suffisent pas à attribuer les changements à des mines.',
   {whiteSpace: 'normal', color: '#795d2a', fontWeight: 'bold'}
 ));
 
