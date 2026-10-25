@@ -3,41 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f6f2">
+  <meta name="theme-color" content="#173b2d">
   <meta name="description" content="Tableau de bord du climat et des forêts de la Réserve de faune à okapis, 1986–2026.">
   <title>Réserve de faune à okapis — Climat &amp; forêts</title>
   <style>
     :root {
       color-scheme: light;
-      --ink: #20332c;
-      --muted: #697970;
-      --paper: #f3f5f1;
+      --ink: #203329;
+      --muted: #68776b;
+      --paper: #f2f4ec;
       --card: #fff;
-      --line: #e3e9e2;
-      --forest: #173b31;
-      --forest-2: #285a43;
-      --teal: #167a70;
-      --mint: #cce8d9;
-      --gold: #e2a951;
-      --blue: #638dac;
-      --shadow: 0 12px 32px rgba(27, 48, 38, .06);
+      --line: #e2e7d9;
+      --forest: #173b2d;
+      --forest-2: #356744;
+      --teal: #28776e;
+      --mint: #d5e5c8;
+      --gold: #c99542;
+      --blue: #4c8790;
+      --earth: #b8754b;
+      --leaf: #63844d;
+      --shadow: 0 12px 32px rgba(38, 52, 32, .06);
     }
     .icon-library { position: absolute; width: 0; height: 0; overflow: hidden; }
     .icon { display: block; width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    :root {
-      --ink: #1d3028;
-      --muted: #66776d;
-      --paper: #f0f4ef;
-      --card: #fff;
-      --line: #dfe8dd;
-      --forest: #153b30;
-      --forest-2: #286044;
-      --teal: #14766d;
-      --mint: #cce5d3;
-      --gold: #d5a148;
-      --blue: #638dac;
-      --shadow: 0 12px 32px rgba(27,48,38,.055);
-    }
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -52,9 +40,9 @@
       overflow: hidden;
       color: var(--ink);
       background:
-        radial-gradient(ellipse at 83% 4%, rgba(115, 159, 106, .25), transparent 35%),
-        linear-gradient(125deg, #15382f 0%, #1c4939 58%, #28573e 100%);
-      border-bottom: 1px solid #315944;
+        radial-gradient(ellipse at 83% 4%, rgba(145, 166, 100, .24), transparent 35%),
+        linear-gradient(125deg, #173629 0%, #27523b 58%, #4d6940 100%);
+      border-bottom: 1px solid #4b6544;
     }
     .masthead::after {
       position: absolute;
@@ -85,23 +73,23 @@
       border: 1px solid rgba(231, 239, 224, .32);
       border-radius: 11px;
       background: rgba(255,255,255,.1);
-      color: #d7bd79;
+      color: #d3bd78;
       font-size: 16px;
     }
     .primary-nav { display: flex; align-items: center; gap: 25px; margin-left: auto; }
     .primary-nav a { color: #d0dfd1; font-size: 12px; font-weight: 650; text-decoration: none; transition: color .15s ease; }
     .primary-nav a:hover { color: #fff; }
     .data-badge { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border: 1px solid rgba(225,240,224,.2); border-radius: 99px; background: rgba(8,35,27,.2); color: #e0e9df; font-size: 11px; font-weight: 650; }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #b6ce83; box-shadow: 0 0 0 4px rgba(182,206,131,.14); }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #b9c984; box-shadow: 0 0 0 4px rgba(185,201,132,.14); }
     .hero { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(330px, .95fr); align-items: center; gap: 45px; padding: 47px 0 52px; }
     .hero-copy { position: relative; z-index: 1; }
-    .eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; color: #c4d69f; font-size: 10px; font-weight: 780; letter-spacing: .16em; text-transform: uppercase; }
-    .eyebrow::before { width: 20px; height: 1px; background: #a9c58a; content: ""; }
+    .eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; color: #d0d7a2; font-size: 10px; font-weight: 780; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { width: 20px; height: 1px; background: #c1ca8b; content: ""; }
     h1 { max-width: 680px; margin: 0; color: #f5f7ef; font-family: Georgia, "Times New Roman", serif; font-size: clamp(39px, 5vw, 61px); font-weight: 500; letter-spacing: -.05em; line-height: 1.02; }
     .intro { max-width: 590px; margin: 17px 0 0; color: #d1ded2; font-size: 15px; }
     .hero-meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 23px; color: #e0e9dc; font-size: 11px; }
     .hero-meta span { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid rgba(225,240,224,.18); border-radius: 8px; background: rgba(8,35,27,.19); }
-    .hero-art { position: relative; min-height: 275px; border: 1px solid rgba(226,238,216,.29); border-radius: 24px; background: linear-gradient(145deg, rgba(247,249,239,.96), rgba(203,224,193,.91)); box-shadow: 0 18px 50px rgba(5,28,18,.2); }
+    .hero-art { position: relative; min-height: 275px; border: 1px solid rgba(226,238,216,.29); border-radius: 24px; background: linear-gradient(145deg, rgba(247,247,232,.97), rgba(207,220,185,.94)); box-shadow: 0 18px 50px rgba(5,28,18,.2); }
     .hero-art::before, .hero-art::after { position: absolute; border: 1px solid rgba(81,126,85,.12); border-radius: 50%; content: ""; }
     .hero-art::before { inset: 23px; }
     .hero-art::after { inset: 48px; }
@@ -110,8 +98,8 @@
     main { padding: 28px 0 58px; }
     .section-nav { position: sticky; top: 10px; z-index: 5; display: flex; align-items: center; gap: 5px; margin-bottom: 25px; padding: 7px; border: 1px solid #e0e7de; border-radius: 14px; background: rgba(255,255,255,.95); box-shadow: 0 8px 24px rgba(29,48,43,.07); backdrop-filter: blur(12px); }
     .section-nav button { padding: 10px 16px; border: 0; border-radius: 9px; background: transparent; color: #64736a; cursor: pointer; font-size: 12px; font-weight: 680; white-space: nowrap; transition: background .16s ease, color .16s ease, box-shadow .16s ease; }
-    .section-nav button:hover, .section-nav button[aria-selected="true"] { background: #edf4eb; color: #234b37; }
-    .section-nav button[aria-selected="true"] { box-shadow: inset 0 -2px #477b56; }
+    .section-nav button:hover, .section-nav button[aria-selected="true"] { background: #edf1e5; color: #294d35; }
+    .section-nav button[aria-selected="true"] { box-shadow: inset 0 -2px #6b8651; }
     .tab-panel[hidden] { display: none !important; }
     .toolbar {
       display: flex;
@@ -154,12 +142,12 @@
     .stat, .panel { border: 1px solid #e3e9e2; border-radius: 16px; background: var(--card); box-shadow: var(--shadow); }
     .stat { position: relative; min-height: 139px; padding: 19px 19px 17px; overflow: hidden; transition: transform .18s ease, box-shadow .18s ease; }
     .stat:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(27,48,38,.09); }
-    .stat::before { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #56835c, #b2c991); content: ""; }
-    .forest-stats .stat::before { background: #d7ac59; }
+    .stat::before { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #476b3a, #a9bc78); content: ""; }
+    .forest-stats .stat::before { background: linear-gradient(90deg, #9a7040, #d7ba70); }
     .stat-label { color: #67766d; font-size: 11px; font-weight: 650; }
     .stat-value { margin-top: 9px; color: var(--forest); font-size: 30px; font-weight: 720; letter-spacing: -.06em; line-height: 1; font-variant-numeric: tabular-nums; }
     .stat-icon { position: absolute; top: 14px; right: 15px; display: grid; width: 31px; height: 31px; place-items: center; border-radius: 10px; background: #edf5ed; color: #4b8057; font-size: 14px; font-weight: 750; }
-    .forest-stats .stat-icon { background: #f8f2e5; color: #98712f; }
+    .forest-stats .stat-icon { background: #f2efdf; color: #78663a; }
     .stat-detail { margin-top: 8px; color: #87948d; font-size: 11px; }
     .content-grid { display: grid; grid-template-columns: minmax(0, 1.68fr) minmax(290px, .92fr); gap: 15px; }
     .panel { min-width: 0; padding: 22px 23px 18px; }
@@ -237,8 +225,8 @@
     .forest-table th, .forest-table td { padding: 8px 14px; border-bottom: 1px solid #edf1ec; }
     .forest-table th { position: sticky; top: 0; background: #f7f9f6; color: #66776d; font-size: 10px; letter-spacing: .04em; text-transform: uppercase; }
     .forest-table td:nth-child(2), .forest-table td:nth-child(3) { text-align: right; font-variant-numeric: tabular-nums; }
-    .forest-tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 99px; background: #f4f1e7; color: #86662f; font-size: 10px; font-weight: 700; letter-spacing: .03em; }
-    .forest-tag::before { width: 6px; height: 6px; border-radius: 50%; background: #d5a341; content: ""; }
+    .forest-tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 99px; background: #f4f0df; color: #765f2f; font-size: 10px; font-weight: 700; letter-spacing: .03em; }
+    .forest-tag::before { width: 6px; height: 6px; border-radius: 50%; background: #c49542; content: ""; }
     .quality {
       display: flex;
       align-items: start;
@@ -254,9 +242,9 @@
     .quality-icon { flex: 0 0 auto; color: #a47a32; font-size: 15px; }
     .quality strong { color: #425448; }
     .brand-mark .icon { width: 20px; height: 20px; }
-    .hero-meta .icon { width: 14px; height: 14px; color: #c4d69f; }
-    body { background: radial-gradient(ellipse at 12% 14%, #f8faf7 0, transparent 37%), var(--paper); }
-    .masthead { background: radial-gradient(ellipse at 83% 4%, rgba(115,159,106,.25), transparent 35%), linear-gradient(125deg,#102f28 0%,#174534 58%,#285a40 100%); }
+    .hero-meta .icon { width: 14px; height: 14px; color: #d0d7a2; }
+    body { background: radial-gradient(ellipse at 12% 14%, #fafbf6 0, transparent 37%), var(--paper); }
+    .masthead { background: radial-gradient(ellipse at 83% 4%, rgba(145,166,100,.24), transparent 35%), linear-gradient(125deg,#173629 0%,#27523b 58%,#4d6940 100%); }
     .hero { gap: 56px; padding-top: 52px; padding-bottom: 56px; }
     .hero-art { min-height: 292px; border-radius: 28px; box-shadow: 0 24px 60px rgba(5,28,18,.24); }
     main { padding-top: 31px; }
@@ -277,21 +265,21 @@
     .panel-head h3 .card-icon .icon { width: 17px; height: 17px; }
     .section-nav button { display: inline-flex; align-items: center; gap: 8px; }
     .section-nav button .icon { width: 15px; height: 15px; }
-    .section-nav button[aria-selected="true"] { background: linear-gradient(135deg, #173b31, #2f6748); color: #fff; box-shadow: 0 5px 13px rgba(23,59,49,.2); }
-    .section-nav button[aria-selected="true"] .icon { color: #c5dca9; }
+    .section-nav button[aria-selected="true"] { background: linear-gradient(135deg, #173b2d, #426d42); color: #fff; box-shadow: 0 5px 13px rgba(23,59,45,.2); }
+    .section-nav button[aria-selected="true"] .icon { color: #d3daa1; }
     .stat { border-color: #e0e8de; box-shadow: 0 8px 24px rgba(26,54,39,.045); }
     .stat::before { height: 4px; }
-    .stat-icon { width: 37px; height: 37px; border: 1px solid #e0eadf; border-radius: 12px; }
+    .stat-icon { width: 37px; height: 37px; border: 1px solid #e5e9d9; border-radius: 12px; }
     .stat-icon .icon { width: 19px; height: 19px; }
     .panel, .info-card { border-color: #e0e8de; box-shadow: 0 8px 25px rgba(26,54,39,.045); }
     .panel-head { margin-bottom: 12px; }
     .panel h3, .info-card h3 { display: flex; align-items: center; gap: 10px; }
-    .card-icon { flex: 0 0 auto; display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid #dfebdf; border-radius: 11px; background: #eef5ed; color: #35694b; }
+    .card-icon { flex: 0 0 auto; display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid #e0e7d5; border-radius: 11px; background: #eef2e5; color: #426a40; }
     .card-icon .icon { width: 19px; height: 19px; }
     .info-card h3 { min-height: 38px; margin-bottom: 13px; }
     .info-card { padding: 24px; transition: transform .18s ease, box-shadow .18s ease; }
     .info-card:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(26,54,39,.08); }
-    .reference-list li, .process-list li { position: relative; padding: 14px 15px; border: 1px solid #e7eee5; border-left: 3px solid #7ca887; border-radius: 0 11px 11px 0; background: #fafcf9; line-height: 1.55; }
+    .reference-list li, .process-list li { position: relative; padding: 14px 15px; border: 1px solid #e8ebdf; border-left: 3px solid #829565; border-radius: 0 11px 11px 0; background: #fbfcf8; line-height: 1.55; }
     .reference-list li + li, .process-list li + li { margin-top: 1px; }
     .reference-list a { text-underline-offset: 2px; }
     .check-grid { gap: 11px; }
@@ -299,19 +287,24 @@
     .check-card strong { display: flex; align-items: center; gap: 7px; }
     .check-card strong .icon { width: 16px; height: 16px; color: #52805b; }
     .download-item { border-color: #e3ebe1; background: linear-gradient(110deg,#fbfdfb,#f6f9f5); }
-    .download-link { border-color: #cddfce; background: #edf5ed; }
+    .download-link { border-color: #d4dfc9; background: #edf2e6; }
     .forest-tag { padding: 6px 10px; }
     .mining-period { border-color: #e1e9e0; border-radius: 14px; background: linear-gradient(145deg,#fff,#fafcf9); }
-    .mining-period em { padding: 4px 8px; border-radius: 99px; background: #f4f0e4; }
+    .mining-period em { padding: 4px 8px; border-radius: 99px; background: #f3efdf; }
     .cross-controls input[type="file"] { cursor: pointer; }
     #mine-proxy-status { margin: 5px 0 10px; padding: 10px 12px; border: 1px solid #eadfbe; border-radius: 10px; background: #fbf8ef; color: #755f31; font-size: 11px; }
     #mine-proxy-status[data-state="success"] { border-color: #d5e7d7; background: #f1f8f0; color: #356746; }
     #mine-proxy-status[data-state="error"] { border-color: #ecd2cd; background: #fcf3f1; color: #9a3f35; }
     .tab-intro { max-width: 900px; line-height: 1.7; }
     .toolbar h2, .forest-heading h2 { color: #193c30; }
-    .pill { padding: 7px 11px; background: #e9f2e8; color: #315f43; }
+    .pill { padding: 7px 11px; background: #e9efe1; color: #365c3b; }
     .data-badge { border-color: rgba(225,240,224,.28); }
-    .quality { border-color: #e5dfc9; background: #faf8ef; }
+    .quality { border-color: #e4dfc9; background: #f8f6eb; }
+    .mining-status { border-color: #e4d9bd; background: #f8f5e9; color: #665c39; }
+    .mining-status strong { color: #524a2e; }
+    .mining-status-icon { background: #ece6cf; color: #78643b; }
+    .forest-alert-chart, #forest-alert-chart { color: var(--gold); }
+    .source-link, .reference-list a { color: #355f3c; }
     #panel-references .info-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     #panel-references .info-card { padding: 20px; }
     #panel-references .reference-list li { font-size: 11px; }
@@ -409,35 +402,35 @@
           <svg viewBox="0 0 520 300" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="canopy" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#9dbb8f"/>
-                <stop offset="1" stop-color="#4c8060"/>
+                <stop offset="0" stop-color="#a8b97d"/>
+                <stop offset="1" stop-color="#47704b"/>
               </linearGradient>
               <linearGradient id="river" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#a6c9bf" stop-opacity=".35"/>
-                <stop offset="1" stop-color="#6a9f98" stop-opacity=".75"/>
+                <stop offset="0" stop-color="#b4c8aa" stop-opacity=".35"/>
+                <stop offset="1" stop-color="#6f9d8d" stop-opacity=".75"/>
               </linearGradient>
             </defs>
-            <path d="M0 224 C85 185 118 230 190 190 S310 161 372 196 456 181 520 143 V300 H0Z" fill="#d8e7d0"/>
-            <path d="M0 250 C77 216 145 267 224 218 S361 194 420 225 482 205 520 195 V300 H0Z" fill="#bdd5b8"/>
+            <path d="M0 224 C85 185 118 230 190 190 S310 161 372 196 456 181 520 143 V300 H0Z" fill="#dfe5c9"/>
+            <path d="M0 250 C77 216 145 267 224 218 S361 194 420 225 482 205 520 195 V300 H0Z" fill="#cbd8b4"/>
             <path d="M0 269 C90 245 141 279 223 250 S345 231 403 253 465 235 520 229" fill="none" stroke="url(#river)" stroke-width="9"/>
             <g fill="url(#canopy)" opacity=".92">
               <circle cx="83" cy="147" r="31"/><circle cx="115" cy="136" r="36"/><circle cx="145" cy="157" r="28"/>
               <circle cx="337" cy="131" r="39"/><circle cx="375" cy="145" r="32"/><circle cx="405" cy="126" r="36"/>
               <circle cx="204" cy="188" r="28"/><circle cx="234" cy="176" r="35"/><circle cx="267" cy="190" r="27"/>
             </g>
-            <g fill="#35694c">
+            <g fill="#3b6844">
               <path d="M111 164v49h7v-49l22-26h-15l-11-18-11 18H88z"/>
               <path d="M369 168v48h7v-48l20-24h-14l-10-18-10 18h-14z"/>
               <path d="M233 198v48h7v-48l20-25h-14l-10-18-10 18h-14z"/>
             </g>
-            <g fill="none" stroke="#82a88a" stroke-width="1" opacity=".6">
+            <g fill="none" stroke="#899c67" stroke-width="1" opacity=".6">
               <path d="M33 95h115M346 75h114M396 89h54M68 108h38"/>
               <circle cx="414" cy="99" r="50"/><circle cx="414" cy="99" r="66"/>
             </g>
             <g transform="translate(280 72)">
-              <circle r="17" fill="#fff" stroke="#568568" stroke-width="2"/>
-              <circle r="6" fill="#568568"/>
-              <path d="M0 16v32" stroke="#568568" stroke-width="2"/>
+              <circle r="17" fill="#fff" stroke="#52764b" stroke-width="2"/>
+              <circle r="6" fill="#52764b"/>
+              <path d="M0 16v32" stroke="#52764b" stroke-width="2"/>
             </g>
           </svg>
           <span class="art-caption">RÉSERVE DE FAUNE À OKAPIS · ITURI</span>
@@ -756,7 +749,7 @@
     const MONTHS = ["Janv.","Févr.","Mars","Avr.","Mai","Juin","Juil.","Août","Sept.","Oct.","Nov.","Déc."];
     const MONTHS_LONG = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
     const MONTH_LABELS = {Jan:"janv.",Feb:"févr.",Mar:"mars",Apr:"avr.",May:"mai",Jun:"juin",Jul:"juil.",Aug:"août",Sep:"sept.",Oct:"oct."};
-    const COLORS = { high: "#167a70", low: "#638dac", rain: "#e2a951" };
+    const COLORS = { high: "#28776e", low: "#4c8790", rain: "#c99542" };
     const years = [...new Set(DATA.map(row => Number(row[0].slice(0, 4))))].sort((a,b) => a-b);
     const startSelect = document.getElementById("year-start");
     const endSelect = document.getElementById("year-end");
@@ -896,7 +889,7 @@
       FOREST_DATA.forEach(([year,value],i)=>{
         const x=pad.l+i*band+(band-bw)/2,yy=y(value);
         const bar=svgEl("rect",{x,y:yy,width:bw,height:height-pad.b-yy,rx:2,
-          fill:year===2025?"#426d4c":"#8eae83",opacity:year===2025?1:.84});
+          fill:year===2025?"#6d7044":"#9aa96b",opacity:year===2025?1:.84});
         bar.appendChild(svgEl("title",{},`${year} : ${fmt.format(value)} ha de perte de couvert arboré · GFW/UMD`));
         svg.appendChild(bar);
         if(year===2001||year%5===0||year===2025)
@@ -927,10 +920,10 @@
       const byYear=new Map(selected.map(row=>[row.year,row]));
       const gfw=zone==="Reserve"?new Map(FOREST_DATA):new Map();
       const series=[
-        {key:"gfw",label:"GFW · dépôt",color:"#8eae83",values:gfw},
-        {key:"hansen",label:"GFW/Hansen v1.12 · export",color:"#4f7f94",
+        {key:"gfw",label:"GFW · dépôt",color:"#9aa96b",values:gfw},
+        {key:"hansen",label:"GFW/Hansen v1.12 · export",color:"#4c8790",
           values:new Map(selected.filter(row=>Number.isFinite(row.gfw)).map(row=>[row.year,row.gfw]))},
-        {key:"candidate",label:"Transitions optiques candidates",color:"#d99149",
+        {key:"candidate",label:"Transitions optiques candidates",color:"#b8754b",
           values:new Map(selected.filter(row=>Number.isFinite(row.candidate)).map(row=>[row.year,row.candidate]))}
       ];
       const allValues=series.flatMap(item=>[...item.values.values()]).filter(Number.isFinite);
@@ -1001,7 +994,7 @@
         const center=pad.l+(index+.5)*band;
         if(Number.isFinite(value)){
           const yy=y(value);
-          const bar=svgEl("rect",{x:center-bw/2,y:yy,width:bw,height:Math.max(0,height-pad.b-yy),rx:2,fill:"#bd7357",opacity:year===2026 ? .5 : .88});
+          const bar=svgEl("rect",{x:center-bw/2,y:yy,width:bw,height:Math.max(0,height-pad.b-yy),rx:2,fill:"#b8754b",opacity:year===2026 ? .5 : .88});
           bar.appendChild(svgEl("title",{},`${year}${year===2026?" · année partielle":""} · perte candidate à ≤ 500 m de sites miniers actifs : ${fmt.format(value)} ha · ${zone}`));
           svg.appendChild(bar);
         }
@@ -1083,7 +1076,7 @@
       svg.appendChild(svgEl("line",{x1:pad.l,y1:height-pad.b,x2:width-pad.r,y2:height-pad.b,class:"axis-line"}));
       FOREST_DATA.forEach(([year,value],i)=>{
         const x=pad.l+i*band+(band-bw)/2,yy=y(value);
-        const color=year===2025?"#4a8061":"#78a786";
+        const color=year===2025?"#6d7044":"#83a06a";
         const bar=svgEl("rect",{x,y:yy,width:bw,height:height-pad.b-yy,rx:2,fill:color,opacity:year===2025?1:.82});
         bar.appendChild(svgEl("title",{},`${year} : ${fmt.format(value)} hectares de perte de couvert arboré`));
         svg.appendChild(bar);
@@ -1102,7 +1095,7 @@
       const alertBand=alertW/ALERTS_2026.length,alertBw=alertBand*.6;
       ALERTS_2026.forEach(([month,count],i)=>{
         const x=ap.l+i*alertBand+(alertBand-alertBw)/2,yy=ay(count);
-        const bar=svgEl("rect",{x,y:yy,width:alertBw,height:ah-ap.b-yy,rx:3,fill:"#d7a74e",opacity:.86});
+        const bar=svgEl("rect",{x,y:yy,width:alertBw,height:ah-ap.b-yy,rx:3,fill:"#c99542",opacity:.86});
         bar.appendChild(svgEl("title",{},`${MONTH_LABELS[month] || month} 2026${month==="Oct"?" (jusqu’au 4 octobre)":""} : ${fmt.format(count)} détections intégrées de pixels d’alerte`));
         alertSvg.appendChild(bar);
         addText(alertSvg,x+alertBw/2,ah-13,MONTH_LABELS[month] || month,{"text-anchor":"middle"});
