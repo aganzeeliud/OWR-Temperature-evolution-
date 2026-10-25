@@ -732,7 +732,7 @@ def main():
     proximity = download_mining_proximity(sites, polygons)
 
     write_csv(
-        ROOT / "cami_rights.csv",
+        ROOT / "data" / "mining" / "cami_rights.csv",
         cami_records,
         list(cami_records[0]) if cami_records else [
             "record_category", "CAMI_code", "permit_type", "status", "holder",
@@ -744,7 +744,7 @@ def main():
         ],
     )
     write_csv(
-        ROOT / "ipis_sites.csv",
+        ROOT / "data" / "mining" / "ipis_sites.csv",
         sites,
         [
             "site_code", "site_name", "province", "territory", "latitude",
@@ -754,7 +754,7 @@ def main():
         ],
     )
     write_csv(
-        ROOT / "ipis_visits.csv",
+        ROOT / "data" / "mining" / "ipis_visits.csv",
         ipis_visits,
         list(ipis_visits[0]) if ipis_visits else [
             "site_code", "site_name", "visit_date", "source", "project",
@@ -763,7 +763,7 @@ def main():
         ],
     )
     write_csv(
-        ROOT / "hansen_near_mines.csv",
+        ROOT / "data" / "mining" / "hansen_near_mines.csv",
         proximity,
         [
             "year", "zone", "hansen_loss_pixels", "hansen_loss_ha",
@@ -772,7 +772,7 @@ def main():
         ],
     )
     write_csv(
-        ROOT / "mining_operators.csv",
+        ROOT / "data" / "mining" / "mining_operators.csv",
         warehouse_operators,
         list(warehouse_operators[0]) if warehouse_operators else [
             "CAMI_holder", "CAMI_codes", "warehouse_match", "operator_name",
@@ -797,7 +797,7 @@ def main():
         "proximity": proximity,
         "warehouse_operators": warehouse_operators,
     }
-    (ROOT / "mining_data.js").write_text(
+    (ROOT / "assets" / "mining_data.js").write_text(
         "const MINING_DATA = "
         + json.dumps(dashboard_data, ensure_ascii=True, separators=(",", ":"))
         + ";\n",

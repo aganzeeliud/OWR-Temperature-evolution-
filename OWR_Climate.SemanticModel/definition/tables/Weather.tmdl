@@ -65,7 +65,7 @@ table Weather
         source =
                 let
                     Source = Csv.Document(
-                        Web.Contents("https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/Meteo_owr.csv"),
+                        Web.Contents("https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/data/climate/Meteo_owr.csv"),
                         [Delimiter = ",", Columns = 7, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
                     ),
                     Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),

@@ -19,7 +19,7 @@ table TreeCoverLoss
         source =
                 let
                     Source = Csv.Document(
-                        Web.Contents("https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/TreeCoverLoss_owr.csv"),
+                        Web.Contents("https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/data/forest/TreeCoverLoss_owr.csv"),
                         [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
                     ),
                     Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),

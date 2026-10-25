@@ -42,7 +42,7 @@ table ForestAlerts
         source =
                 let
                     Source = Csv.Document(
-                        Web.Contents("https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/ForestAlerts_2026_owr.csv"),
+                        Web.Contents("https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/data/forest/ForestAlerts_2026_owr.csv"),
                         [Delimiter = ",", Columns = 6, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
                     ),
                     Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
