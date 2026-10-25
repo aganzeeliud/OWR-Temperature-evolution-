@@ -1464,6 +1464,53 @@
       .mining-record-table { font-size: 10px; }
       .info-card p, .download-item strong, .download-link { font-size: 12px; }
     }
+    :root {
+      --ink: #20372b;
+      --muted: #536459;
+      --forest: #173f2b;
+      --forest-2: #285b3b;
+    }
+    body { color: var(--ink); }
+    .section-label, .field label, .agri-zone-controls label, .stat-label,
+    .panel-sub, .forest-heading p:not(.section-label), .mining-evidence-heading p,
+    .relation-card p, .relation-status, .check-card span, .download-item small,
+    .download-note, .chart-note, .chart-meta, .chart-key, .relation-legend,
+    .agri-zone-legend, .agri-zone-note, .permit-legend li, .permit-chart-note,
+    .mining-record-panel > p, .mining-record-table caption, .forest-table caption {
+      color: #536459;
+    }
+    .stat-detail, footer { color: #5b6b60; }
+    .panel h3, .info-card h3, .relation-card h3, .check-card strong,
+    .mining-record-panel h4, .relation-stat strong { color: #244b34; }
+    .chart-source a, .source-link, .reference-list a, .forest-note a,
+    .mining-evidence-note a, .download-link, .conservation-source {
+      color: #245b38;
+      text-decoration-color: currentColor;
+      text-underline-offset: 2px;
+    }
+    .chart-source a:hover, .source-link:hover, .reference-list a:hover,
+    .forest-note a:hover, .mining-evidence-note a:hover, .download-link:hover,
+    .conservation-source:hover { color: #173f2b; }
+    .chart-trend, .chart-trend[data-direction="down"] { color: #75472f; }
+    .chart-trend[data-direction="up"] { color: #285b3b; }
+    .axis-label { fill: #596a5e; }
+    .forest-tag, .pill { color: #57461f; }
+    .conservation-kpi span, .conservation-kpi small,
+    .conservation-fact, .permit-chart-note { color: #536459; }
+    .conservation-fact strong { color: #244b34; }
+    .mining-status { color: #5f512d; }
+    .mining-status strong { color: #51431f; }
+    .quality { color: #4c5c50; }
+    .quality strong { color: #304b38; }
+    .forest-note, .relation-callout, .mining-evidence-note { color: #4c5e51; }
+    .forest-note strong, .relation-callout strong, .mining-evidence-note strong { color: #244b34; }
+    .relation-stat span { color: #536459; }
+    .mining-record-table th, .forest-table th, .relation-matrix thead th,
+    .relation-matrix tbody th { color: #4b5f51; }
+    .agri-zone-legend summary { color: #285b3b; }
+    .data-badge { color: #edf3e9; }
+    .primary-nav a { color: #e0e9df; }
+    .hero-meta { color: #eef3eb; }
   </style>
 </head>
 <body>
