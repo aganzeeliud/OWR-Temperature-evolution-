@@ -4,12 +4,12 @@ Tableau de bord autonome consacré à l’évolution du climat et du couvert arb
 
 ## Accès au projet
 
-- **Tableau de bord HTML :** [ouvrir ou télécharger `index.html`](https://github.com/aganzeeliud/OWR-Temperature-evolution-/blob/main/index.html)
+- **Tableau de bord en français :** [consulter `index.html` dans le dépôt](https://github.com/aganzeeliud/OWR-Temperature-evolution-/blob/main/index.html) · [télécharger le fichier HTML autonome](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/index.html)
 - **Dépôt et historique :** [aganzeeliud/OWR-Temperature-evolution-](https://github.com/aganzeeliud/OWR-Temperature-evolution-)
 - **Projet Power BI :** [OWR_Climate.pbip](https://github.com/aganzeeliud/OWR-Temperature-evolution-/blob/main/OWR_Climate.pbip)
 - **Guide Power BI :** [README_POWERBI.md](README_POWERBI.md)
 
-Le fichier HTML contient les données météo nécessaires à ses graphiques et peut être ouvert directement dans un navigateur récent. Pour télécharger les CSV depuis l’onglet **Téléchargements**, conserver les fichiers CSV dans le même dossier que la page HTML. Le dépôt n’est pas publié sur GitHub Pages : le lien ci-dessus donne accès au fichier dans le dépôt, et non à un site web hébergé.
+Le tableau de bord propose quatre onglets en français : **Vue d’ensemble**, **Téléchargements**, **Références scientifiques** et **Méthode & vérifications**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour utiliser aussi ses liens de téléchargement locaux, placez les fichiers CSV dans le même dossier que la page HTML. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès au fichier source ou à son téléchargement, et non à une page interactive hébergée.
 
 ## Données téléchargeables
 
@@ -36,7 +36,7 @@ Dans la vue d’ensemble, sélectionnez une plage d’années et choisissez d’
 
 - **Météo :** [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api) et données publiées dans [`Meteo_owr.csv`](Meteo_owr.csv). Les valeurs de grille sont des estimations pour les coordonnées approximatives de la réserve, et non des mesures provenant d’une station météo locale dans l’aire protégée.
 - **Perte de couvert arboré :** [jeu de données UMD Tree Cover Loss de Global Forest Watch](https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest), résumé annuellement pour la zone d’étude. L’année 2000 sert de référence du couvert ; les observations annuelles de perte commencent en 2001.
-- **Référence scientifique :** Hansen, M. C. et al. (2013). [High-Resolution Global Maps of 21st-Century Forest Cover Change](https://doi.org/10.1126/science.1244693). *Science*, 342(6160), 850–853.
+- **Référence scientifique :** Hansen, M. C. et al. (2013). [High-Resolution Global Maps of 21st-Century Forest Cover Change](https://doi.org/10.1126/science.1244693) [Cartes mondiales à haute résolution de l’évolution du couvert forestier au XXIe siècle]. *Science*, 342(6160), 850–853.
 - **Zone d’étude fournie :** [Global Nature Watch](https://gfw.global/eWfDix). La géométrie de l’AOI n’étant pas exposée dans la réponse publique utilisée pour l’extraction, le périmètre substitutif est la [relation 401017 de la Réserve de faune à okapis dans OpenStreetMap](https://www.openstreetmap.org/relation/401017).
 - **Alertes forestières :** détections mensuelles intégrées de pixels d’alerte, fournies dans [`ForestAlerts_2026_owr.csv`](ForestAlerts_2026_owr.csv), version `v20261025`.
 
