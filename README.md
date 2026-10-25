@@ -9,7 +9,7 @@ Tableau de bord autonome consacré à l’évolution du climat et du couvert arb
 - **Projet Power BI :** [OWR_Climate.pbip](https://github.com/aganzeeliud/OWR-Temperature-evolution-/blob/main/OWR_Climate.pbip)
 - **Guide Power BI :** [README_POWERBI.md](README_POWERBI.md)
 
-Le tableau de bord propose six onglets en français : **Vue d’ensemble**, **Perte forestière & alertes**, **Activités minières**, **Méthode & vérifications**, **Références scientifiques** et **Téléchargements**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour utiliser aussi ses liens de téléchargement locaux, placez les fichiers CSV dans le même dossier que la page HTML. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès au fichier source ou à son téléchargement, et non à une page interactive hébergée.
+Le tableau de bord propose sept onglets en français : **Vue d’ensemble**, **Perte forestière & alertes**, **Activités minières**, **Relations entre facteurs**, **Méthode & vérifications**, **Références scientifiques** et **Téléchargements**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour utiliser aussi ses liens de téléchargement locaux, placez les fichiers CSV dans le même dossier que la page HTML. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès au fichier source ou à son téléchargement, et non à une page interactive hébergée.
 
 ## Données téléchargeables
 
@@ -32,16 +32,19 @@ Le classeur Excel et le CSV météo contiennent la même série et les mêmes va
 
 ## Utiliser le tableau de bord
 
-La page est organisée en six onglets :
+La page est organisée en sept onglets :
 
 1. **Vue d’ensemble** — filtres d’années, indicateurs météo, tendances annuelles et saisonnières.
 2. **Perte forestière & alertes** — perte annuelle GFW/UMD (2001–2025), alertes provisoires 2026 et évolution des valeurs déclarées en zone agricole (2001–2024), avec indicateurs et table des valeurs.
 3. **Activités minières** — comparateur par zone pour GFW, Hansen et transitions candidates ; estimation près des mines disponible uniquement après export Earth Engine avec inventaire vérifié.
-4. **Méthode & vérifications** — calcul des indicateurs, contrôles et limites d’interprétation.
-5. **Références scientifiques** — liens vers les documentations et sources de données.
-6. **Téléchargements** — CSV, classeur Excel, script Earth Engine, HTML et projet Power BI.
+4. **Relations entre facteurs** — associations annuelles forêt–climat–agriculture sur la période commune, avec Pearson, Spearman, corrélations après retrait d’une tendance linéaire et variations annuelles ; le proxy minier s’ajoute seulement si un export Earth Engine approprié est chargé.
+5. **Méthode & vérifications** — calcul des indicateurs, contrôles et limites d’interprétation.
+6. **Références scientifiques** — liens vers les documentations et sources de données.
+7. **Téléchargements** — CSV, classeur Excel, script Earth Engine, HTML et projet Power BI.
 
 Dans la vue d’ensemble, sélectionnez une plage d’années et choisissez d’afficher la température ou les précipitations. Les indicateurs et les graphiques climatiques sont recalculés à partir des jours disponibles. Les graphiques temporels affichent une droite de tendance linéaire descriptive, un résumé de sa pente et les liens vers leurs sources ; le profil saisonnier met en évidence le mois le plus et le moins pluvieux plutôt qu’une tendance temporelle. Ces tendances ne sont ni des tests de significativité ni des preuves de causalité. L’onglet **Perte forestière & alertes** rassemble les estimations annuelles de perte, les alertes provisoires 2026 et une série distincte des valeurs déclarées en zone agricole. La provenance de cette dernière n’étant pas documentée et son total ne concordant pas avec les colonnes détaillées, elle n’est pas présentée comme une mesure validée de déforestation causée par l’agriculture.
+
+L’onglet **Relations entre facteurs** apparie les observations annuelles complètes disponibles (actuellement 2001–2024) et affiche, pour les associations avec la perte GFW/UMD, Pearson, Spearman, Pearson après retrait séparé d’une tendance linéaire et corrélation des variations d’une année à l’autre. Une matrice présente aussi les associations brutes entre météo, perte forestière et valeurs agricoles déclarées. Ces calculs sont exploratoires : aucune p-value ou causalité n’est affirmée, l’autocorrélation et les différences d’emprise limitent l’interprétation. L’association au proxy minier reste indisponible tant qu’un export Earth Engine avec inventaire daté n’est pas importé.
 
 L’onglet **Activités minières** présente une chaîne reproductible Google Earth Engine et les sources satellitaires pour 2000–2026. Le calcul doit être lancé par un utilisateur Earth Engine après import de la limite de la réserve ; les résultats ne sont pas calculés ni fournis dans ce dépôt. Sans inventaire de sites vérifiés, les changements détectés restent des signaux candidats et ne sont pas attribués à l’exploitation minière.
 

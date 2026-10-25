@@ -211,6 +211,29 @@
     .reference-list a { color: #27583d; font-weight: 700; text-decoration: none; }
     .reference-list a:hover { text-decoration: underline; }
     .check-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+    .relation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .relation-card { padding: 20px; border: 1px solid #e1e8df; border-radius: 16px; background: #fff; box-shadow: var(--shadow); }
+    .relation-card h3 { margin: 0; color: #294d35; font-size: 14px; }
+    .relation-card p { margin: 7px 0 0; color: #718078; font-size: 11px; }
+    .relation-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 15px; }
+    .relation-stat { padding: 10px 9px; border-radius: 10px; background: #f4f7f2; }
+    .relation-stat span { display: block; color: #718078; font-size: 9px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .relation-stat strong { display: block; margin-top: 5px; color: #294d35; font-size: 16px; font-variant-numeric: tabular-nums; }
+    .relation-status { margin-top: 12px; padding-top: 10px; border-top: 1px solid #edf1ec; color: #6e7b72; font-size: 10px; line-height: 1.6; }
+    .relation-unavailable { border-color: #ead9b5; background: #fcf8ef; }
+    .relation-unavailable h3, .relation-unavailable strong { color: #765f2f; }
+    .relation-callout { margin: 14px 0 18px; padding: 15px 17px; border: 1px solid #dce7d8; border-radius: 13px; background: #f4f8f1; color: #53675a; font-size: 12px; line-height: 1.7; }
+    .relation-callout strong { color: #294d35; }
+    .relation-sources { margin-top: 18px; }
+    .relation-sources a { color: #356746; }
+    .relation-matrix-wrap { margin: 14px 0 18px; overflow-x: auto; border: 1px solid #e1e8df; border-radius: 13px; background: #fff; }
+    .relation-matrix { width: 100%; min-width: 650px; border-collapse: collapse; text-align: center; font-size: 11px; }
+    .relation-matrix caption { padding: 13px 15px; color: #294d35; font-size: 13px; font-weight: 720; text-align: left; }
+    .relation-matrix th, .relation-matrix td { padding: 10px 12px; border-top: 1px solid #edf1ec; }
+    .relation-matrix thead th { color: #65746b; font-size: 10px; font-weight: 700; }
+    .relation-matrix tbody th { color: #40564a; font-size: 10px; text-align: left; white-space: nowrap; }
+    .relation-matrix td { color: #294d35; font-variant-numeric: tabular-nums; font-weight: 700; }
+    .relation-legend { padding: 0 15px 13px; color: #718078; font-size: 10px; }
     .check-card { padding: 15px; border: 1px solid #e4e9e2; border-radius: 12px; background: #fff; }
     .check-card strong { display: block; color: #315a3f; font-size: 12px; }
     .check-card span { display: block; margin-top: 6px; color: #718078; font-size: 11px; }
@@ -339,9 +362,11 @@
       .content-grid { grid-template-columns: 1fr; }
       .trend-panel { grid-column: auto; }
       .stats { grid-template-columns: repeat(2, 1fr); }
+      .relation-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .forest-stats { grid-template-columns: repeat(2, 1fr); }
       .agri-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .forest-grid { grid-template-columns: 1fr; }
+      .relation-grid { grid-template-columns: 1fr; }
       .content-grid .panel { padding: 17px 15px 14px; }
     }
     @media (max-width: 540px) {
@@ -401,6 +426,7 @@
           <a href="#panel-overview" data-tab-target="panel-overview"><svg class="icon"><use href="#i-thermometer"/></svg>Climat</a>
           <a href="#panel-forest" data-tab-target="panel-forest"><svg class="icon"><use href="#i-tree"/></svg>Forêt</a>
           <a href="#panel-mining" data-tab-target="panel-mining"><svg class="icon"><use href="#i-satellite"/></svg>Mines</a>
+          <a class="nav-resource" href="#panel-relations" data-tab-target="panel-relations">Relations</a>
           <a class="nav-resource" href="#panel-method" data-tab-target="panel-method">Méthode</a>
           <a href="#panel-downloads" data-tab-target="panel-downloads">Données</a>
         </nav>
@@ -463,6 +489,7 @@
       <button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-tab-target="panel-overview"><svg class="icon"><use href="#i-chart"/></svg>Vue d’ensemble</button>
       <button type="button" role="tab" id="tab-forest" aria-controls="panel-forest" aria-selected="false" data-tab-target="panel-forest" tabindex="-1"><svg class="icon"><use href="#i-tree"/></svg>Perte forestière &amp; alertes</button>
       <button type="button" role="tab" id="tab-mining" aria-controls="panel-mining" aria-selected="false" data-tab-target="panel-mining" tabindex="-1"><svg class="icon"><use href="#i-satellite"/></svg>Activités minières</button>
+      <button type="button" role="tab" id="tab-relations" aria-controls="panel-relations" aria-selected="false" data-tab-target="panel-relations" tabindex="-1"><svg class="icon"><use href="#i-chart"/></svg>Relations entre facteurs</button>
       <button type="button" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" data-tab-target="panel-method" tabindex="-1"><svg class="icon"><use href="#i-shield"/></svg>Méthode &amp; vérifications</button>
       <button type="button" role="tab" id="tab-references" aria-controls="panel-references" aria-selected="false" data-tab-target="panel-references" tabindex="-1"><svg class="icon"><use href="#i-book"/></svg>Références scientifiques</button>
       <button type="button" role="tab" id="tab-downloads" aria-controls="panel-downloads" aria-selected="false" data-tab-target="panel-downloads" tabindex="-1"><svg class="icon"><use href="#i-download"/></svg>Téléchargements</button>
@@ -751,6 +778,81 @@
       </div>
     </section>
 
+    <section class="tab-panel" id="panel-relations" role="tabpanel" aria-labelledby="tab-relations" hidden>
+      <header class="toolbar">
+        <div><p class="section-label">Synthèse inter-thématique · 2001–2024</p><h2>Climat, forêt, agriculture et mines : relations observées</h2></div>
+        <span class="pill">Analyse exploratoire · 24 années communes</span>
+      </header>
+      <p class="tab-intro">Cette page rapproche les séries annuelles effectivement disponibles sur les années communes. Les résultats décrivent des covariations ; ils ne démontrent ni cause, ni mécanisme, ni impact direct.</p>
+      <div class="relation-callout" role="note">
+        <strong>Comment lire les cartes :</strong> Pearson mesure une association linéaire brute ; Spearman mesure une association monotone par rangs ; « après retrait de tendance » recalcule Pearson après avoir retiré séparément une droite temporelle à chaque série ; « variation annuelle » corrèle les différences entre années consécutives. Ces vérifications sont descriptives, non corrigées de l’autocorrélation, et ne constituent pas des tests de significativité. La série agricole a une provenance et une emprise non documentées ; la série minière n’est pas calculable sans export Earth Engine et inventaire vérifié.
+      </div>
+      <div class="stats relation-overview" aria-label="Périmètre de la comparaison">
+        <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span><div class="stat-label">Période réellement commune</div><div class="stat-value" id="relation-period">—</div><div class="stat-detail">Années complètes présentes dans les séries</div></article>
+        <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></span><div class="stat-label">Observations annuelles</div><div class="stat-value" id="relation-years">—</div><div class="stat-detail">n par relation · variations : n − 1</div></article>
+        <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-tree"/></svg></span><div class="stat-label">Perte GFW/UMD sur la période</div><div class="stat-value" id="relation-forest-total">—</div><div class="stat-detail">ha · toutes causes selon le produit</div></article>
+        <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-satellite"/></svg></span><div class="stat-label">Impact minier quantifié</div><div class="stat-value" id="relation-mining-status">—</div><div class="stat-detail">Inventaire daté et export requis</div></article>
+      </div>
+      <div class="relation-grid">
+        <article class="relation-card">
+          <h3>Perte forestière ↔ température maximale</h3>
+          <p>Moyenne annuelle Tmax (°C) comparée à la perte GFW/UMD (ha/an).</p>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-tmax-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-tmax-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-tmax-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-tmax-delta">—</strong></div></div>
+          <div class="relation-status" id="rel-tmax-status">Calcul sur années communes.</div>
+        </article>
+        <article class="relation-card">
+          <h3>Perte forestière ↔ précipitations</h3>
+          <p>Somme annuelle des précipitations disponibles (mm/an) comparée à GFW/UMD.</p>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-rain-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-rain-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-rain-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-rain-delta">—</strong></div></div>
+          <div class="relation-status" id="rel-rain-status">Calcul sur années communes.</div>
+        </article>
+        <article class="relation-card">
+          <h3>Perte forestière ↔ valeurs agricoles déclarées</h3>
+          <p>Perte GFW/UMD comparée à la colonne « Perte annuelle (ha) » du CSV agricole.</p>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-agri-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-agri-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-agri-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-agri-delta">—</strong></div></div>
+          <div class="relation-status" id="rel-agri-status">Calcul sur années communes.</div>
+        </article>
+        <article class="relation-card">
+          <h3>Perte forestière ↔ température minimale</h3>
+          <p>Moyenne annuelle Tmin (°C) comparée à la perte GFW/UMD (ha/an).</p>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-tmin-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-tmin-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-tmin-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-tmin-delta">—</strong></div></div>
+          <div class="relation-status" id="rel-tmin-status">Calcul sur années communes.</div>
+        </article>
+        <article class="relation-card relation-unavailable" id="rel-mining-card">
+          <h3>Perte forestière ↔ proxy minier</h3>
+          <p>Une relation minière ne peut être calculée qu’à partir d’un export Earth Engine comprenant la colonne `candidate_loss_within_500m_mines_ha` et un inventaire géolocalisé daté.</p>
+          <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-mining-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-mining-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-mining-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-mining-delta">—</strong></div></div>
+          <div class="relation-status" id="rel-mining-status">Non calculable avec les fichiers actuels ; proximité à une mine ne prouve pas une causalité.</div>
+        </article>
+      </div>
+      <div class="relation-matrix-wrap">
+        <table class="relation-matrix" id="relation-matrix">
+          <caption>Tableau croisé des associations linéaires (Pearson r) · années complètes communes à tous les facteurs</caption>
+          <thead><tr><th scope="col">Facteur</th><th scope="col">Perte GFW/UMD</th><th scope="col">Tmax</th><th scope="col">Tmin</th><th scope="col">Précipitations</th><th scope="col">Agricole déclaré</th></tr></thead>
+          <tbody id="relation-matrix-body"></tbody>
+        </table>
+        <div class="relation-legend">Les coefficients varient de −1 à +1 ; la couleur indique la direction et l’intensité de la corrélation linéaire brute. Une association proche de zéro n’exclut pas une relation non linéaire.</div>
+      </div>
+      <div class="info-grid relation-sources">
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-shield"/></svg></span>Limites d’interprétation</h3>
+          <ul class="process-list">
+            <li><strong>Comparabilité.</strong> Le périmètre GFW/UMD est une approximation de la réserve ; l’emprise du CSV agricole et celle de la météo ne sont pas documentées comme strictement identiques. Les niveaux et sommes ne doivent pas être interprétés comme des mesures parfaitement co-localisées.</li>
+            <li><strong>Séries temporelles.</strong> Les observations annuelles peuvent être autocorrélées et les relations brutes influencées par des tendances communes. Le retrait d’une tendance linéaire et les variations annuelles servent de contrôles exploratoires, mais ne remplacent pas une analyse de séries temporelles ou un plan causal.</li>
+            <li><strong>Interprétation.</strong> Aucun coefficient présenté n’est un effet causal. Pas de p-value ni de seuil de significativité affiché ; 24 observations annuelles sont insuffisantes pour tirer des conclusions causales robustes ou contrôler tous les facteurs de confusion.</li>
+          </ul>
+        </article>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-book"/></svg></span>Sources et méthodes</h3>
+          <ul class="reference-list">
+            <li><a href="Meteo_owr.csv" download>Données météo du dépôt</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener noreferrer">Documentation Open-Meteo</a></li>
+            <li><a href="TreeCoverLoss_owr.csv" download>Perte forestière du dépôt</a> · <a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">Documentation GFW/UMD</a></li>
+            <li><a href="Zone%20agricole%20.csv" download>Valeurs agricoles déclarées</a> · provenance et définition spatiale à confirmer.</li>
+            <li><a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm" target="_blank" rel="noopener noreferrer">NIST/SEMATECH · coefficient de corrélation</a> · corrélation linéaire descriptive ; Spearman est calculé sur les rangs.</li>
+            <li><a href="https://doi.org/10.1023/B:WARM.0000043140.61082.60" target="_blank" rel="noopener noreferrer">Yue &amp; Wang (2004)</a> · l’autocorrélation doit être considérée dans l’analyse des tendances hydrologiques et temporelles.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
     <section class="tab-panel" id="panel-method" role="tabpanel" aria-labelledby="tab-method" hidden>
       <header class="toolbar"><div><p class="section-label">Transparence analytique</p><h2>Méthode, qualité et vérifications</h2></div><span class="pill">Limites explicites</span></header>
       <p class="tab-intro">Statut au 25 octobre 2026. Les contrôles structurels des CSV sont reproductibles ; ils ne remplacent ni une validation des produits à la source, ni une vérification indépendante sur le terrain.</p>
@@ -870,10 +972,56 @@
         badge.dataset.direction="";
         return;
       }
-      const direction=trend.change>0?"up":trend.change<0?"down":"flat";
+      const direction=trend.slope>0?"up":trend.slope<0?"down":"flat";
       const directionLabel=direction==="up"?"hausse":direction==="down"?"baisse":"stable";
       badge.dataset.direction=direction;
-      badge.textContent=`Tendance linéaire descriptive : ${directionLabel} de ${fmt.format(Math.abs(trend.change))} ${unit} sur ${periodLabel || `${trend.startX}–${trend.endX}`}`;
+      badge.textContent=`Pente linéaire descriptive : ${directionLabel} de ${fmt.format(Math.abs(trend.slope))} ${unit} · ${periodLabel || `${trend.startX}–${trend.endX}`}`;
+    }
+    function correlation(xValues,yValues) {
+      if(xValues.length!==yValues.length||xValues.length<3)return null;
+      const xMean=average(xValues),yMean=average(yValues);
+      const numerator=xValues.reduce((sum,value,index)=>sum+(value-xMean)*(yValues[index]-yMean),0);
+      const xSquares=xValues.reduce((sum,value)=>sum+(value-xMean)**2,0);
+      const ySquares=yValues.reduce((sum,value)=>sum+(value-yMean)**2,0);
+      const denominator=Math.sqrt(xSquares*ySquares);
+      return denominator?numerator/denominator:null;
+    }
+    function rankValues(values) {
+      const ordered=values.map((value,index)=>({value,index})).sort((a,b)=>a.value-b.value);
+      const ranks=Array(values.length);
+      for(let start=0;start<ordered.length;){
+        let end=start+1;
+        while(end<ordered.length&&ordered[end].value===ordered[start].value)end++;
+        const averageRank=(start+1+end)/2;
+        for(let index=start;index<end;index++)ranks[ordered[index].index]=averageRank;
+        start=end;
+      }
+      return ranks;
+    }
+    function summarizeAssociation(points) {
+      const ordered=points.filter(point=>Number.isFinite(point.x)&&Number.isFinite(point.left)&&Number.isFinite(point.right)).sort((a,b)=>a.x-b.x);
+      const left=ordered.map(point=>point.left),right=ordered.map(point=>point.right),years=ordered.map(point=>point.x);
+      const leftTrend=fitTrend(left.map((value,index)=>({x:years[index],y:value})));
+      const rightTrend=fitTrend(right.map((value,index)=>({x:years[index],y:value})));
+      const leftResiduals=leftTrend?left.map((value,index)=>value-(leftTrend.intercept+leftTrend.slope*years[index])):[];
+      const rightResiduals=rightTrend?right.map((value,index)=>value-(rightTrend.intercept+rightTrend.slope*years[index])):[];
+      const deltas=[];
+      for(let index=1;index<ordered.length;index++){
+        if(ordered[index].x===ordered[index-1].x+1){
+          deltas.push([ordered[index].left-ordered[index-1].left,ordered[index].right-ordered[index-1].right]);
+        }
+      }
+      return {
+        n:ordered.length,
+        pearson:correlation(left,right),
+        spearman:correlation(rankValues(left),rankValues(right)),
+        detrended:correlation(leftResiduals,rightResiduals),
+        delta:correlation(deltas.map(pair=>pair[0]),deltas.map(pair=>pair[1])),
+        deltaN:deltas.length
+      };
+    }
+    function formatCorrelation(value) {
+      return Number.isFinite(value)?fmt.format(value):"—";
     }
     function svgEl(name, attrs = {}, text = "") {
       const node = document.createElementNS("http://www.w3.org/2000/svg", name);
@@ -1114,7 +1262,73 @@
         status.textContent=`${selected.length} valeurs annuelles disponibles pour « ${zone} » (${Math.min(...selected.map(row=>row.year))}–${Math.max(...selected.map(row=>row.year))}). Estimation fondée sur la proximité aux sites de l’inventaire ; elle ne démontre ni l’activité minière effective ni un lien causal.`;
       }
     }
-    document.getElementById("cross-zone").addEventListener("change",()=>{renderMiningCross();renderMiningProxy();});
+    function renderRelations() {
+      const weather=new Map(annualData(DATA).map(row=>[row.year,row]));
+      const forest=new Map(FOREST_DATA);
+      const agriculture=new Map(AGRICULTURE_DATA);
+      const factors=[
+        {key:"forest",label:"Perte GFW/UMD",values:forest},
+        {key:"tmax",label:"Tmax moyenne",values:new Map([...weather].map(([year,row])=>[year,row.high]))},
+        {key:"tmin",label:"Tmin moyenne",values:new Map([...weather].map(([year,row])=>[year,row.low]))},
+        {key:"rain",label:"Précipitations",values:new Map([...weather].map(([year,row])=>[year,row.rain]))},
+        {key:"agri",label:"Agricole déclaré",values:agriculture}
+      ];
+      const commonYears=[...forest.keys()].filter(year=>factors.every(factor=>factor.values.has(year)&&Number.isFinite(factor.values.get(year)))).sort((a,b)=>a-b);
+      document.getElementById("relation-period").textContent=commonYears.length?`${commonYears[0]}–${commonYears.at(-1)}`:"—";
+      document.getElementById("relation-years").textContent=fmt.format(commonYears.length);
+      document.getElementById("relation-forest-total").textContent=fmt.format(commonYears.reduce((sum,year)=>sum+forest.get(year),0));
+
+      const commonYearSet=new Set(commonYears);
+      const association=(left,right,restrictToCommon=false)=>{
+        const years=[...left.keys()].filter(year=>(!restrictToCommon||commonYearSet.has(year))&&right.has(year)&&Number.isFinite(left.get(year))&&Number.isFinite(right.get(year))).sort((a,b)=>a-b);
+        return summarizeAssociation(years.map(year=>({x:year,left:left.get(year),right:right.get(year)})));
+      };
+      const fmtMetric=value=>Number.isFinite(value)?fmt.format(value):"—";
+      const baseRelations=[
+        ["tmax",factors[0].values,factors[1].values],
+        ["rain",factors[0].values,factors[3].values],
+        ["agri",factors[0].values,factors[4].values],
+        ["tmin",factors[0].values,factors[2].values]
+      ];
+      for(const [id,left,right] of baseRelations){
+        const stats=association(left,right,true);
+        document.getElementById(`rel-${id}-pearson`).textContent=fmtMetric(stats.pearson);
+        document.getElementById(`rel-${id}-spearman`).textContent=fmtMetric(stats.spearman);
+        document.getElementById(`rel-${id}-detrended`).textContent=fmtMetric(stats.detrended);
+        document.getElementById(`rel-${id}-delta`).textContent=fmtMetric(stats.delta);
+        document.getElementById(`rel-${id}-status`).textContent=`${stats.n} années appariées ; ${stats.deltaN} variations consécutives. Les coefficients bruts et contrôles de tendance peuvent diverger.`;
+      }
+
+      const matrixBody=document.getElementById("relation-matrix-body");
+      matrixBody.innerHTML=factors.map(rowFactor=>{
+        const cells=factors.map(columnFactor=>{
+          if(rowFactor.key===columnFactor.key)return "<td aria-label=\"Même facteur\">—</td>";
+          const stats=association(rowFactor.values,columnFactor.values,true);
+          const value=stats.pearson;
+          const color=!Number.isFinite(value)?"transparent":value>=0
+            ?`rgba(76, 126, 82, ${.08+Math.abs(value)*.22})`
+            :`rgba(184, 117, 75, ${.08+Math.abs(value)*.22})`;
+          return `<td style="background:${color}" title="Pearson r = ${fmtMetric(value)} · n = ${stats.n}">${fmtMetric(value)}</td>`;
+        }).join("");
+        return `<tr><th scope="row">${rowFactor.label}</th>${cells}</tr>`;
+      }).join("");
+
+      const zone=document.getElementById("cross-zone").value;
+      const miningRows=miningCrossRows.filter(row=>row.zone===zone&&Number.isFinite(row.gfw)&&Number.isFinite(row.mine));
+      const mineStats=association(new Map(miningRows.map(row=>[row.year,row.gfw])),new Map(miningRows.map(row=>[row.year,row.mine])));
+      const hasMineData=mineStats.n>=3;
+      const miningCard=document.getElementById("rel-mining-card");
+      miningCard.classList.toggle("relation-unavailable",!hasMineData);
+      document.getElementById("rel-mining-pearson").textContent=hasMineData?fmtMetric(mineStats.pearson):"—";
+      document.getElementById("rel-mining-spearman").textContent=hasMineData?fmtMetric(mineStats.spearman):"—";
+      document.getElementById("rel-mining-detrended").textContent=hasMineData?fmtMetric(mineStats.detrended):"—";
+      document.getElementById("rel-mining-delta").textContent=hasMineData?fmtMetric(mineStats.delta):"—";
+      document.getElementById("rel-mining-status").textContent=hasMineData
+        ?`${mineStats.n} années appariées · ${zone} · comparaison avec la référence Hansen importée. Association descriptive uniquement ; les candidats proches des sites ne prouvent pas un effet minier.`
+        :"Non calculable pour cette zone : chargez un export avec au moins trois années contenant les colonnes Hansen et candidate_loss_within_500m_mines_ha, calculées avec un inventaire daté.";
+      document.getElementById("relation-mining-status").textContent=hasMineData?`${mineStats.n} ans`:"Indisponible";
+    }
+    document.getElementById("cross-zone").addEventListener("change",()=>{renderMiningCross();renderMiningProxy();renderRelations();});
     document.getElementById("cross-upload").addEventListener("change",async event=>{
       const file=event.target.files&&event.target.files[0];
       if(!file)return;
@@ -1141,10 +1355,12 @@
         if(!miningCrossRows.length)throw new Error("Aucune ligne annuelle valide entre 2000 et 2026.");
         renderMiningCross();
         renderMiningProxy();
+        renderRelations();
       }catch(error){
         miningCrossRows=[];
         renderMiningCross();
         renderMiningProxy();
+        renderRelations();
         status.dataset.state="error";
         status.textContent=`Import impossible : ${error.message}`;
       }
@@ -1382,6 +1598,7 @@
       renderMiningGfw();
       renderMiningCross();
       renderMiningProxy();
+      renderRelations();
       document.getElementById("record-length").textContent=`${years[0]}–${years[years.length-1]}`;
     }
     startSelect.addEventListener("change",render);
