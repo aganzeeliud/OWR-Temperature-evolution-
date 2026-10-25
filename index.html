@@ -171,6 +171,15 @@
     .axis-line { stroke: #dce4dc; stroke-width: 1; }
     .empty { fill: var(--muted); font-size: 13px; }
     .chart-note { display: flex; justify-content: space-between; gap: 12px; margin-top: 7px; color: #87948d; font-size: 10px; }
+    .chart-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 7px 14px; margin-top: 9px; padding-top: 8px; border-top: 1px solid #edf1ec; color: #718078; font-size: 10px; }
+    .chart-trend { display: inline-flex; flex: 1 1 380px; min-width: 0; align-items: center; gap: 6px; color: #87523d; font-weight: 700; }
+    .chart-trend::before { width: 16px; border-top: 2px dashed #b8754b; content: ""; }
+    .chart-source { display: inline-flex; flex: 1 1 300px; flex-wrap: wrap; gap: 4px; }
+    .chart-source a { color: #356746; font-weight: 680; text-decoration: underline; text-underline-offset: 2px; }
+    .chart-trend[data-direction="up"] { color: #356746; }
+    .chart-trend[data-direction="up"]::before { border-color: #5c8a60; }
+    .chart-trend[data-direction="down"] { color: #87523d; }
+    .trend-line { fill: none; stroke-dasharray: 6 4; stroke-linecap: round; stroke-width: 2.5; opacity: .95; pointer-events: none; }
     .forest-section { margin-top: 23px; }
     .forest-heading { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 14px; margin-bottom: 15px; }
     .forest-heading h2 { margin: 0; font-size: 22px; font-weight: 690; letter-spacing: -.035em; }
@@ -491,6 +500,7 @@
         </div>
         <div class="chart-wrap trend-chart"><svg id="trend-chart" role="img" aria-label="Graphique annuel des tendances météorologiques"></svg></div>
         <div class="chart-note"><span id="trend-note">Les valeurs annuelles utilisent les relevés journaliers disponibles.</span><span id="trend-units"></span></div>
+        <div class="chart-meta"><span class="chart-trend" id="weather-trend">Tendance linéaire affichée en pointillés</span><span class="chart-source">Sources : <a href="Meteo_owr.csv" download>Meteo_owr.csv</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener noreferrer">Open-Meteo · documentation historique</a></span></div>
       </article>
 
       <article class="panel">
@@ -499,6 +509,7 @@
         </div>
         <div class="chart-wrap season-chart"><svg id="season-chart" role="img" aria-label="Météo moyenne par mois calendaire"></svg></div>
         <div class="chart-note"><span>Barres : précipitations quotidiennes moyennes · Courbes : températures moyennes</span><span>mm/jour</span></div>
+        <div class="chart-meta"><span class="chart-trend" id="season-trend">Profil saisonnier : repères des mois extrêmes</span><span class="chart-source">Sources : <a href="Meteo_owr.csv" download>Meteo_owr.csv</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener noreferrer">Open-Meteo · documentation historique</a></span></div>
       </article>
 
       <article class="panel">
@@ -550,6 +561,7 @@
           </div>
           <div class="chart-wrap forest-chart"><svg id="forest-chart" role="img" aria-label="Perte annuelle de couvert arboré en hectares de 2001 à 2025"></svg></div>
           <div class="chart-note"><span>L’année 2000 définit la référence du couvert ; les observations de perte commencent en 2001.</span><span>ha / an</span></div>
+          <div class="chart-meta"><span class="chart-trend" id="forest-trend">Tendance linéaire affichée en pointillés</span><span class="chart-source">Source : <a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">Global Forest Watch · UMD Tree Cover Loss</a> · <a href="TreeCoverLoss_owr.csv" download>CSV du dépôt</a></span></div>
         </article>
         <article class="panel">
           <div class="panel-head">
@@ -558,6 +570,7 @@
           </div>
           <div class="chart-wrap forest-alert-chart"><svg id="forest-alert-chart" role="img" aria-label="Détections mensuelles d’alertes intégrées de perturbation forestière en 2026"></svg></div>
           <div class="chart-note"><span>Octobre est incomplet ; dernière observation : 4 octobre 2026.</span><span>pixels d’alerte</span></div>
+          <div class="chart-meta"><span class="chart-trend" id="alert-trend">Tendance mensuelle indicative affichée en pointillés</span><span class="chart-source">Sources : <a href="ForestAlerts_2026_owr.csv" download>ForestAlerts_2026_owr.csv</a> · <a href="https://www.globalforestwatch.org/" target="_blank" rel="noopener noreferrer">Global Forest Watch · contexte alertes</a></span></div>
         </article>
       </div>
       <article class="panel" style="margin-top:15px">
@@ -572,6 +585,7 @@
         </div>
         <div class="chart-wrap forest-chart"><svg id="agri-chart" role="img" aria-label="Valeurs annuelles déclarées de perte en zone agricole en hectares de 2001 à 2024"></svg></div>
         <div class="chart-note"><span>Les valeurs reprennent directement la colonne agrégée du CSV ; elles ne sont pas une attribution indépendante à l’agriculture.</span><span>ha / an</span></div>
+        <div class="chart-meta"><span class="chart-trend" id="agri-trend">Tendance linéaire affichée en pointillés</span><span class="chart-source">Source : <a href="Zone%20agricole%20.csv" download>Zone agricole .csv</a> · provenance à confirmer</span></div>
       </article>
       <div class="forest-note" id="data-notes">
         <strong>Interprétation :</strong> La perte de couvert arboré ne signifie pas nécessairement une déforestation permanente. La série annuelle provient du <a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">jeu de données UMD de Global Forest Watch</a> (2001–2025) ; 2000 sert d’année de référence et l’estimation annuelle 2026 n’est pas encore disponible. Le chiffre 2026 provient des alertes intégrées de perturbation (version v20261025) : détections de pixels jusqu’au 4 octobre, et non perte confirmée ou hectares uniques ; des détections répétées sont possibles. Le lien vers la zone Global Nature Watch est fourni à titre de référence. Son polygone n’étant pas exposé dans la réponse publique, l’extraction de surface utilise la <a href="https://www.openstreetmap.org/relation/401017" target="_blank" rel="noopener noreferrer">Réserve de faune à okapis, relation OSM 401017</a>.
@@ -617,6 +631,7 @@
         </div>
         <div class="chart-wrap"><svg id="mining-gfw-chart" role="img" aria-label="Perte annuelle de couvert arboré issue de Global Forest Watch dans la zone de la réserve, de 2001 à 2025"></svg></div>
         <div class="chart-note"><span>Perte totale de référence (2001–2025) : <strong id="mining-gfw-total">—</strong> ha, toutes causes confondues — non attribuable aux mines avec les données actuelles.</span><span>2000 est la référence ; 2026 n’est pas une perte annuelle finalisée.</span></div>
+        <div class="chart-meta"><span class="chart-trend" id="mining-gfw-trend">Tendance linéaire affichée en pointillés</span><span class="chart-source">Sources : <a href="TreeCoverLoss_owr.csv" download>CSV GFW du dépôt</a> · <a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">référence UMD/GFW</a></span></div>
       </article>
       <article class="panel" style="margin-bottom:16px">
         <div class="panel-head">
@@ -630,6 +645,7 @@
         </div>
         <div class="chart-wrap"><svg id="mining-cross-chart" role="img" aria-label="Comparaison par année des valeurs Global Forest Watch, Hansen et des transitions candidates"></svg></div>
         <div class="chart-note"><span>2000 : année de référence. 2026 : transitions optiques candidates seulement ; pas de perte annuelle GFW/Hansen finalisée.</span><span>ha / an</span></div>
+        <div class="chart-meta"><span class="chart-trend" id="cross-trend">Tendances linéaires par série affichées en pointillés</span><span class="chart-source">Sources : <a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">GFW/UMD</a> · <a href="https://developers.google.com/earth-engine/datasets/catalog/UMD_hansen_global_forest_change_2024_v1_12" target="_blank" rel="noopener noreferrer">Hansen v1.12</a> · <a href="earth_engine/okapi_mining_deforestation.js" download>script Earth Engine</a></span></div>
       </article>
       <article class="panel" style="margin-bottom:16px">
         <div class="panel-head">
@@ -640,6 +656,7 @@
         <p id="mine-proxy-status" role="status" aria-live="polite">Non calculable : aucun inventaire minier géolocalisé n’est fourni dans le dépôt. Ajoutez un asset de sites vérifiés au script, exécutez l’export, puis chargez ce CSV.</p>
         <div class="chart-wrap"><svg id="mining-proxy-chart" role="img" aria-label="Estimation annuelle des pertes forestières candidates à moins de 500 mètres des sites miniers actifs, selon la zone sélectionnée"></svg></div>
         <div class="chart-note"><span>Calcul distinct pour la réserve et la couronne externe sélectionnée ci-dessus. 2026 est partiel ; 2000 est la référence.</span><span>ha candidats / an</span></div>
+        <div class="chart-meta"><span class="chart-trend" id="proxy-trend">Tendance indisponible sans export Earth Engine</span><span class="chart-source">Source : <a href="earth_engine/okapi_mining_deforestation.js" download>script Earth Engine</a> · inventaire minier requis et à vérifier</span></div>
       </article>
       <div class="mining-status" role="note">
         <span class="mining-status-icon" aria-hidden="true">↔</span>
@@ -806,6 +823,11 @@
         return year >= from && year <= to;
       });
     }
+    const wettest=monthly.reduce((best,item)=>(item.rain||0)>(best.rain||0)?item:best,monthly[0]);
+    const driest=monthly.reduce((best,item)=>(item.rain||0)<(best.rain||0)?item:best,monthly[0]);
+    const badge=document.getElementById("season-trend");
+    badge.textContent=`Profil saisonnier : pluies max. ${wettest.monthName} · min. ${driest.monthName} (pas une tendance interannuelle)`;
+    badge.dataset.direction="";
     function average(values) {
       const usable = values.filter(Number.isFinite);
       return usable.length ? usable.reduce((sum, value) => sum + value, 0) / usable.length : null;
@@ -816,6 +838,42 @@
     function svgSetup(svg, width, height) {
       svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
       svg.innerHTML = "";
+    }
+    function fitTrend(points) {
+      const valid=points.filter(point=>Number.isFinite(point.x)&&Number.isFinite(point.y));
+      if(valid.length<2)return null;
+      const meanX=valid.reduce((sum,point)=>sum+point.x,0)/valid.length;
+      const meanY=valid.reduce((sum,point)=>sum+point.y,0)/valid.length;
+      const denominator=valid.reduce((sum,point)=>sum+(point.x-meanX)**2,0);
+      if(!denominator)return null;
+      const slope=valid.reduce((sum,point)=>sum+(point.x-meanX)*(point.y-meanY),0)/denominator;
+      const intercept=meanY-slope*meanX;
+      const xs=valid.map(point=>point.x);
+      const startX=Math.min(...xs),endX=Math.max(...xs);
+      return {slope,intercept,startX,endX,change:slope*(endX-startX)};
+    }
+    function drawTrendLine(svg,points,xScale,yScale,color) {
+      const trend=fitTrend(points);
+      if(!trend)return null;
+      const line=svgEl("path",{
+        d:`M${xScale(trend.startX).toFixed(1)},${yScale(trend.intercept+trend.slope*trend.startX).toFixed(1)} L${xScale(trend.endX).toFixed(1)},${yScale(trend.intercept+trend.slope*trend.endX).toFixed(1)}`,
+        class:"trend-line",stroke:color
+      });
+      line.appendChild(svgEl("title",{},`Tendance linéaire descriptive : ${trend.slope>=0?"hausse":"baisse"} de ${fmt.format(Math.abs(trend.slope))} par unité de temps`));
+      svg.appendChild(line);
+      return trend;
+    }
+    function updateTrendBadge(id,points,unit,periodLabel="") {
+      const badge=document.getElementById(id),trend=fitTrend(points);
+      if(!trend){
+        badge.textContent="Tendance non calculable : moins de deux valeurs";
+        badge.dataset.direction="";
+        return;
+      }
+      const direction=trend.change>0?"up":trend.change<0?"down":"flat";
+      const directionLabel=direction==="up"?"hausse":direction==="down"?"baisse":"stable";
+      badge.dataset.direction=direction;
+      badge.textContent=`Tendance linéaire descriptive : ${directionLabel} de ${fmt.format(Math.abs(trend.change))} ${unit} sur ${periodLabel || `${trend.startX}–${trend.endX}`}`;
     }
     function svgEl(name, attrs = {}, text = "") {
       const node = document.createElementNS("http://www.w3.org/2000/svg", name);
@@ -924,6 +982,10 @@
         if(year===2001||year%5===0||year===2025)
           addText(svg,x+bw/2,height-13,String(year),{"text-anchor":"middle"});
       });
+      const points=FOREST_DATA.map(([year,value])=>({x:year,y:value}));
+      const xYear=year=>pad.l+(year-FOREST_DATA[0][0]+.5)*band;
+      drawTrendLine(svg,points,xYear,y,"#754230");
+      updateTrendBadge("mining-gfw-trend",points,"ha/an",`${FOREST_DATA[0][0]}–${FOREST_DATA.at(-1)[0]}`);
     }
     let miningCrossRows = [];
     function parseCsv(text) {
@@ -981,11 +1043,20 @@
         if(year===2000||year%5===0||year===2026)
           addText(svg,center,height-13,String(year),{"text-anchor":"middle"});
       });
+      const crossTrends=[];
       series.forEach((item,index)=>{
         const x=pad.l+index*215;
         svg.appendChild(svgEl("rect",{x,y:15,width:10,height:10,rx:2,fill:item.color}));
         addText(svg,x+16,24,item.label);
+        const points=[...item.values].map(([year,value])=>({x:year,y:value}));
+        const trend=drawTrendLine(svg,points,year=>pad.l+(year-2000+.5)*band,y,item.color);
+        if(trend)crossTrends.push(`${item.label} ${trend.slope>=0?"↗":"↘"} ${fmt.format(Math.abs(trend.slope))} ha/an`);
       });
+      const crossBadge=document.getElementById("cross-trend");
+      crossBadge.textContent=crossTrends.length
+        ?`Tendance linéaire par série : ${crossTrends.join(" · ")}`
+        :"Tendance indisponible : chargez au moins deux années par série.";
+      crossBadge.dataset.direction="";
       const status=document.getElementById("cross-status");
       if(!miningCrossRows.length){
         status.dataset.state="";
@@ -1029,6 +1100,10 @@
         }
         if(year===2000||year%5===0||year===2026)addText(svg,center,height-13,String(year),{"text-anchor":"middle"});
       });
+      const proxyPoints=selected.map(row=>({x:row.year,y:row.mine}));
+      const proxyX=year=>pad.l+(year-2000+.5)*band;
+      drawTrendLine(svg,proxyPoints,proxyX,y,"#754230");
+      updateTrendBadge("proxy-trend",proxyPoints,"ha/an",proxyPoints.length?`${Math.min(...proxyPoints.map(point=>point.x))}–${Math.max(...proxyPoints.map(point=>point.x))}`:"");
       const status=document.getElementById("mine-proxy-status");
       if(!selected.length){
         status.dataset.state="";
@@ -1121,6 +1196,10 @@
         svg.appendChild(bar);
         if(year===2001||year%5===0||year===2025)addText(svg,x+bw/2,height-13,String(year),{"text-anchor":"middle"});
       });
+      const forestPoints=FOREST_DATA.map(([year,value])=>({x:year,y:value}));
+      const forestX=year=>pad.l+(year-FOREST_DATA[0][0]+.5)*band;
+      drawTrendLine(svg,forestPoints,forestX,y,"#87523d");
+      updateTrendBadge("forest-trend",forestPoints,"ha/an",`${FOREST_DATA[0][0]}–${FOREST_DATA.at(-1)[0]}`);
       const agriSvg=document.getElementById("agri-chart"),agriWidth=980,agriHeight=285,agriPad={l:62,r:16,t:16,b:38};
       svgSetup(agriSvg,agriWidth,agriHeight);
       const agriMax=Math.ceil(Math.max(...AGRICULTURE_DATA.map(([,value])=>value))/500)*500;
@@ -1141,6 +1220,10 @@
         agriSvg.appendChild(bar);
         if(year===2001||year%5===0||year===2024)addText(agriSvg,x+agriBw/2,agriHeight-13,String(year),{"text-anchor":"middle"});
       });
+      const agriculturePoints=AGRICULTURE_DATA.map(([year,value])=>({x:year,y:value}));
+      const agricultureX=year=>agriPad.l+(year-AGRICULTURE_DATA[0][0]+.5)*agriBand;
+      drawTrendLine(agriSvg,agriculturePoints,agricultureX,agriY,"#754230");
+      updateTrendBadge("agri-trend",agriculturePoints,"ha/an",`${AGRICULTURE_DATA[0][0]}–${AGRICULTURE_DATA.at(-1)[0]}`);
       const alertSvg=document.getElementById("forest-alert-chart"),aw=500,ah=285,ap={l:54,r:12,t:16,b:38};
       svgSetup(alertSvg,aw,ah);
       const maxAlert=Math.ceil(Math.max(...ALERTS_2026.map(d=>d[1]))/5000)*5000,alertH=ah-ap.t-ap.b,alertW=aw-ap.l-ap.r;
@@ -1154,12 +1237,17 @@
       const alertBand=alertW/ALERTS_2026.length,alertBw=alertBand*.6;
       ALERTS_2026.forEach(([month,count],i)=>{
         const x=ap.l+i*alertBand+(alertBand-alertBw)/2,yy=ay(count);
-        const bar=svgEl("rect",{x,y:yy,width:alertBw,height:ah-ap.b-yy,rx:3,fill:"#c99542",opacity:.86});
+        const peakAlert=count===Math.max(...ALERTS_2026.map(([,monthlyCount])=>monthlyCount));
+        const bar=svgEl("rect",{x,y:yy,width:alertBw,height:ah-ap.b-yy,rx:3,fill:peakAlert?"#a55137":"#c99542",opacity:peakAlert?1:.82});
         bar.appendChild(svgEl("title",{},`${MONTH_LABELS[month] || month} 2026${month==="Oct"?" (jusqu’au 4 octobre)":""} : ${fmt.format(count)} détections intégrées de pixels d’alerte`));
         alertSvg.appendChild(bar);
         addText(alertSvg,x+alertBw/2,ah-13,MONTH_LABELS[month] || month,{"text-anchor":"middle"});
       });
       addText(alertSvg,ap.l-8,ap.t+3,"×1k",{"text-anchor":"end"});
+      const alertPoints=ALERTS_2026.map(([,count],index)=>({x:index,y:count}));
+      const alertX=index=>ap.l+(index+.5)*alertBand;
+      drawTrendLine(alertSvg,alertPoints,alertX,ay,"#754230");
+      updateTrendBadge("alert-trend",alertPoints,"détections/mois","janv.–oct. 2026");
     }
     document.getElementById("download-forest-csv").addEventListener("click",()=>{
       const lines=[
@@ -1208,6 +1296,10 @@
           bar.appendChild(svgEl("title",{},`${d.year} : ${fmt.format(d.rain)} mm cumulés (${d.rainDays} jours mesurés)`));
           svg.appendChild(bar);
         });
+        const rainPoints=annual.filter(d=>Number.isFinite(d.rain)).map(d=>({x:d.year,y:d.rain}));
+        const xYear=year=>x(annual.findIndex(d=>d.year===year));
+        drawTrendLine(svg,rainPoints,xYear,y,"#87523d");
+        updateTrendBadge("weather-trend",rainPoints.map(point=>({x:point.x,y:point.y})),"mm",`${rainPoints[0]?.x}–${rainPoints.at(-1)?.x}`);
         document.getElementById("trend-title").textContent="Cumul annuel des précipitations";
         document.getElementById("trend-subtitle").textContent="Somme des précipitations journalières relevées par année civile";
         document.getElementById("trend-legend").innerHTML=`<span class="key-item"><i class="key-box"></i> Cumul des précipitations</span>`;
@@ -1224,6 +1316,16 @@
           circle.appendChild(svgEl("title",{},`${d.year} · température ${label.toLowerCase()} moyenne : ${fmt.format(d[key])} °C`));
           svg.appendChild(circle);
         });
+        const xYear=year=>x(annual.findIndex(d=>d.year===year));
+        const highPoints=annual.filter(d=>Number.isFinite(d.high)).map(d=>({x:d.year,y:d.high}));
+        const lowPoints=annual.filter(d=>Number.isFinite(d.low)).map(d=>({x:d.year,y:d.low}));
+        const highTrend=drawTrendLine(svg,highPoints,xYear,y,COLORS.high);
+        const lowTrend=drawTrendLine(svg,lowPoints,xYear,y,COLORS.low);
+        const badge=document.getElementById("weather-trend");
+        if(highTrend&&lowTrend){
+          badge.textContent=`Tendance linéaire : Tmax ${highTrend.slope>=0?"↗":"↘"} ${fmt.format(Math.abs(highTrend.slope))} °C/an · Tmin ${lowTrend.slope>=0?"↗":"↘"} ${fmt.format(Math.abs(lowTrend.slope))} °C/an`;
+          badge.dataset.direction=highTrend.slope+lowTrend.slope>=0?"up":"down";
+        }
         document.getElementById("trend-title").textContent="Profil annuel des températures";
         document.getElementById("trend-subtitle").textContent="Moyennes annuelles des températures maximales et minimales quotidiennes";
         document.getElementById("trend-legend").innerHTML=`<span class="key-item"><i class="key-line"></i> Moyenne maximale</span><span class="key-item"><i class="key-line low"></i> Moyenne minimale</span>`;
@@ -1255,7 +1357,8 @@
       monthly.forEach((d,i)=>{
         const val=d.rain, bw=band*.48;
         if(Number.isFinite(val)){
-          const yy=ry(val), bar=svgEl("rect",{x:x(i)-bw/2,y:yy,width:bw,height:height-pad.b-yy,rx:3,fill:COLORS.rain,opacity:.65});
+          const isWettest=val===Math.max(...monthly.map(item=>item.rain||0));
+          const yy=ry(val), bar=svgEl("rect",{x:x(i)-bw/2,y:yy,width:bw,height:height-pad.b-yy,rx:3,fill:isWettest?"#b8754b":COLORS.rain,opacity:isWettest?.95:.65});
           bar.appendChild(svgEl("title",{},`${d.monthName} : ${fmt.format(val)} mm/jour en moyenne`)); svg.appendChild(bar);
         }
         addText(svg,x(i),height-12,d.month,{"text-anchor":"middle"});
