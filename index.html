@@ -841,6 +841,222 @@
       .forest-table th, .forest-table td,
       .mining-record-table th, .mining-record-table td { padding: 9px 10px; }
     }
+    :root {
+      --ink: #1d3028;
+      --muted: #697a6f;
+      --paper: #f4f6f1;
+      --line: #e1e8e0;
+      --forest: #153b2d;
+      --forest-2: #326b4a;
+      --shadow: 0 12px 32px rgba(26, 50, 36, .055);
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 3% 8%, rgba(224, 234, 215, .65), transparent 32rem),
+        radial-gradient(ellipse at 98% 48%, rgba(232, 237, 225, .7), transparent 28rem),
+        #f4f6f1;
+      letter-spacing: 0;
+    }
+    .shell { width: min(1360px, calc(100% - 64px)); }
+    .masthead {
+      background:
+        radial-gradient(ellipse at 84% 5%, rgba(178, 195, 130, .21), transparent 34rem),
+        linear-gradient(122deg, #102d23 0%, #174432 52%, #365b3a 100%);
+    }
+    .topline { min-height: 76px; border-bottom-color: rgba(229, 239, 222, .13); }
+    .brand-logo {
+      width: 118px;
+      height: 61px;
+      padding: 3px;
+      border: 1px solid rgba(255,255,255,.32);
+      border-radius: 10px;
+      box-shadow: 0 5px 16px rgba(5, 25, 16, .12);
+    }
+    .primary-nav { gap: clamp(12px, 1.7vw, 24px); }
+    .primary-nav a { color: #d4e1d5; font-size: 12px; }
+    .primary-nav a:hover { color: #fff; }
+    .data-badge { padding: 8px 12px; background: rgba(7, 28, 21, .3); }
+    .hero { gap: clamp(42px, 7vw, 96px); padding: clamp(54px, 6vw, 82px) 0; }
+    h1 {
+      max-width: 700px;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(42px, 5.4vw, 68px);
+      font-weight: 680;
+      letter-spacing: -.065em;
+      line-height: 1.01;
+    }
+    .intro { max-width: 610px; color: #d4e0d5; font-size: 16px; line-height: 1.75; }
+    .eyebrow { font-size: 10px; letter-spacing: .17em; }
+    .hero-meta { gap: 10px; }
+    .hero-meta span {
+      padding: 8px 11px;
+      border-color: rgba(230, 240, 226, .17);
+      border-radius: 99px;
+      background: rgba(7, 28, 21, .24);
+    }
+    .hero-art {
+      min-height: 300px;
+      border: 1px solid rgba(231, 239, 224, .45);
+      border-radius: 26px;
+      background: linear-gradient(145deg, #fff 5%, #f1f5e9 100%);
+      box-shadow: 0 25px 70px rgba(5, 23, 16, .24);
+    }
+    main { padding-top: 28px; }
+    .section-nav {
+      top: 12px;
+      gap: 4px;
+      margin-bottom: 22px;
+      padding: 7px;
+      border-color: rgba(216, 227, 216, .9);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(29, 51, 37, .09);
+    }
+    .section-nav button {
+      min-height: 43px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: #65766b;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .section-nav button[aria-selected="true"] {
+      background: linear-gradient(135deg, #163c2d, #326647);
+      box-shadow: 0 4px 12px rgba(21, 60, 45, .16);
+      color: #fff;
+    }
+    .section-nav button[aria-selected="true"] .icon { color: #d4dfa6; }
+    .tab-panel {
+      padding: clamp(20px, 2.4vw, 34px);
+      border-color: #e0e8df;
+      border-radius: 22px;
+      background: rgba(251, 252, 249, .9);
+      box-shadow: 0 16px 46px rgba(31, 57, 40, .055);
+    }
+    .tab-panel > .toolbar:first-child {
+      padding-bottom: 18px;
+      border-bottom-color: #e6ece5;
+    }
+    .section-label { color: #728370; font-size: 10px; letter-spacing: .15em; }
+    .toolbar h2, .forest-heading h2 {
+      color: #1d3d2e;
+      font-weight: 680;
+      letter-spacing: -.045em;
+    }
+    .toolbar h2 { font-size: clamp(21px, 2vw, 27px); }
+    .field label { color: #607266; font-size: 10px; letter-spacing: .03em; }
+    select, .cross-controls input[type="file"], .cross-controls select {
+      min-height: 42px;
+      border-color: #d8e2d8;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(30, 54, 39, .025);
+    }
+    select:hover, .cross-controls select:hover { border-color: #aebfae; }
+    .button {
+      min-height: 42px;
+      padding: 9px 15px;
+      border-color: #d2dfd3;
+      border-radius: 10px;
+      background: #f7faf6;
+      font-weight: 700;
+    }
+    .button:hover { border-color: #abc4ad; background: #eff6ee; }
+    .stats, .forest-stats, .agri-stats { gap: 14px; }
+    .stat, .panel, .info-card {
+      border-color: #e1e8e0;
+      border-radius: 17px;
+      box-shadow: 0 7px 24px rgba(29, 53, 39, .045);
+    }
+    .stat {
+      min-height: 148px;
+      padding: 21px;
+      background: linear-gradient(155deg, #fff 35%, #fafcf9);
+    }
+    .stat:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(27, 48, 38, .085); }
+    .stat::before { height: 3px; }
+    .stat-label { max-width: calc(100% - 38px); color: #617267; font-size: 11px; line-height: 1.5; }
+    .stat-value { margin-top: 13px; color: #183c2d; font-size: clamp(25px, 2.5vw, 33px); }
+    .stat-icon { border-color: #e3ebdf; border-radius: 11px; }
+    .stat-detail { color: #7c8a80; line-height: 1.5; }
+    .panel { padding: clamp(18px, 2vw, 27px); }
+    .panel-head { margin-bottom: 14px; }
+    .panel h3, .info-card h3, .relation-card h3 { color: #244735; }
+    .panel h3 { font-size: 15px; letter-spacing: -.015em; }
+    .panel-sub { color: #708075; font-size: 11px; line-height: 1.6; }
+    .conservation-highlight {
+      border-color: #d9e5d5;
+      border-radius: 16px;
+      background: linear-gradient(112deg, #edf4e8, #fbfcf8 72%);
+      box-shadow: 0 5px 18px rgba(30, 62, 42, .035);
+    }
+    .content-grid, .forest-grid { gap: 16px; }
+    .forest-section { margin-top: 8px; }
+    .forest-heading { margin-bottom: 20px; }
+    .forest-heading p:not(.section-label) { color: #64766a; line-height: 1.7; }
+    .forest-note, .quality, .relation-callout, .mining-evidence-note {
+      border-radius: 13px;
+      line-height: 1.75;
+    }
+    .relation-card, .check-card, .mining-period {
+      border-color: #e1e8df;
+      border-radius: 15px;
+      background: #fff;
+      box-shadow: 0 6px 20px rgba(29, 53, 39, .04);
+    }
+    .relation-stat { border-color: #e8eee6; border-radius: 11px; background: #f5f8f3; }
+    .download-item {
+      border-color: #e2eae1;
+      border-radius: 13px;
+      background: linear-gradient(110deg, #fff, #f8faf7);
+      transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .download-item:hover { transform: translateY(-1px); border-color: #cbdacb; box-shadow: 0 7px 18px rgba(29,53,39,.05); }
+    .download-link {
+      min-height: 39px;
+      border-color: #d4e0d2;
+      border-radius: 10px;
+      background: #eff5eb;
+      color: #28583b;
+    }
+    .download-link:hover { background: #e4efdf; }
+    .reference-list li, .process-list li { border-radius: 0 11px 11px 0; line-height: 1.65; }
+    footer { margin-top: 34px; padding: 22px 0 30px; }
+    @media (max-width: 900px) {
+      .shell { width: min(100% - 40px, 1360px); }
+      .hero { gap: 30px; }
+      .section-nav { overflow-x: auto; }
+      .section-nav button { flex: 0 0 auto; }
+    }
+    @media (max-width: 640px) {
+      .shell { width: calc(100% - 28px); }
+      .topline { min-height: 64px; }
+      .brand-logo { width: 96px; height: 50px; }
+      .data-badge { padding: 7px 9px; font-size: 9px; }
+      .hero { gap: 23px; padding: 37px 0 42px; }
+      h1 { max-width: 560px; font-size: clamp(39px, 11vw, 54px); }
+      .intro { font-size: 14px; line-height: 1.7; }
+      .hero-art { min-height: 180px; padding: 17px; border-radius: 19px; }
+      main { padding-top: 15px; }
+      .section-nav { top: 5px; margin: 0 -3px 17px; padding: 6px; }
+      .section-nav button { min-height: 40px; padding: 8px 11px; }
+      .tab-panel { padding: 16px; border-radius: 18px; }
+      .stat { min-height: 112px; padding: 14px; border-radius: 13px; }
+      .stat-value { margin-top: 11px; font-size: 24px; }
+      .stat-icon { top: 11px; right: 11px; width: 30px; height: 30px; }
+      .stat-detail { font-size: 10px; }
+      .panel, .content-grid .panel { padding: 16px 13px 14px; }
+      .chart-wrap { padding: 4px 2px 0; }
+      .download-link { white-space: normal; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      :root { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; }
+    }
   </style>
 </head>
 <body>
