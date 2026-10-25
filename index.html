@@ -1302,6 +1302,110 @@
       .info-grid, #panel-references .info-grid { grid-template-columns: 1fr; }
       .download-item { align-items: start; flex-direction: row; }
     }
+    .section-nav {
+      gap: 4px;
+      padding: 4px;
+      border-color: #dce5da;
+      border-radius: 11px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(35, 58, 41, .045);
+    }
+    .section-nav button {
+      position: relative;
+      min-height: 35px;
+      gap: 7px;
+      padding: 6px 10px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: #637368;
+      font-size: 10px;
+      font-weight: 650;
+      transition: color .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .section-nav button .icon {
+      width: 15px;
+      height: 15px;
+      color: #748a74;
+      stroke-width: 1.7;
+    }
+    .section-nav button:hover {
+      border-color: #e3ebe1;
+      background: #f6f8f4;
+      color: #294d35;
+    }
+    .section-nav button[aria-selected="true"] {
+      border-color: #dce8da;
+      background: #edf4ea;
+      color: #234b34;
+      box-shadow: none;
+    }
+    .section-nav button[aria-selected="true"] .icon { color: #3e704a; }
+    .stat, .panel, .info-card, .relation-card, .check-card, .mining-period,
+    .mining-record-panel, .forest-table-details, .relation-matrix-wrap {
+      border-color: #e0e7de;
+      border-radius: 11px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(35, 58, 41, .035);
+    }
+    .stat {
+      min-height: 104px;
+      border-top: 1px solid #e0e7de;
+      border-left: 3px solid #8ba17a;
+      padding: 12px 13px 10px;
+    }
+    .forest-stats .stat { border-left-color: #b8873c; }
+    .agri-stats .stat { border-left-color: #a96e4c; }
+    .stat::before { display: none; }
+    .stat-label { color: #65756a; font-size: 10px; font-weight: 620; }
+    .stat-value { margin-top: 7px; font-size: clamp(22px, 2vw, 26px); }
+    .stat-icon {
+      top: 9px;
+      right: 9px;
+      width: 26px;
+      height: 26px;
+      border: 1px solid #e2e9df;
+      border-radius: 8px;
+      background: #f4f7f1;
+      color: #537451;
+    }
+    .forest-stats .stat-icon { background: #f8f5eb; color: #8b713f; }
+    .panel, .info-card, .relation-card, .check-card, .mining-period, .mining-record-panel {
+      transition: border-color .16s ease, box-shadow .16s ease;
+    }
+    .panel:hover, .info-card:hover, .relation-card:hover, .check-card:hover,
+    .mining-period:hover, .mining-record-panel:hover {
+      border-color: #cbd9c9;
+      box-shadow: 0 5px 14px rgba(35, 58, 41, .055);
+    }
+    .panel { padding: 14px 15px 12px; }
+    .panel-head { margin-bottom: 7px; }
+    .panel h3, .info-card h3, .relation-card h3 { color: #2d5038; }
+    .card-icon {
+      width: 27px;
+      height: 27px;
+      border: 1px solid #e3ebe0;
+      border-radius: 8px;
+      background: #f3f7f0;
+      color: #4b714d;
+    }
+    .card-icon .icon { width: 15px; height: 15px; stroke-width: 1.7; }
+    .info-card { padding: 14px; }
+    .info-card h3 { gap: 8px; font-size: 12px; }
+    .relation-card, .check-card { padding: 12px; }
+    .relation-card h3, .check-card strong { font-size: 11px; }
+    .mining-period { padding: 12px; }
+    .mining-record-panel { overflow: hidden; }
+    .mining-evidence .panel { padding: 13px 14px 11px; }
+    .chart-wrap { border-color: #e9eee7; background: #fff; }
+    .stat:hover, .info-card:hover { transform: none; }
+    @media (max-width: 640px) {
+      .section-nav { gap: 3px; }
+      .section-nav button { min-height: 33px; gap: 5px; padding: 5px 8px; }
+      .section-nav button .icon { width: 14px; height: 14px; }
+      .stat { min-height: 91px; padding: 10px; }
+      .stat-value { font-size: 21px; }
+      .panel { padding: 12px 10px; }
+    }
   </style>
 </head>
 <body>
