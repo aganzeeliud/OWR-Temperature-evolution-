@@ -1826,16 +1826,16 @@
       </article>
       <article class="panel" style="margin-bottom:16px">
         <div class="panel-head">
-          <div><h3><span class="card-icon"><svg class="icon"><use href="#i-satellite"/></svg></span>Comparaison croisée · GFW et télédétection</h3><p class="panel-sub">Perte GFW/UMD du dépôt face aux transitions candidates et à la référence Hansen exportées par Earth Engine</p></div>
+          <div><h3><span class="card-icon"><svg class="icon"><use href="#i-satellite"/></svg></span>Comparaison croisée · GFW et télédétection</h3><p class="panel-sub">Par défaut : perte GFW/UMD et perte Hansen à proximité des sites IPIS historiques ; un export Earth Engine ajoute les séries par zone.</p></div>
           <span class="forest-tag">2000–2026 · hectares</span>
         </div>
         <div class="cross-controls">
           <label for="cross-upload">Charger l’export Earth Engine (CSV)<input id="cross-upload" type="file" accept=".csv,text/csv"></label>
           <label for="cross-zone">Zone à comparer<select id="cross-zone"><option value="Reserve">Réserve</option><option value="Buffer_0_10km">Couronne externe · 0–10 km</option></select></label>
-          <p id="cross-status" role="status" aria-live="polite">La série GFW du dépôt est affichée. Chargez l’export Earth Engine pour ajouter les séries optique et Hansen par zone.</p>
+          <p id="cross-status" role="status" aria-live="polite">Les séries locales GFW/UMD et Hansen à proximité des sites IPIS historiques sont affichées. Les séries optiques candidates et Hansen sur toute la zone nécessitent un export Earth Engine.</p>
         </div>
         <div class="chart-wrap"><svg id="mining-cross-chart" role="img" aria-label="Comparaison par année des valeurs Global Forest Watch, Hansen et des transitions candidates"></svg></div>
-        <div class="chart-note"><span>Couleurs : séries indiquées dans la légende du graphique. Pointillés : tendance linéaire descriptive propre à chaque série. 2000 : référence ; 2026 : transitions candidates seulement.</span><span>ha / an</span></div>
+        <div class="chart-note"><span>Les séries GFW de la réserve, Hansen à proximité des sites IPIS (500 m) et les exports par zone ont des emprises différentes ; ne les interprétez pas comme des mesures équivalentes. Pointillés : tendances descriptives.</span><span>ha / an</span></div>
         <div class="chart-meta"><span class="chart-trend" id="cross-trend">Tendances linéaires par série affichées en pointillés</span><span class="chart-source">Sources : <a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">GFW/UMD</a> · <a href="https://developers.google.com/earth-engine/datasets/catalog/UMD_hansen_global_forest_change_2024_v1_12" target="_blank" rel="noopener noreferrer">Hansen v1.12</a> · <a href="earth_engine/mining_forest_change.js" download>script Earth Engine</a></span></div>
       </article>
       <article class="panel" style="margin-bottom:16px">
@@ -2618,10 +2618,15 @@
       const selected=miningCrossRows.filter(row=>row.zone===zone);
       const byYear=new Map(selected.map(row=>[row.year,row]));
       const gfw=zone==="Reserve"?new Map(FOREST_DATA):new Map();
+      const uploadedHansen=new Map(selected.filter(row=>Number.isFinite(row.gfw)).map(row=>[row.year,row.gfw]));
+      const hasUploadedHansen=uploadedHansen.size>0;
+      const proximityHansen=new Map(MINING_DATA.proximity
+        .filter(row=>row.zone===zone)
+        .map(row=>[Number(row.year),Number(row.hansen_loss_ha)]));
       const series=[
         {key:"gfw",label:"GFW · dépôt",color:"#9aa96b",values:gfw},
-        {key:"hansen",label:"GFW/Hansen v1.12 · export",color:"#4c8790",
-          values:new Map(selected.filter(row=>Number.isFinite(row.gfw)).map(row=>[row.year,row.gfw]))},
+        {key:"hansen",label:hasUploadedHansen?"Hansen · zone entière":"Hansen · ≤500 m des sites IPIS",color:"#4c8790",
+          values:hasUploadedHansen?uploadedHansen:proximityHansen},
         {key:"candidate",label:"Transitions optiques candidates",color:"#b8754b",
           values:new Map(selected.filter(row=>Number.isFinite(row.candidate)).map(row=>[row.year,row.candidate]))}
       ];
@@ -2668,7 +2673,9 @@
       const status=document.getElementById("cross-status");
       if(!miningCrossRows.length){
         status.dataset.state="";
-        status.textContent="La série GFW du dépôt est affichée pour la réserve (2001–2025). Chargez l’export Earth Engine pour ajouter les séries optique et Hansen.";
+        status.textContent=zone==="Reserve"
+          ?"Données locales affichées : GFW/UMD pour toute la réserve (2001–2025) et Hansen v1.12 à moins de 500 m des sites IPIS historiques (2001–2024). Les transitions optiques candidates et la comparaison Hansen sur toute la zone nécessitent un export Earth Engine, non inclus dans le dépôt."
+          :"Donnée locale affichée : Hansen v1.12 à moins de 500 m des sites IPIS historiques dans la couronne externe (2001–2024). Le CSV GFW du dépôt couvre uniquement la réserve ; les séries optiques et Hansen pour toute la couronne nécessitent un export Earth Engine, non inclus dans le dépôt.";
       }else if(!byYear.size){
         status.dataset.state="error";
         status.textContent=`Aucune ligne pour la zone « ${zone} » dans le CSV. Vérifiez qu’il s’agit de l’export Okapi (colonnes year, zone, candidate_forest_loss_ha et gfw_hansen_v1_12_loss_ha).`;
@@ -2682,9 +2689,10 @@
     function renderMiningProxy() {
       const svg=document.getElementById("mining-proxy-chart");
       const zone=document.getElementById("cross-zone").value;
-      const hasUploadedProxy=miningCrossRows.some(row=>Number.isFinite(row.mine));
+      const uploadedProxyRows=miningCrossRows.filter(row=>row.zone===zone&&Number.isFinite(row.mine));
+      const hasUploadedProxy=uploadedProxyRows.length>0;
       const selected=hasUploadedProxy
-        ?miningCrossRows.filter(row=>row.zone===zone&&Number.isFinite(row.mine))
+        ?uploadedProxyRows
         :MINING_DATA.proximity.filter(row=>row.zone===zone).map(row=>({
           year:Number(row.year),
           zone:row.zone,
