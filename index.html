@@ -159,13 +159,13 @@
     .panel-sub { margin: 4px 0 0; color: var(--muted); font-size: 11px; }
     .chart-key { display: flex; flex-wrap: wrap; gap: 12px; padding: 1px 0 0; color: var(--muted); font-size: 10px; white-space: nowrap; }
     .key-item { display: inline-flex; align-items: center; gap: 6px; }
-    .key-line { width: 16px; height: 2px; border-radius: 2px; background: var(--teal); }
-    .key-line.low { background: var(--blue); }
-    .key-box { width: 9px; height: 9px; border-radius: 2px; background: var(--gold); }
-    .key-bar { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 2px; background: var(--leaf); }
-    .key-bar.alert { background: var(--gold); }
-    .key-bar.agriculture { background: var(--earth); }
-    .key-bar.gfw { background: #83a06a; }
+    .key-line { width: 16px; height: 2px; border-radius: 2px; background: #28776e; }
+    .key-line.low { background: #4c8790; }
+    .key-box { width: 9px; height: 9px; border-radius: 2px; background: #c99542; }
+    .key-bar { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 2px; background: #83a06a; }
+    .key-bar.alert { background: #c99542; }
+    .key-bar.agriculture { background: #b8754b; }
+    .key-bar.gfw { background: #9aa96b; }
     .key-bar.proxy { background: #b8754b; }
     .key-trend { width: 17px; flex: 0 0 auto; border-top: 2px dashed #87523d; }
     .chart-wrap { width: 100%; overflow: hidden; }
@@ -834,6 +834,23 @@
     .relation-matrix tbody th { background: #f8faf7; }
     .relation-matrix tbody tr:hover th { background: #eef4eb; }
     .relation-matrix td { font-variant-numeric: tabular-nums; }
+    .table-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px 16px;
+      padding: 10px 14px 12px;
+      border-top: 1px solid #edf1ec;
+      background: #fbfcfa;
+      color: #65756a;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+    .table-legend span { display: inline-flex; align-items: baseline; gap: 5px; }
+    .table-legend b { color: #31563e; }
+    .relation-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 15px; padding-top: 8px; line-height: 1.6; }
+    .legend-swatch { display: inline-block; width: 11px; height: 11px; border: 1px solid rgba(53,80,58,.12); border-radius: 3px; vertical-align: -2px; }
+    .legend-swatch.positive { background: rgba(76,126,82,.28); }
+    .legend-swatch.negative { background: rgba(184,117,75,.28); }
     @media (max-width: 640px) {
       .chart-wrap { padding: 5px 3px 0; border-radius: 10px; }
       .table-scroll { max-height: 340px; }
@@ -1173,9 +1190,9 @@
         <div class="panel-head">
           <div><h3><span class="card-icon"><svg class="icon"><use href="#i-rain"/></svg></span>Rythme saisonnier</h3><p class="panel-sub">Moyenne par mois calendaire pour les années sélectionnées</p></div>
           <div class="chart-key" aria-label="Légende du graphique saisonnier">
-            <span class="key-item"><i class="key-bar alert"></i>Précipitations moyennes</span>
-            <span class="key-item"><i class="key-line"></i>Tmax</span>
-            <span class="key-item"><i class="key-line low"></i>Tmin</span>
+            <span class="key-item"><i class="key-bar alert"></i>Pluie moyenne (mm/jour)</span>
+            <span class="key-item"><i class="key-line"></i>Tmax moyenne (°C)</span>
+            <span class="key-item"><i class="key-line low"></i>Tmin moyenne (°C)</span>
           </div>
         </div>
         <div class="chart-wrap season-chart"><svg id="season-chart" role="img" aria-label="Météo moyenne par mois calendaire"></svg></div>
@@ -1233,7 +1250,7 @@
         <article class="panel">
           <div class="panel-head">
             <div><h3><span class="card-icon"><svg class="icon"><use href="#i-tree"/></svg></span>Perte annuelle de couvert arboré</h3><p class="panel-sub">Surface de perte détectée par année · seuil de couvert de référence ≥ 30 %</p></div>
-            <div><span class="forest-tag">Série annuelle jusqu’en 2025</span><div class="chart-key" aria-label="Légende du graphique forestier"><span class="key-item"><i class="key-bar"></i>Perte annuelle</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire</span></div></div>
+            <div><span class="forest-tag">Série annuelle jusqu’en 2025</span><div class="chart-key" aria-label="Légende du graphique forestier"><span class="key-item"><i class="key-bar"></i>Perte de couvert (ha/an)</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire descriptive</span></div></div>
           </div>
           <div class="chart-wrap forest-chart"><svg id="forest-chart" role="img" aria-label="Perte annuelle de couvert arboré en hectares de 2001 à 2025"></svg></div>
           <div class="chart-note"><span>L’année 2000 définit la référence du couvert ; les observations de perte commencent en 2001.</span><span>ha / an</span></div>
@@ -1242,7 +1259,7 @@
         <article class="panel">
           <div class="panel-head">
             <div><h3><span class="card-icon"><svg class="icon"><use href="#i-satellite"/></svg></span>Alertes de perturbation en 2026</h3><p class="panel-sub">Pixels d’alerte satellitaire intégrés, par mois d’observation</p></div>
-            <div><span class="forest-tag">Provisoire</span><div class="chart-key" aria-label="Légende du graphique d’alertes"><span class="key-item"><i class="key-bar alert"></i>Détections mensuelles</span><span class="key-item"><i class="key-trend"></i>Tendance indicative</span></div></div>
+            <div><span class="forest-tag">Provisoire</span><div class="chart-key" aria-label="Légende du graphique d’alertes"><span class="key-item"><i class="key-bar alert"></i>Pixels détectés (nombre/mois)</span><span class="key-item"><i class="key-trend"></i>Tendance indicative</span></div></div>
           </div>
           <div class="chart-wrap forest-alert-chart"><svg id="forest-alert-chart" role="img" aria-label="Détections mensuelles d’alertes intégrées de perturbation forestière en 2026"></svg></div>
           <div class="chart-note"><span>Octobre est incomplet ; dernière observation : 4 octobre 2026.</span><span>pixels d’alerte</span></div>
@@ -1259,7 +1276,7 @@
           <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span><div class="stat-label">Valeur annuelle maximale</div><div class="stat-value" id="agri-peak">—</div><div class="stat-detail" id="agri-peak-year">Dans la série fournie</div></article>
           <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span><div class="stat-label">Dernière année disponible</div><div class="stat-value" id="agri-latest">—</div><div class="stat-detail">2024 · hectares indiqués</div></article>
         </div>
-        <div class="chart-key" aria-label="Légende du graphique agricole"><span class="key-item"><i class="key-bar agriculture"></i>Valeur annuelle déclarée</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire</span></div>
+        <div class="chart-key" aria-label="Légende du graphique agricole"><span class="key-item"><i class="key-bar agriculture"></i>Valeur déclarée (ha/an)</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire descriptive</span></div>
         <div class="chart-wrap forest-chart"><svg id="agri-chart" role="img" aria-label="Valeurs annuelles déclarées de perte en zone agricole en hectares de 2001 à 2024"></svg></div>
         <div class="chart-note"><span>Les valeurs reprennent directement la colonne agrégée du CSV ; elles ne sont pas une attribution indépendante à l’agriculture.</span><span>ha / an</span></div>
         <div class="chart-meta"><span class="chart-trend" id="agri-trend">Tendance linéaire affichée en pointillés</span><span class="chart-source">Source : <a href="data/forest/Zone%20agricole%20.csv" download>Zone agricole .csv</a> · provenance à confirmer</span></div>
@@ -1279,6 +1296,7 @@
             <tbody id="forest-table-body"></tbody>
           </table>
         </div>
+        <div class="table-legend" aria-label="Légende du tableau forestier"><span><b>ha</b> hectares de perte pour l’année</span><span><b>—</b> donnée non disponible ou hors période</span><span><b>2000</b> année de référence, pas une perte mesurée</span><span><b>2026</b> alertes provisoires, octobre partiel</span></div>
       </details>
     </section>
     </section>
@@ -1319,7 +1337,7 @@
           <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span><div class="stat-label">Dernière visite IPIS localisée</div><div class="stat-value" id="mining-ipis-latest">—</div><div class="stat-detail">Observation historique, pas un statut actuel</div></article>
         </div>
         <article class="panel">
-          <div class="panel-head"><div><h3>Dates consignées dans les sources</h3><p class="panel-sub">Octrois PE/PEPM au registre du 30 septembre 2026 et visites IPIS de sites dans la zone</p></div><div class="chart-key" aria-label="Légende des dates minières"><span class="key-item"><i class="key-bar gfw"></i>Octrois PE/PEPM au registre CAMI</span><span class="key-item"><i class="key-bar agriculture"></i>Fiches de visite IPIS</span></div></div>
+          <div class="panel-head"><div><h3>Dates consignées dans les sources</h3><p class="panel-sub">Octrois PE/PEPM au registre du 30 septembre 2026 et visites IPIS de sites dans la zone</p></div><div class="chart-key" aria-label="Légende des dates minières"><span class="key-item"><i class="key-bar gfw"></i>Octrois CAMI (titres/an)</span><span class="key-item"><i class="key-bar agriculture"></i>Visites IPIS (fiches/an)</span></div></div>
           <div class="chart-wrap"><svg id="mining-evidence-chart" role="img" aria-label="Nombre d’entrées PE ou PEPM du registre CAMI par année d’octroi et de fiches IPIS par année de visite, de 2000 à 2026"></svg></div>
           <div class="chart-note"><span>Événements consignés dans les extractions publiques, pas un recensement annuel des mines en activité.</span><span>enregistrements / an</span></div>
         </article>
@@ -1328,11 +1346,13 @@
             <h4>Polygones et demande CAMI recoupant la limite OSM</h4>
             <p>Type et statut cartographiques sont rapprochés du registre officiel du 30 septembre 2026. Les statuts publiés sont reproduits sans conclure à la validité juridique ou à l’activité effective.</p>
             <div class="table-scroll"><table class="mining-record-table"><caption>Snapshot cartographique CAMI et registre officiel du 30 septembre 2026 · chaque géométrie intersecte la relation OSM 401017 ; le périmètre n’est pas une limite juridique vérifiée.</caption><thead><tr><th scope="col">Code</th><th scope="col">Type carte</th><th scope="col">Titulaire</th><th scope="col">Statut carte</th><th scope="col">Nature registre</th><th scope="col">Statut registre</th><th scope="col">Demande / octroi</th><th scope="col">Échéance registre</th><th scope="col">Substances</th></tr></thead><tbody id="mining-license-body"></tbody></table></div>
+            <div class="table-legend" aria-label="Légende du tableau CAMI"><span><b>Type/statut carte</b>attributs de la couche cartographique</span><span><b>Nature/statut registre</b>recoupement documentaire officiel</span><span><b>PE / PEPM</b>permis d’exploitation / petite mine</span><span><b>PR</b>permis de recherche, distinct d’une exploitation</span></div>
           </article>
           <article class="mining-record-panel">
             <h4>Sites artisanaux avec fiche IPIS</h4>
             <p>Les sites sont dédupliqués par code IPIS ; la dernière date correspond à la dernière visite trouvée dans l’export, pas à la dernière activité minière.</p>
             <div class="table-scroll"><table class="mining-record-table"><caption>Sites IPIS localisés dans la zone · dates de visite et précision des coordonnées selon l’export source.</caption><thead><tr><th scope="col">Site · code</th><th scope="col">Minerais</th><th scope="col">Visites</th><th scope="col">Localisation</th></tr></thead><tbody id="mining-site-body"></tbody></table></div>
+            <div class="table-legend" aria-label="Légende du tableau des sites IPIS"><span><b>Site · code</b>site distinct regroupé par code IPIS</span><span><b>Visites</b>fiches trouvées, pas durée d’activité</span><span><b>Localisation</b>précision de la source, parfois approximative</span></div>
           </article>
         </div>
         <article class="mining-record-panel">
@@ -1340,13 +1360,14 @@
           <p>Recherche par nom dans le <a href="https://www.miningdatawarehouse.cd/operateur/all" target="_blank" rel="noopener noreferrer">registre des opérateurs présenté par le CTCPM</a>. Une correspondance de nom n’est pas une validation du statut juridique ou des titres CAMI ; l’absence de résultat exact ne prouve pas l’absence d’enregistrement.</p>
           <p id="mining-operator-summary"></p>
           <div class="table-scroll"><table class="mining-record-table"><caption id="mining-operator-caption">Province et statut tels qu’affichés dans les profils du registre Mining Data Warehouse.</caption><thead><tr><th scope="col">Titulaire CAMI</th><th scope="col">Opérateur du registre</th><th scope="col">Statut MDW</th><th scope="col">Province MDW</th><th scope="col">Catégorie</th></tr></thead><tbody id="mining-operator-body"></tbody></table></div>
+          <div class="table-legend" aria-label="Légende du tableau des opérateurs"><span><b>Opérateur</b>correspondance exacte du nom normalisé</span><span><b>Statut/province</b>informations du profil MDW</span><span><b>Aucun résultat exact</b>ne prouve pas l’absence de l’opérateur</span></div>
         </article>
         <p class="mining-evidence-note">Périmètre spatial : relation <a href="https://www.openstreetmap.org/relation/401017" target="_blank" rel="noopener noreferrer">OpenStreetMap 401017</a>, utilisée comme approximation et non comme limite juridique validée. Les données IPIS sont un inventaire de visites non exhaustif : cet extrait contient des observations localisées de 2010 à 2021, aucune observation à l’intérieur de la zone après 2021. CAMI publie un instantané de droits/demandes ; il ne donne pas ici un historique complet des titres expirés ou retirés, et les couches d’exploration protégées par authentification ne sont pas incluses. Neuf polygones figurent dans les couches cartographiques d’exploitation ; le <a href="https://cami.cd/wp-content/uploads/2026/10/REGISTRE-DES-DROITS-MINIERS-ET-DE-CARRIERES-ACTIFS-EN-DATE-DU-30-SEPT-2026.pdf" target="_blank" rel="noopener noreferrer">registre officiel au 30 septembre 2026</a> classe huit codes comme PE/PEPM et le code 15766 comme PR en transformation vers PEPM (statut différent de celui de la carte). Le registre classe aussi le code 7657 « Actif en Déchéance pour Non Commencement » ; les codes 8348 et 8350 ont une échéance en juin 2025 tout en portant le statut « Actif en Force Majeure ». Ces libellés et dates sont reproduits à titre documentaire, sans avis sur leur validité juridique. Les dates d’octroi et de visite ne prouvent pas l’exploitation réelle. Les extractions ne permettent donc pas de conclure sur une activité continue pour toutes les années 2000–2026. Sources : <a href="https://ipisresearch.be/home/maps-data/open-data/" target="_blank" rel="noopener noreferrer">IPIS Open Data</a> · <a href="https://drclicences.cami.cd/EN/" target="_blank" rel="noopener noreferrer">CAMI Mining Cadastre</a>.</p>
       </section>
       <article class="panel" style="margin-bottom:16px">
         <div class="panel-head">
           <div><h3><span class="card-icon"><svg class="icon"><use href="#i-tree"/></svg></span>Référence Global Forest Watch · perte annuelle du couvert</h3><p class="panel-sub">Export TreeCoverLoss_owr.csv · zone de réserve approximée par la relation OSM 401017</p></div>
-          <div><span class="chart-key" aria-label="Légende du graphique GFW"><span class="key-item"><i class="key-bar gfw"></i>Perte annuelle GFW/UMD</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire</span></span><a class="download-link" href="data/forest/TreeCoverLoss_owr.csv" download>Télécharger les valeurs</a></div>
+          <div><span class="chart-key" aria-label="Légende du graphique GFW"><span class="key-item"><i class="key-bar gfw"></i>Perte annuelle (ha/an)</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire descriptive</span></span><a class="download-link" href="data/forest/TreeCoverLoss_owr.csv" download>Télécharger les valeurs</a></div>
         </div>
         <div class="chart-wrap"><svg id="mining-gfw-chart" role="img" aria-label="Perte annuelle de couvert arboré issue de Global Forest Watch dans la zone de la réserve, de 2001 à 2025"></svg></div>
         <div class="chart-note"><span>Perte totale de référence (2001–2025) : <strong id="mining-gfw-total">—</strong> ha, toutes causes confondues — non attribuable aux mines avec les données actuelles.</span><span>2000 est la référence ; 2026 n’est pas une perte annuelle finalisée.</span></div>
@@ -1363,13 +1384,13 @@
           <p id="cross-status" role="status" aria-live="polite">La série GFW du dépôt est affichée. Chargez l’export Earth Engine pour ajouter les séries optique et Hansen par zone.</p>
         </div>
         <div class="chart-wrap"><svg id="mining-cross-chart" role="img" aria-label="Comparaison par année des valeurs Global Forest Watch, Hansen et des transitions candidates"></svg></div>
-        <div class="chart-note"><span>2000 : année de référence. 2026 : transitions optiques candidates seulement ; pas de perte annuelle GFW/Hansen finalisée.</span><span>ha / an</span></div>
+        <div class="chart-note"><span>Couleurs : séries indiquées dans la légende du graphique. Pointillés : tendance linéaire descriptive propre à chaque série. 2000 : référence ; 2026 : transitions candidates seulement.</span><span>ha / an</span></div>
         <div class="chart-meta"><span class="chart-trend" id="cross-trend">Tendances linéaires par série affichées en pointillés</span><span class="chart-source">Sources : <a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">GFW/UMD</a> · <a href="https://developers.google.com/earth-engine/datasets/catalog/UMD_hansen_global_forest_change_2024_v1_12" target="_blank" rel="noopener noreferrer">Hansen v1.12</a> · <a href="earth_engine/mining_forest_change.js" download>script Earth Engine</a></span></div>
       </article>
       <article class="panel" style="margin-bottom:16px">
         <div class="panel-head">
           <div><h3><span class="card-icon"><svg class="icon"><use href="#i-pin"/></svg></span>Estimation préliminaire près des sites miniers</h3><p class="panel-sub">Perte forestière GFW/Hansen à moins de 500 m des localisations IPIS historiques, sans filtre annuel d’activité</p></div>
-          <div><span class="forest-tag">Proxy spatial · non causal</span><div class="chart-key" aria-label="Légende du graphique de proximité minière"><span class="key-item"><i class="key-bar proxy"></i>Perte GFW/Hansen à proximité</span><span class="key-item"><i class="key-trend"></i>Tendance descriptive</span></div></div>
+          <div><span class="forest-tag">Proxy spatial · non causal</span><div class="chart-key" aria-label="Légende du graphique de proximité minière"><span class="key-item"><i class="key-bar proxy"></i>Perte près des sites (ha/an)</span><span class="key-item"><i class="key-trend"></i>Tendance descriptive</span></div></div>
         </div>
         <p class="panel-sub" style="margin:0 0 8px">Dépistage pré-calculé sur la perte annuelle UMD/Hansen v1.12 (couvert arboré 2000 ≥ 30 %), 2001–2024. Les points IPIS ont des dates de visite mais pas de périodes d’activité validées : le calcul montre une proximité spatiale, pas des sites actifs chaque année, ni une cause minière.</p>
         <p id="mine-proxy-status" role="status" aria-live="polite">Chargement du dépistage de proximité Hansen…</p>
@@ -1574,7 +1595,7 @@
           <thead><tr><th scope="col">Facteur</th><th scope="col">Perte GFW/UMD</th><th scope="col">Tmax</th><th scope="col">Tmin</th><th scope="col">Précipitations</th><th scope="col">Agricole déclaré</th></tr></thead>
           <tbody id="relation-matrix-body"></tbody>
         </table>
-        <div class="relation-legend">Les coefficients varient de −1 à +1 ; la couleur indique la direction et l’intensité de la corrélation linéaire brute. Une association proche de zéro n’exclut pas une relation non linéaire.</div>
+        <div class="relation-legend" aria-label="Légende du tableau de corrélation"><span><i class="legend-swatch positive"></i> Vert : association positive</span><span><i class="legend-swatch negative"></i> Terre : association négative</span><span><strong>Couleur plus soutenue</strong> : coefficient plus éloigné de zéro</span><span><strong>—</strong> : même facteur sur la diagonale ou valeur non calculable</span><span>r varie de −1 à +1 ; une association proche de zéro n’exclut pas une relation non linéaire.</span></div>
       </div>
       <div class="info-grid relation-sources">
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-shield"/></svg></span>Limites d’interprétation</h3>
@@ -2468,7 +2489,7 @@
         updateTrendBadge("weather-trend",rainPoints.map(point=>({x:point.x,y:point.y})),"mm",`${rainPoints[0]?.x}–${rainPoints.at(-1)?.x}`);
         document.getElementById("trend-title").textContent="Cumul annuel des précipitations";
         document.getElementById("trend-subtitle").textContent="Somme des précipitations journalières relevées par année civile";
-        document.getElementById("trend-legend").innerHTML=`<span class="key-item"><i class="key-box"></i>Cumul des précipitations</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire</span>`;
+        document.getElementById("trend-legend").innerHTML=`<span class="key-item"><i class="key-box"></i>Précipitations cumulées (mm/an)</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire descriptive</span>`;
         document.getElementById("trend-note").textContent="Le cumul annuel utilise les jours avec données ; les lacunes peuvent entraîner une sous-estimation.";
         document.getElementById("trend-units").textContent="mm / an";
       } else {
@@ -2494,7 +2515,7 @@
         }
         document.getElementById("trend-title").textContent="Profil annuel des températures";
         document.getElementById("trend-subtitle").textContent="Moyennes annuelles des températures maximales et minimales quotidiennes";
-        document.getElementById("trend-legend").innerHTML=`<span class="key-item"><i class="key-line"></i>Moyenne maximale</span><span class="key-item"><i class="key-line low"></i>Moyenne minimale</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire</span>`;
+        document.getElementById("trend-legend").innerHTML=`<span class="key-item"><i class="key-line"></i>Tmax moyenne (°C)</span><span class="key-item"><i class="key-line low"></i>Tmin moyenne (°C)</span><span class="key-item"><i class="key-trend"></i>Tendance linéaire descriptive</span>`;
         document.getElementById("trend-note").textContent="Les moyennes annuelles excluent les valeurs journalières manquantes.";
         document.getElementById("trend-units").textContent="°C";
       }
