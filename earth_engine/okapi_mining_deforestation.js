@@ -283,7 +283,14 @@ function makeAnnualRows(year) {
         0,
         mineStats.get('candidate_area_m2')
       )).divide(10000);
-      properties = properties.set('candidate_loss_within_500m_mines_ha', mineHectares)
+      properties = properties.set('candidate_loss_within_500m_mines_ha',
+        ee.Algorithms.If(
+          activeSites.size().gt(0)
+            .and(year.gt(CONFIG.firstYear))
+            .and(ee.Number(image.get('scene_count')).gt(0)),
+          mineHectares,
+          null
+        ))
         .set('active_mining_site_count', activeSites.size())
         .set('mining_inventory_status', ee.Algorithms.If(
           activeSites.size().gt(0),

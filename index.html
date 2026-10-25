@@ -22,6 +22,22 @@
       --blue: #638dac;
       --shadow: 0 12px 32px rgba(27, 48, 38, .06);
     }
+    .icon-library { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .icon { display: block; width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    :root {
+      --ink: #1d3028;
+      --muted: #66776d;
+      --paper: #f0f4ef;
+      --card: #fff;
+      --line: #dfe8dd;
+      --forest: #153b30;
+      --forest-2: #286044;
+      --teal: #14766d;
+      --mint: #cce5d3;
+      --gold: #d5a148;
+      --blue: #638dac;
+      --shadow: 0 12px 32px rgba(27,48,38,.055);
+    }
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -235,6 +251,72 @@
     }
     .quality-icon { flex: 0 0 auto; color: #a47a32; font-size: 15px; }
     .quality strong { color: #425448; }
+    .brand-mark .icon { width: 20px; height: 20px; }
+    .hero-meta .icon { width: 14px; height: 14px; color: #c4d69f; }
+    body { background: radial-gradient(ellipse at 12% 14%, #f8faf7 0, transparent 37%), var(--paper); }
+    .masthead { background: radial-gradient(ellipse at 83% 4%, rgba(115,159,106,.25), transparent 35%), linear-gradient(125deg,#102f28 0%,#174534 58%,#285a40 100%); }
+    .hero { gap: 56px; padding-top: 52px; padding-bottom: 56px; }
+    .hero-art { min-height: 292px; border-radius: 28px; box-shadow: 0 24px 60px rgba(5,28,18,.24); }
+    main { padding-top: 31px; }
+    .section-nav { padding: 8px; border-color: #dce6db; border-radius: 16px; box-shadow: 0 10px 28px rgba(29,48,43,.075); }
+    .section-nav button { min-height: 42px; padding: 10px 15px; }
+    .toolbar { margin-bottom: 20px; }
+    .toolbar h2, .forest-heading h2 { letter-spacing: -.04em; }
+    .stat, .panel, .info-card { border-radius: 18px; }
+    .stat { min-height: 149px; padding: 21px; }
+    .stat-value { font-size: 32px; }
+    .panel { padding: 24px 25px 20px; }
+    .forest-section { margin-top: 29px; }
+    .forest-heading { margin-bottom: 17px; }
+    .forest-stats { gap: 14px; }
+    .forest-note { border-radius: 14px; line-height: 1.7; }
+    .card-icon { width: 34px; height: 34px; }
+    .panel-head h3 .card-icon { width: 31px; height: 31px; }
+    .panel-head h3 .card-icon .icon { width: 17px; height: 17px; }
+    .section-nav button { display: inline-flex; align-items: center; gap: 8px; }
+    .section-nav button .icon { width: 15px; height: 15px; }
+    .section-nav button[aria-selected="true"] { background: linear-gradient(135deg, #173b31, #2f6748); color: #fff; box-shadow: 0 5px 13px rgba(23,59,49,.2); }
+    .section-nav button[aria-selected="true"] .icon { color: #c5dca9; }
+    .stat { border-color: #e0e8de; box-shadow: 0 8px 24px rgba(26,54,39,.045); }
+    .stat::before { height: 4px; }
+    .stat-icon { width: 37px; height: 37px; border: 1px solid #e0eadf; border-radius: 12px; }
+    .stat-icon .icon { width: 19px; height: 19px; }
+    .panel, .info-card { border-color: #e0e8de; box-shadow: 0 8px 25px rgba(26,54,39,.045); }
+    .panel-head { margin-bottom: 12px; }
+    .panel h3, .info-card h3 { display: flex; align-items: center; gap: 10px; }
+    .card-icon { flex: 0 0 auto; display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid #dfebdf; border-radius: 11px; background: #eef5ed; color: #35694b; }
+    .card-icon .icon { width: 19px; height: 19px; }
+    .info-card h3 { min-height: 38px; margin-bottom: 13px; }
+    .info-card { padding: 24px; transition: transform .18s ease, box-shadow .18s ease; }
+    .info-card:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(26,54,39,.08); }
+    .reference-list li, .process-list li { position: relative; padding: 14px 15px; border: 1px solid #e7eee5; border-left: 3px solid #7ca887; border-radius: 0 11px 11px 0; background: #fafcf9; line-height: 1.55; }
+    .reference-list li + li, .process-list li + li { margin-top: 1px; }
+    .reference-list a { text-underline-offset: 2px; }
+    .check-grid { gap: 11px; }
+    .check-card { border-color: #e2eae0; border-radius: 14px; background: linear-gradient(155deg,#fff,#f8fbf7); }
+    .check-card strong { display: flex; align-items: center; gap: 7px; }
+    .check-card strong .icon { width: 16px; height: 16px; color: #52805b; }
+    .download-item { border-color: #e3ebe1; background: linear-gradient(110deg,#fbfdfb,#f6f9f5); }
+    .download-link { border-color: #cddfce; background: #edf5ed; }
+    .forest-tag { padding: 6px 10px; }
+    .mining-period { border-color: #e1e9e0; border-radius: 14px; background: linear-gradient(145deg,#fff,#fafcf9); }
+    .mining-period em { padding: 4px 8px; border-radius: 99px; background: #f4f0e4; }
+    .cross-controls input[type="file"] { cursor: pointer; }
+    #mine-proxy-status { margin: 5px 0 10px; padding: 10px 12px; border: 1px solid #eadfbe; border-radius: 10px; background: #fbf8ef; color: #755f31; font-size: 11px; }
+    #mine-proxy-status[data-state="success"] { border-color: #d5e7d7; background: #f1f8f0; color: #356746; }
+    #mine-proxy-status[data-state="error"] { border-color: #ecd2cd; background: #fcf3f1; color: #9a3f35; }
+    .tab-intro { max-width: 900px; line-height: 1.7; }
+    .toolbar h2, .forest-heading h2 { color: #193c30; }
+    .pill { padding: 7px 11px; background: #e9f2e8; color: #315f43; }
+    .data-badge { border-color: rgba(225,240,224,.28); }
+    .quality { border-color: #e5dfc9; background: #faf8ef; }
+    #panel-references .info-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    #panel-references .info-card { padding: 20px; }
+    #panel-references .reference-list li { font-size: 11px; }
+    #panel-method .info-card { padding: 22px; }
+    @media (max-width: 900px) {
+      #panel-references .info-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
     footer { padding: 18px 0 30px; border-top: 1px solid #e4e9e2; color: #7b8981; font-size: 10px; }
     .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; }
     @media (prefers-reduced-motion: reduce) {
@@ -271,6 +353,7 @@
       .panel-head { flex-direction: column; }
       .chart-key { white-space: normal; }
       .info-grid { grid-template-columns: 1fr; }
+      #panel-references .info-grid { grid-template-columns: 1fr; }
       .check-grid { grid-template-columns: 1fr; }
       .mining-timeline { grid-template-columns: 1fr; }
       .download-item { align-items: start; flex-direction: column; }
@@ -284,10 +367,24 @@
   </style>
 </head>
 <body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20.5 3.5C12 3.3 5.2 5.8 4 11.4c-.9 4.2 2.3 7.3 6.1 6.4 5.7-1.3 8.2-7.7 10.4-14.3Z"/><path d="M3.5 21c3.1-5.3 7.1-8.7 12.4-11.5"/></symbol>
+    <symbol id="i-thermometer" viewBox="0 0 24 24"><path d="M14 14.8V5a3 3 0 0 0-6 0v9.8a5 5 0 1 0 6 0Z"/><path d="M11 11v7"/><path d="M8 5h3"/></symbol>
+    <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15a5 5 0 1 1 1.1-9.9A6 6 0 0 1 19 8a3.5 3.5 0 0 1-.5 7"/><path d="m8 18-1 2m6-2-1 2m6-2-1 2"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18m-13 5 2 2 4-4"/></symbol>
+    <symbol id="i-tree" viewBox="0 0 24 24"><path d="m12 3 4 5h-2l4 5h-4l4 5H6l4-5H6l4-5H8l4-5Z"/><path d="M12 18v4"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V5m0 14h17"/><path d="m7 15 4-4 3 2 6-7"/></symbol>
+    <symbol id="i-satellite" viewBox="0 0 24 24"><path d="m7 7 10 10m-7-13 3 3-4 4-3-3zM14 14l3 3-4 4-3-3z"/><path d="M5 19 3 21m16-16 2-2m-4 4 3-3M4 9l-3 3m11-9 3-2"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5"/><path d="M4 17v4h16v-4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22z"/><path d="M4 5.5v14A2.5 2.5 0 0 1 6.5 17H20M8 7h8m-8 4h8"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m8.5 12 2.3 2.3 4.8-5"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M8 14h8m-8 4h8"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  </svg>
   <header class="masthead">
     <div class="shell">
       <div class="topline">
-        <div class="brand"><span class="brand-mark" aria-hidden="true">◈</span><span>OBSERVATOIRE CLIMAT &amp; FORÊTS</span></div>
+        <div class="brand"><span class="brand-mark" aria-hidden="true"><svg class="icon"><use href="#i-leaf"/></svg></span><span>OBSERVATOIRE CLIMAT &amp; FORÊTS</span></div>
         <nav class="primary-nav" aria-label="Navigation principale">
           <a href="#panel-overview" data-tab-target="panel-overview">Tableau de bord</a>
           <a href="#panel-downloads" data-tab-target="panel-downloads">Données</a>
@@ -301,9 +398,9 @@
           <h1>Le climat et les forêts, en perspective.</h1>
           <p class="intro">Explorez quatre décennies de météo quotidienne, la perte de couvert arboré observée par satellite et les alertes récentes de perturbation dans la Réserve de faune à okapis.</p>
           <div class="hero-meta">
-            <span>⌖ &nbsp;2.0° N, 28.5° E</span>
-            <span>▦ &nbsp;1986–2026</span>
-            <span>◷ &nbsp;Relevés journaliers et réanalyse</span>
+            <span><svg class="icon"><use href="#i-pin"/></svg>2.0° N, 28.5° E</span>
+            <span><svg class="icon"><use href="#i-calendar"/></svg>1986–2026</span>
+            <span><svg class="icon"><use href="#i-chart"/></svg>Relevés journaliers et réanalyse</span>
           </div>
         </div>
         <div class="hero-art" aria-hidden="true">
@@ -349,11 +446,11 @@
 
   <main class="shell">
     <nav class="section-nav" role="tablist" aria-label="Sections du tableau de bord">
-      <button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-tab-target="panel-overview">Vue d’ensemble</button>
-      <button type="button" role="tab" id="tab-mining" aria-controls="panel-mining" aria-selected="false" data-tab-target="panel-mining" tabindex="-1">Activités minières</button>
-      <button type="button" role="tab" id="tab-downloads" aria-controls="panel-downloads" aria-selected="false" data-tab-target="panel-downloads" tabindex="-1">Téléchargements</button>
-      <button type="button" role="tab" id="tab-references" aria-controls="panel-references" aria-selected="false" data-tab-target="panel-references" tabindex="-1">Références scientifiques</button>
-      <button type="button" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" data-tab-target="panel-method" tabindex="-1">Méthode &amp; vérifications</button>
+      <button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-tab-target="panel-overview"><svg class="icon"><use href="#i-chart"/></svg>Vue d’ensemble</button>
+      <button type="button" role="tab" id="tab-mining" aria-controls="panel-mining" aria-selected="false" data-tab-target="panel-mining" tabindex="-1"><svg class="icon"><use href="#i-satellite"/></svg>Activités minières</button>
+      <button type="button" role="tab" id="tab-downloads" aria-controls="panel-downloads" aria-selected="false" data-tab-target="panel-downloads" tabindex="-1"><svg class="icon"><use href="#i-download"/></svg>Téléchargements</button>
+      <button type="button" role="tab" id="tab-references" aria-controls="panel-references" aria-selected="false" data-tab-target="panel-references" tabindex="-1"><svg class="icon"><use href="#i-book"/></svg>Références scientifiques</button>
+      <button type="button" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" data-tab-target="panel-method" tabindex="-1"><svg class="icon"><use href="#i-shield"/></svg>Méthode &amp; vérifications</button>
     </nav>
 
     <section class="tab-panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
@@ -374,10 +471,10 @@
     </section>
 
     <section class="stats" id="weather-overview" aria-label="Indicateurs de la période sélectionnée">
-      <article class="stat"><span class="stat-icon" aria-hidden="true">↑</span><div class="stat-label">Température maximale moyenne</div><div class="stat-value" id="avg-high">—</div><div class="stat-detail">Sur les observations journalières disponibles</div></article>
-      <article class="stat"><span class="stat-icon" aria-hidden="true">↓</span><div class="stat-label">Température minimale moyenne</div><div class="stat-value" id="avg-low">—</div><div class="stat-detail">Sur les observations journalières disponibles</div></article>
-      <article class="stat"><span class="stat-icon" aria-hidden="true">≈</span><div class="stat-label">Jour le plus pluvieux</div><div class="stat-value" id="wettest">—</div><div class="stat-detail" id="wettest-date">Précipitations journalières</div></article>
-      <article class="stat"><span class="stat-icon" aria-hidden="true">✓</span><div class="stat-label">Jours météo complets</div><div class="stat-value" id="completeness">—</div><div class="stat-detail" id="coverage-detail">Trois indicateurs disponibles</div></article>
+      <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-thermometer"/></svg></span><div class="stat-label">Température maximale moyenne</div><div class="stat-value" id="avg-high">—</div><div class="stat-detail">Sur les observations journalières disponibles</div></article>
+      <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-thermometer"/></svg></span><div class="stat-label">Température minimale moyenne</div><div class="stat-value" id="avg-low">—</div><div class="stat-detail">Sur les observations journalières disponibles</div></article>
+      <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-rain"/></svg></span><div class="stat-label">Jour le plus pluvieux</div><div class="stat-value" id="wettest">—</div><div class="stat-detail" id="wettest-date">Précipitations journalières</div></article>
+      <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span><div class="stat-label">Jours météo complets</div><div class="stat-value" id="completeness">—</div><div class="stat-detail" id="coverage-detail">Trois indicateurs disponibles</div></article>
     </section>
 
     <section class="content-grid" id="weather-charts">
@@ -392,7 +489,7 @@
 
       <article class="panel">
         <div class="panel-head">
-          <div><h3>Rythme saisonnier</h3><p class="panel-sub">Moyenne par mois calendaire pour les années sélectionnées</p></div>
+          <div><h3><span class="card-icon"><svg class="icon"><use href="#i-rain"/></svg></span>Rythme saisonnier</h3><p class="panel-sub">Moyenne par mois calendaire pour les années sélectionnées</p></div>
         </div>
         <div class="chart-wrap season-chart"><svg id="season-chart" role="img" aria-label="Météo moyenne par mois calendaire"></svg></div>
         <div class="chart-note"><span>Barres : précipitations quotidiennes moyennes · Courbes : températures moyennes</span><span>mm/jour</span></div>
@@ -400,7 +497,7 @@
 
       <article class="panel">
         <div class="panel-head">
-          <div><h3>Comprendre les données</h3><p class="panel-sub">Couverture et provenance</p></div>
+          <div><h3><span class="card-icon"><svg class="icon"><use href="#i-leaf"/></svg></span>Comprendre les données</h3><p class="panel-sub">Couverture et provenance</p></div>
         </div>
         <div style="padding:7px 1px 2px">
           <p style="margin:0 0 12px;color:#52645a;font-size:13px">Le climat de la réserve est équatorial, chaud et humide. Comparez les variations annuelles et explorez le cycle saisonnier avec le profil mensuel.</p>
@@ -426,15 +523,15 @@
         </div>
       </div>
       <div class="forest-stats" aria-label="Résumé des changements forestiers">
-        <article class="stat"><span class="stat-icon" aria-hidden="true">↘</span><div class="stat-label">Perte de couvert cumulée</div><div class="stat-value" id="forest-total">—</div><div class="stat-detail">2001–2025 · hectares</div></article>
-        <article class="stat"><span class="stat-icon" aria-hidden="true">▲</span><div class="stat-label">Perte annuelle la plus élevée</div><div class="stat-value" id="forest-peak">—</div><div class="stat-detail" id="forest-peak-year">Dans la série annuelle</div></article>
-        <article class="stat"><span class="stat-icon" aria-hidden="true">2025</span><div class="stat-label">Dernière estimation annuelle</div><div class="stat-value" id="forest-latest">—</div><div class="stat-detail">2025 · hectares</div></article>
-        <article class="stat"><span class="stat-icon" aria-hidden="true">!</span><div class="stat-label">Détections d’alertes en 2026</div><div class="stat-value" id="forest-alert-total">—</div><div class="stat-detail" id="forest-alert-date">Alertes satellitaires provisoires</div></article>
+        <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-tree"/></svg></span><div class="stat-label">Somme des pertes annuelles</div><div class="stat-value" id="forest-total">—</div><div class="stat-detail">2001–2025 · ha additionnés par année</div></article>
+        <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></span><div class="stat-label">Perte annuelle la plus élevée</div><div class="stat-value" id="forest-peak">—</div><div class="stat-detail" id="forest-peak-year">Dans la série annuelle</div></article>
+        <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span><div class="stat-label">Dernière estimation annuelle</div><div class="stat-value" id="forest-latest">—</div><div class="stat-detail">2025 · hectares</div></article>
+        <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-satellite"/></svg></span><div class="stat-label">Détections d’alertes en 2026</div><div class="stat-value" id="forest-alert-total">—</div><div class="stat-detail" id="forest-alert-date">Alertes satellitaires provisoires</div></article>
       </div>
       <div class="forest-grid">
         <article class="panel">
           <div class="panel-head">
-            <div><h3>Perte annuelle de couvert arboré</h3><p class="panel-sub">Surface de perte détectée par année · seuil de couvert de référence ≥ 30 %</p></div>
+            <div><h3><span class="card-icon"><svg class="icon"><use href="#i-tree"/></svg></span>Perte annuelle de couvert arboré</h3><p class="panel-sub">Surface de perte détectée par année · seuil de couvert de référence ≥ 30 %</p></div>
             <span class="forest-tag">Série annuelle jusqu’en 2025</span>
           </div>
           <div class="chart-wrap forest-chart"><svg id="forest-chart" role="img" aria-label="Perte annuelle de couvert arboré en hectares de 2001 à 2025"></svg></div>
@@ -442,7 +539,7 @@
         </article>
         <article class="panel">
           <div class="panel-head">
-            <div><h3>Alertes de perturbation en 2026</h3><p class="panel-sub">Pixels d’alerte satellitaire intégrés, par mois d’observation</p></div>
+            <div><h3><span class="card-icon"><svg class="icon"><use href="#i-satellite"/></svg></span>Alertes de perturbation en 2026</h3><p class="panel-sub">Pixels d’alerte satellitaire intégrés, par mois d’observation</p></div>
             <span class="forest-tag">Provisoire</span>
           </div>
           <div class="chart-wrap forest-alert-chart"><svg id="forest-alert-chart" role="img" aria-label="Détections mensuelles d’alertes intégrées de perturbation forestière en 2026"></svg></div>
@@ -464,7 +561,7 @@
     </section>
 
     <aside class="quality" aria-label="Note sur la qualité des données">
-      <span class="quality-icon" aria-hidden="true">ⓘ</span>
+      <span class="quality-icon" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></span>
       <span><strong>À interpréter avec prudence.</strong> Les valeurs journalières sont des estimations de grille pour les coordonnées approximatives de la réserve, et non des mesures issues d’une station située dans la réserve. Les données manquantes sont exclues des moyennes ; aucune interpolation ni prévision n’est appliquée.</span>
     </aside>
     </section>
@@ -490,15 +587,15 @@
       </div>
       <article class="panel" style="margin-bottom:16px">
         <div class="panel-head">
-          <div><h3>Référence Global Forest Watch · perte annuelle du couvert</h3><p class="panel-sub">Export TreeCoverLoss_owr.csv · zone de réserve approximée par la relation OSM 401017</p></div>
+          <div><h3><span class="card-icon"><svg class="icon"><use href="#i-tree"/></svg></span>Référence Global Forest Watch · perte annuelle du couvert</h3><p class="panel-sub">Export TreeCoverLoss_owr.csv · zone de réserve approximée par la relation OSM 401017</p></div>
           <a class="download-link" href="TreeCoverLoss_owr.csv" download>Télécharger les valeurs</a>
         </div>
         <div class="chart-wrap"><svg id="mining-gfw-chart" role="img" aria-label="Perte annuelle de couvert arboré issue de Global Forest Watch dans la zone de la réserve, de 2001 à 2025"></svg></div>
-        <div class="chart-note"><span>2000 est l’année de référence, pas une mesure de perte. 2026 n’est pas une estimation annuelle finalisée ; les alertes 2026 sont un indicateur distinct.</span><span>ha / an</span></div>
+        <div class="chart-note"><span>Perte totale de référence (2001–2025) : <strong id="mining-gfw-total">—</strong> ha, toutes causes confondues — non attribuable aux mines avec les données actuelles.</span><span>2000 est la référence ; 2026 n’est pas une perte annuelle finalisée.</span></div>
       </article>
       <article class="panel" style="margin-bottom:16px">
         <div class="panel-head">
-          <div><h3>Comparaison croisée · GFW et télédétection</h3><p class="panel-sub">Perte GFW/UMD du dépôt face aux transitions candidates et à la référence Hansen exportées par Earth Engine</p></div>
+          <div><h3><span class="card-icon"><svg class="icon"><use href="#i-satellite"/></svg></span>Comparaison croisée · GFW et télédétection</h3><p class="panel-sub">Perte GFW/UMD du dépôt face aux transitions candidates et à la référence Hansen exportées par Earth Engine</p></div>
           <span class="forest-tag">2000–2026 · hectares</span>
         </div>
         <div class="cross-controls">
@@ -508,6 +605,16 @@
         </div>
         <div class="chart-wrap"><svg id="mining-cross-chart" role="img" aria-label="Comparaison par année des valeurs Global Forest Watch, Hansen et des transitions candidates"></svg></div>
         <div class="chart-note"><span>2000 : année de référence. 2026 : transitions optiques candidates seulement ; pas de perte annuelle GFW/Hansen finalisée.</span><span>ha / an</span></div>
+      </article>
+      <article class="panel" style="margin-bottom:16px">
+        <div class="panel-head">
+          <div><h3><span class="card-icon"><svg class="icon"><use href="#i-pin"/></svg></span>Estimation préliminaire près des sites miniers</h3><p class="panel-sub">Transitions forestières candidates dans un rayon de 500 m autour des sites actifs indiqués dans l’inventaire</p></div>
+          <span class="forest-tag">Proxy spatial · non causal</span>
+        </div>
+        <p class="panel-sub" style="margin:0 0 8px">Importez un export Earth Engine créé avec un inventaire minier daté. Les valeurs sont des hectares candidats par année, pas une surface unique cumulée ni une preuve d’impact minier.</p>
+        <p id="mine-proxy-status" role="status" aria-live="polite">Non calculable : aucun inventaire minier géolocalisé n’est fourni dans le dépôt. Ajoutez un asset de sites vérifiés au script, exécutez l’export, puis chargez ce CSV.</p>
+        <div class="chart-wrap"><svg id="mining-proxy-chart" role="img" aria-label="Estimation annuelle des pertes forestières candidates à moins de 500 mètres des sites miniers actifs, selon la zone sélectionnée"></svg></div>
+        <div class="chart-note"><span>Calcul distinct pour la réserve et la couronne externe sélectionnée ci-dessus. 2026 est partiel ; 2000 est la référence.</span><span>ha candidats / an</span></div>
       </article>
       <div class="mining-status" role="note">
         <span class="mining-status-icon" aria-hidden="true">↔</span>
@@ -550,7 +657,7 @@
       <header class="toolbar"><div><p class="section-label">Données ouvertes</p><h2>Télécharger les données du projet</h2></div><span class="pill">CSV · Power BI</span></header>
       <p class="tab-intro">Les fichiers CSV sont les exports de référence utilisés pour l’analyse et le modèle Power BI. Les en-têtes d’origine sont conservés pour assurer la compatibilité avec les outils et les scripts.</p>
       <div class="info-grid">
-        <article class="info-card"><h3>Données téléchargeables</h3><p>Enregistrements météorologiques journaliers, perte annuelle de couvert et alertes satellitaires provisoires.</p>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-download"/></svg></span>Données téléchargeables</h3><p>Enregistrements météorologiques journaliers, perte annuelle de couvert et alertes satellitaires provisoires.</p>
           <ul class="download-list">
             <li class="download-item"><span><strong>Météo quotidienne · 1986–2026</strong><small>14 908 jours · Tmax, Tmin et précipitations</small></span><a class="download-link" href="Meteo_owr.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Perte de couvert arboré · 2001–2025</strong><small>Estimations annuelles Global Forest Watch / UMD</small></span><a class="download-link" href="TreeCoverLoss_owr.csv" download>Télécharger le CSV</a></li>
@@ -558,7 +665,7 @@
             <li class="download-item"><span><strong>Script d’analyse minière et forestière</strong><small>Google Earth Engine · Landsat, Sentinel, ASTER et MODIS</small></span><a class="download-link" href="earth_engine/okapi_mining_deforestation.js" download>Télécharger le script</a></li>
           </ul>
         </article>
-        <article class="info-card"><h3>Projet et partage</h3><p>Le tableau de bord est autonome : téléchargez le fichier HTML et ouvrez-le dans un navigateur récent. Les graphiques météo utilisent des données intégrées dans la page ; les exports CSV restent accessibles séparément.</p>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-file"/></svg></span>Projet et partage</h3><p>Le tableau de bord est autonome : téléchargez le fichier HTML et ouvrez-le dans un navigateur récent. Les graphiques météo utilisent des données intégrées dans la page ; les exports CSV restent accessibles séparément.</p>
           <ul class="download-list">
             <li class="download-item"><span><strong>Tableau de bord HTML</strong><small>Version source du tableau de bord</small></span><a class="download-link" href="index.html" download>Télécharger le HTML</a></li>
             <li class="download-item"><span><strong>Projet Power BI (PBIP)</strong><small>À ouvrir dans Power BI Desktop pour produire un PBIX</small></span><a class="download-link" href="OWR_Climate.pbip">Ouvrir le projet</a></li>
@@ -571,22 +678,30 @@
 
     <section class="tab-panel" id="panel-references" role="tabpanel" aria-labelledby="tab-references" hidden>
       <header class="toolbar"><div><p class="section-label">Sources et traçabilité</p><h2>Références scientifiques et données</h2></div><span class="pill">Liens vérifiables</span></header>
-      <p class="tab-intro">Les chiffres présentés combinent des séries météorologiques de réanalyse et des produits satellitaires de suivi forestier. Les limites de résolution spatiale et de définition des indicateurs doivent être prises en compte avant toute interprétation.</p>
+      <p class="tab-intro">Références bibliographiques, catalogues des produits et limites de périmètre. Les jeux de données décrivent des variables différentes et ne sont pas directement interchangeables.</p>
       <div class="info-grid">
-        <article class="info-card"><h3>Climat</h3>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-rain"/></svg></span>Climat et réanalyse</h3>
           <ul class="reference-list">
-            <li><a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener noreferrer">Open-Meteo · API météorologique historique</a><br>Documentation de l’API ; les variables incluent les températures maximales et minimales journalières ainsi que les précipitations.</li>
-            <li><a href="https://open-meteo.com/en/docs" target="_blank" rel="noopener noreferrer">Open-Meteo · documentation des modèles</a><br>Informations sur les modèles météorologiques et les données maillées utilisées par le service.</li>
+            <li><a href="https://doi.org/10.5194/essd-13-4349-2021" target="_blank" rel="noopener noreferrer">Muñoz-Sabater et al. (2021) · ERA5-Land</a><br><em>ERA5-Land: a state-of-the-art global reanalysis dataset for land applications</em>. <em>Earth System Science Data</em>, 13, 4349–4383. DOI : 10.5194/essd-13-4349-2021. Référence de réanalyse ; le modèle de chaque ligne du CSV n’est pas documenté.</li>
+            <li><a href="https://doi.org/10.5281/zenodo.7970649" target="_blank" rel="noopener noreferrer">Zippenfenig (2023) · Open-Meteo</a><br><em>Open-Meteo.com Weather API</em>, publication logicielle. DOI : 10.5281/zenodo.7970649. La documentation de l’<a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener noreferrer">API historique</a> décrit les variables et modèles disponibles.</li>
             <li><a href="Meteo_owr.csv" download>Meteo_owr.csv</a><br>Série journalière distribuée avec ce dépôt (1986-01-01 au 2026-10-25).</li>
           </ul>
         </article>
-        <article class="info-card"><h3>Forêts et périmètre</h3>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-tree"/></svg></span>Forêts et alertes</h3>
           <ul class="reference-list">
-            <li><a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">Global Forest Watch · produit UMD de perte du couvert arboré</a><br>Produit de perte annuelle de couvert arboré, avec seuil de couvert de référence indiqué dans les métadonnées.</li>
-            <li><a href="https://doi.org/10.1126/science.1244693" target="_blank" rel="noopener noreferrer">Hansen et al. (2013) · « Cartes mondiales à haute résolution de l’évolution du couvert forestier au XXIe siècle »</a><br>Titre original : <em>High-Resolution Global Maps of 21st-Century Forest Cover Change</em>. <em>Science</em>, 342(6160), 850–853. DOI : 10.1126/science.1244693.</li>
-            <li><a href="https://gfw.global/eWfDix" target="_blank" rel="noopener noreferrer">Global Nature Watch · zone d’étude partagée</a><br>Vue d’étude fournie par l’utilisateur ; le polygone de la zone d’intérêt (AOI) n’a pas été récupéré directement pour l’extraction.</li>
+            <li><a href="https://doi.org/10.1126/science.1244693" target="_blank" rel="noopener noreferrer">Hansen et al. (2013) · Global Forest Change</a><br><em>High-Resolution Global Maps of 21st-Century Forest Cover Change</em>. <em>Science</em>, 342(6160), 850–853. DOI : 10.1126/science.1244693. Les pertes sont des perturbations de remplacement de couvert selon la définition du produit, pas une mesure directe de déforestation permanente.</li>
+            <li><a href="https://doi.org/10.1016/j.rse.2014.01.011" target="_blank" rel="noopener noreferrer">Zhu &amp; Woodcock (2014) · détection de changements Landsat</a><br><em>Continuous change detection and classification of land cover using all available Landsat data</em>. <em>Remote Sensing of Environment</em>, 144, 152–171. Référence méthodologique de télédétection ; le script du dépôt n’implémente pas l’algorithme CCDC.</li>
+            <li><a href="https://developers.google.com/earth-engine/datasets/catalog/UMD_hansen_global_forest_change_2024_v1_12" target="_blank" rel="noopener noreferrer">UMD/Hansen v1.12 · catalogue Earth Engine</a><br>Produit 2000–2024, pixel de 30,92 m. Le croisement du script applique treecover2000 ≥ 30 % et ne couvre les pertes que de 2001 à 2024. Le catalogue marque cette version comme remplacée.</li>
+            <li><a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">Global Forest Watch · UMD Tree Cover Loss</a><br>L’API consultée renvoie v1.13 (métadonnées mises à jour le 4 août 2026). La version de l’export historique `TreeCoverLoss_owr.csv` n’est pas consignée ; ne présumez pas qu’il s’agit de v1.13.</li>
+            <li><a href="https://www.globalforestwatch.org/" target="_blank" rel="noopener noreferrer">Global Forest Watch · alertes et indicateurs</a><br>Les alertes 2026 du dépôt sont des détections provisoires agrégées par mois ; le fichier indique une date d’observation au 4 octobre 2026.</li>
+          </ul>
+        </article>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-satellite"/></svg></span>Télédétection et périmètre</h3>
+          <ul class="reference-list">
+            <li><a href="https://www.usgs.gov/landsat-missions/landsat-collection-2" target="_blank" rel="noopener noreferrer">USGS · Landsat Collection 2</a><br>Archive d’images et documentation des produits de réflectance de surface utilisés comme série optique historique.</li>
+            <li><a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED" target="_blank" rel="noopener noreferrer">Copernicus / Earth Engine · Sentinel-2 SR harmonisé</a> · <a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S1_GRD" target="_blank" rel="noopener noreferrer">Sentinel-1 GRD</a><br>Catalogues des collections multispectrale et radar ; disponibilité réelle à vérifier pour chaque période.</li>
+            <li><a href="https://gfw.global/eWfDix" target="_blank" rel="noopener noreferrer">Global Nature Watch · zone d’étude partagée</a><br>Vue d’étude fournie par l’utilisateur ; le polygone AOI n’a pas été récupéré directement pour l’extraction.</li>
             <li><a href="https://www.openstreetmap.org/relation/401017" target="_blank" rel="noopener noreferrer">OpenStreetMap · relation 401017</a><br>Périmètre substitutif utilisé pour l’extraction des données de superficie.</li>
-            <li><a href="https://www.globalforestwatch.org/" target="_blank" rel="noopener noreferrer">Global Forest Watch · plateforme et documentation</a><br>Présentation des indicateurs de couvert forestier et des alertes de perturbation.</li>
           </ul>
         </article>
       </div>
@@ -594,28 +709,30 @@
 
     <section class="tab-panel" id="panel-method" role="tabpanel" aria-labelledby="tab-method" hidden>
       <header class="toolbar"><div><p class="section-label">Transparence analytique</p><h2>Méthode, qualité et vérifications</h2></div><span class="pill">Limites explicites</span></header>
-      <p class="tab-intro">Cette page décrit ce qui est calculé dans le tableau de bord, les contrôles réalisés sur les exports et les limites qui empêchent de traiter toutes les valeurs comme des observations de terrain.</p>
+      <p class="tab-intro">Statut au 25 octobre 2026. Les contrôles structurels des CSV sont reproductibles ; ils ne remplacent ni une validation des produits à la source, ni une vérification indépendante sur le terrain.</p>
       <div class="info-grid">
-        <article class="info-card"><h3>Traitement des données</h3>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-chart"/></svg></span>Traitement et indicateurs</h3>
           <ol class="process-list">
-            <li><strong>Météo.</strong> Série journalière du fichier <code>Meteo_owr.csv</code>, à partir du 1<sup>er</sup> janvier 1986. Les filtres appliquent une plage d’années au jeu de données complet ; les moyennes excluent les valeurs non disponibles.</li>
-            <li><strong>Indicateurs climatiques.</strong> Moyennes des mesures journalières disponibles pour Tmax, Tmin et précipitations. Le profil mensuel regroupe les jours du mois calendaire, sur les années sélectionnées.</li>
-            <li><strong>Perte de couvert.</strong> Somme et maximum calculés sur les valeurs annuelles 2001–2025 du produit GFW/UMD, extraites à l’intérieur du périmètre OSM 401017.</li>
-            <li><strong>Alertes 2026.</strong> Comptage de détections mensuelles de pixels d’alerte dans l’export fourni ; la période s’arrête au 4 octobre et octobre est incomplet.</li>
+            <li><strong>Météo quotidienne.</strong> Le CSV contient 14 908 dates consécutives du 1er janvier 1986 au 25 octobre 2026. Le fichier ne porte pas de provenance par ligne permettant d’identifier précisément la source ou le modèle de chaque valeur ; les chiffres sont des estimations de grille, pas des relevés de station dans la réserve.</li>
+            <li><strong>Résumé climatique.</strong> Tmax/Tmin sont moyennées sur les valeurs journalières disponibles. Les précipitations annuelles sont des sommes des valeurs disponibles ; le profil saisonnier affiche une moyenne journalière par mois. Aucune valeur manquante n’est interpolée ni imputée.</li>
+            <li><strong>Perte annuelle GFW/UMD.</strong> Les indicateurs cumulé et maximum résument les 25 valeurs annuelles distribuées (2001–2025) pour la géométrie de réserve approximée par OSM 401017. La version de l’extraction d’origine n’est pas enregistrée dans le CSV.</li>
+            <li><strong>Alertes 2026.</strong> Le fichier fournit 10 agrégats mensuels, de janvier à octobre, soit 131 978 détections cumulées jusqu’au 4 octobre 2026. Ces détections ne sont pas converties en hectares uniques.</li>
+            <li><strong>Analyse Earth Engine.</strong> Des composites médians annuels Landsat/Sentinel-2 sont utilisés pour dépister les transitions de forêt vers sol nu : NDVI et NBR &gt; 0,55 l’année précédente, puis NDVI &lt; 0,35, BSI &gt; 0,05 et MNDWI &lt; 0,10 l’année courante, sur le masque de référence 2000. Résultat à 30 m, candidats seulement ; les seuils ne sont pas calibrés ni validés terrain. Hansen v1.12 (2001–2024 ; couvert 2000 ≥ 30 %) reste une série distincte, pour la réserve et la couronne extérieure de 10 km. Aucun résultat Earth Engine n’est livré dans ce dépôt.</li>
           </ol>
         </article>
-        <article class="info-card"><h3>Vérifications et limites</h3>
+        <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-shield"/></svg></span>Contrôles effectués et limites</h3>
           <ul class="process-list">
-            <li><strong>Complétude météo.</strong> 1991 conserve des lacunes : 31 valeurs Tmax, 31 Tmin et 215 précipitations sont manquantes. Elles sont exclues des calculs, sans interpolation.</li>
-            <li><strong>Nature des observations.</strong> Les données maillées Open-Meteo sont des estimations pour les coordonnées approximatives de la réserve, non des mesures d’une station météo locale.</li>
-            <li><strong>Perte et déforestation.</strong> La perte annuelle de couvert n’est pas nécessairement une déforestation permanente. La série commence en 2001 ; 2000 est l’année de référence du couvert.</li>
-            <li><strong>Alertes.</strong> Les 131 978 détections de 2026 sont des détections de pixels, pas une superficie confirmée ni des hectares uniques. Les détections répétées sont possibles.</li>
-            <li><strong>Périmètre.</strong> La géométrie de l’AOI fournie via Global Nature Watch n’étant pas exposée dans la réponse publique, l’extraction utilise la relation OSM 401017 comme substitut ; les résultats peuvent donc varier selon le périmètre.</li>
+            <li><strong>Structure météo — vérifiée.</strong> 14 908 dates uniques, sans trou de calendrier ; les valeurs manquantes sont 31 Tmax, 31 Tmin et 215 précipitations, toutes en 1991, et restent exclues des calculs concernés.</li>
+            <li><strong>Série de perte — vérifiée.</strong> 25 années uniques et consécutives (2001–2025), champs numériques valides. Le produit décrit une perte de couvert selon sa définition ; elle n’équivaut pas nécessairement à une déforestation permanente.</li>
+            <li><strong>Alertes — vérifiées.</strong> 10 mois présents ; somme des pixels conforme au total affiché (131 978) et date de couverture cohérente (2026-10-04). Ce ne sont ni des hectares confirmés ni des événements nécessairement uniques.</li>
+            <li><strong>Périmètre — réserve à valider.</strong> L’AOI Global Nature Watch n’a pas été extraite directement ; OSM 401017 est un substitut. Valider le polygone et son système de coordonnées avant toute analyse de superficie ou tampon de 10 km.</li>
+            <li><strong>Comparaison — produits distincts.</strong> GFW/UMD, Hansen v1.12 et transitions optiques ont des versions, seuils, masques et périodes différents. Ne pas les additionner/soustraire comme des mesures équivalentes ; 2000 est une référence et 2026 ne constitue pas une perte annuelle finalisée.</li>
+            <li><strong>Attribution minière — non validée.</strong> Les changements candidats et leur proximité avec des sites ne démontrent pas une activité minière ni un lien causal. Inventaire daté, interprétation d’images et validation indépendante restent nécessaires.</li>
           </ul>
           <div class="check-grid">
-            <div class="check-card"><strong>Exports CSV présents</strong><span>Météo, perte annuelle et alertes disponibles dans le dépôt.</span></div>
-            <div class="check-card"><strong>Sources reliées</strong><span>Documentation Open-Meteo, GFW/UMD et limites cartographiques référencées.</span></div>
-            <div class="check-card"><strong>Indicateurs séparés</strong><span>Perte annuelle et alertes provisoires ne sont pas additionnées entre elles.</span></div>
+            <div class="check-card"><strong><svg class="icon"><use href="#i-file"/></svg>3 CSV contrôlés</strong><span>Dates, années, champs, valeurs manquantes et agrégat d’alertes.</span></div>
+            <div class="check-card"><strong><svg class="icon"><use href="#i-book"/></svg>Références datées</strong><span>API GFW actuellement v1.13 ; comparaison Hansen disponible jusqu’en 2024.</span></div>
+            <div class="check-card"><strong><svg class="icon"><use href="#i-shield"/></svg>Limites signalées</strong><span>Pas de données minières validées ni de validation terrain dans le dépôt.</span></div>
           </div>
         </article>
       </div>
@@ -757,6 +874,9 @@
       const svg=document.getElementById("mining-gfw-chart");
       const width=980,height=260,pad={l:62,r:16,t:15,b:38};
       svgSetup(svg,width,height);
+      document.getElementById("mining-gfw-total").textContent=fmt.format(
+        FOREST_DATA.reduce((sum,[,value])=>sum+value,0)
+      );
       const max=Math.ceil(Math.max(...FOREST_DATA.map(([,value])=>value))/500)*500;
       const plotW=width-pad.l-pad.r,plotH=height-pad.t-pad.b;
       const y=value=>height-pad.b-(value/max)*plotH;
@@ -852,7 +972,46 @@
         status.textContent=`${selected.length} années-zone chargées · ${hansenYears} valeurs Hansen · ${candidateYears} valeurs optiques candidates.${zone==="Reserve"?" La série GFW du dépôt est affichée en parallèle.":" Aucune série GFW du dépôt n’est disponible pour la couronne ; Hansen est calculé sur sa géométrie."}`;
       }
     }
-    document.getElementById("cross-zone").addEventListener("change",renderMiningCross);
+    function renderMiningProxy() {
+      const svg=document.getElementById("mining-proxy-chart");
+      const zone=document.getElementById("cross-zone").value;
+      const selected=miningCrossRows.filter(row=>row.zone===zone&&Number.isFinite(row.mine));
+      const width=980,height=260,pad={l:62,r:16,t:18,b:38};
+      svgSetup(svg,width,height);
+      const plotW=width-pad.l-pad.r,plotH=height-pad.t-pad.b;
+      const max=Math.max(1,Math.ceil(Math.max(0,...selected.map(row=>row.mine))/100)*100);
+      const y=value=>height-pad.b-(value/max)*plotH;
+      for(let i=0;i<=4;i++){
+        const value=max*i/4,yy=y(value);
+        svg.appendChild(svgEl("line",{x1:pad.l,y1:yy,x2:width-pad.r,y2:yy,class:"grid-line"}));
+        addText(svg,pad.l-8,yy+3,fmt.format(value),{"text-anchor":"end"});
+      }
+      svg.appendChild(svgEl("line",{x1:pad.l,y1:height-pad.b,x2:width-pad.r,y2:height-pad.b,class:"axis-line"}));
+      const values=new Map(selected.map(row=>[row.year,row.mine]));
+      const years=Array.from({length:27},(_,index)=>2000+index);
+      const band=plotW/years.length,bw=band*.58;
+      years.forEach((year,index)=>{
+        const value=values.get(year);
+        const center=pad.l+(index+.5)*band;
+        if(Number.isFinite(value)){
+          const yy=y(value);
+          const bar=svgEl("rect",{x:center-bw/2,y:yy,width:bw,height:Math.max(0,height-pad.b-yy),rx:2,fill:"#bd7357",opacity:year===2026 ? .5 : .88});
+          bar.appendChild(svgEl("title",{},`${year}${year===2026?" · année partielle":""} · perte candidate à ≤ 500 m de sites miniers actifs : ${fmt.format(value)} ha · ${zone}`));
+          svg.appendChild(bar);
+        }
+        if(year===2000||year%5===0||year===2026)addText(svg,center,height-13,String(year),{"text-anchor":"middle"});
+      });
+      const status=document.getElementById("mine-proxy-status");
+      if(!selected.length){
+        status.dataset.state="";
+        status.textContent="Non calculable pour cette zone : chargez un export contenant « candidate_loss_within_500m_mines_ha ». Pour le produire, renseignez dans le script un inventaire géolocalisé vérifié avec start_year et end_year, puis relancez l’export.";
+        addText(svg,width/2,height/2,"Aucune estimation de proximité disponible",{"text-anchor":"middle",class:"empty"});
+      }else{
+        status.dataset.state="success";
+        status.textContent=`${selected.length} valeurs annuelles disponibles pour « ${zone} » (${Math.min(...selected.map(row=>row.year))}–${Math.max(...selected.map(row=>row.year))}). Estimation fondée sur la proximité aux sites de l’inventaire ; elle ne démontre ni l’activité minière effective ni un lien causal.`;
+      }
+    }
+    document.getElementById("cross-zone").addEventListener("change",()=>{renderMiningCross();renderMiningProxy();});
     document.getElementById("cross-upload").addEventListener("change",async event=>{
       const file=event.target.files&&event.target.files[0];
       if(!file)return;
@@ -873,13 +1032,16 @@
           year:numberAt(values,"year"),
           zone:(values[index.zone]||"").trim(),
           candidate:numberAt(values,"candidate_forest_loss_ha"),
-          gfw:numberAt(values,"gfw_hansen_v1_12_loss_ha")
+          gfw:numberAt(values,"gfw_hansen_v1_12_loss_ha"),
+          mine:numberAt(values,"candidate_loss_within_500m_mines_ha")
         })).filter(row=>Number.isInteger(row.year)&&row.year>=2000&&row.year<=2026);
         if(!miningCrossRows.length)throw new Error("Aucune ligne annuelle valide entre 2000 et 2026.");
         renderMiningCross();
+        renderMiningProxy();
       }catch(error){
         miningCrossRows=[];
         renderMiningCross();
+        renderMiningProxy();
         status.dataset.state="error";
         status.textContent=`Import impossible : ${error.message}`;
       }
@@ -1058,6 +1220,7 @@
       renderForest();
       renderMiningGfw();
       renderMiningCross();
+      renderMiningProxy();
       document.getElementById("record-length").textContent=`${years[0]}–${years[years.length-1]}`;
     }
     startSelect.addEventListener("change",render);
