@@ -470,21 +470,42 @@
       </header>
       <div class="mining-status" role="note">
         <span class="mining-status-icon" aria-hidden="true">!</span>
-        <span><strong>Analyse quantitative non encore disponible</strong>Ce dépôt ne contient pas encore d’inventaire géolocalisé et vérifié des sites miniers, de polygone de zone tampon calculé, ni de séries d’images satellitaires traitées. Les cartes et chiffres d’impact ne sont donc pas présentés comme des résultats. Cette section décrit les sources et la méthode requises, sans assimiler une perte forestière à une activité minière.</span>
+        <span><strong>Le calcul doit être exécuté dans Google Earth Engine</strong>Un script d’analyse est fourni pour créer des composites annuels, visualiser les couches et exporter les surfaces candidates en CSV. Il nécessite une limite de réserve importée dans un compte Earth Engine ; l’attribution minière nécessite aussi un inventaire de sites vérifiés avec dates d’activité. Aucun résultat satellitaire calculé n’est inclus dans le dépôt à ce stade.</span>
       </div>
-      <p class="tab-intro">L’évaluation doit comparer les changements observés dans les limites officielles de la réserve et dans une couronne externe de 10 km, en distinguant les mines confirmées, les indices à vérifier et les autres causes possibles de déforestation.</p>
+      <p class="tab-intro">L’analyse sépare la réserve de la couronne extérieure de 10 km. Landsat constitue l’archive commune pour 2000–2026 ; les indices Sentinel-2 et Landsat sont comparés à 30 m. Sentinel-1, ASTER et MODIS apportent des couches complémentaires, avec leurs résolutions et couvertures propres.</p>
+      <div class="mining-status" role="note">
+        <span class="mining-status-icon" aria-hidden="true">↳</span>
+        <span><strong>Obtenir le script et lancer l’analyse</strong><a href="earth_engine/okapi_mining_deforestation.js" download>Télécharger le script Google Earth Engine</a> · Remplacez l’identifiant d’exemple par l’asset de limite de réserve dans votre compte, puis exécutez-le dans le <a href="https://code.earthengine.google.com/" target="_blank" rel="noopener noreferrer">Code Editor Earth Engine</a>. Lancez la tâche d’export pour créer le CSV annuel par zone. L’inventaire de sites miniers est facultatif pour les changements forestiers ; sans lui, aucun impact n’est attribué à l’exploitation minière.</span>
+      </div>
       <div class="mining-timeline" aria-label="Disponibilité temporelle des principales sources satellitaires">
-        <article class="mining-period"><strong>2000–2012 · Landsat 5/7</strong><span>Archives optiques historiques pour repérer les changements de couvert et les traces visibles d’exploitation. Nuages, résolution et qualité des scènes limitent l’interprétation locale.</span><em>Source historique nécessaire</em></article>
-        <article class="mining-period"><strong>2013–2014 · Landsat 8</strong><span>Continuité de l’observation optique Landsat ; Sentinel-1/2 commence à apporter des observations à partir de 2014–2015 selon le capteur.</span><em>Période de transition</em></article>
-        <article class="mining-period"><strong>2015–2026 · Sentinel-1/2 + Landsat</strong><span>Sentinel-2 apporte des images optiques plus fréquentes ; Sentinel-1 radar aide en présence de nuages. Les deux séries ne couvrent pas l’année 2000.</span><em>Sources complémentaires</em></article>
+        <article class="mining-period"><strong>2000–2012 · Landsat 5/7</strong><span>Archive optique historique ; ASTER est disponible pour l’inspection de scènes à partir de 2000. MODIS Terra complète à 500 m à partir de 2000.</span><em>Référence historique · 30 m principal</em></article>
+        <article class="mining-period"><strong>2013–2014 · Landsat 7/8</strong><span>Landsat 8 démarre en 2013. Sentinel-1A démarre en 2014 ; Landsat reste le fil optique principal pour comparer la série à long terme.</span><em>Transition des capteurs</em></article>
+        <article class="mining-period"><strong>2015–2026 · séries combinées</strong><span>Sentinel-2A/B, Landsat 7/8/9 et Sentinel-1A/C renforcent le suivi. MODIS Aqua débute en 2002 ; Sentinel-1C en 2024. L’année 2026 est partielle.</span><em>Meilleure densité d’observations</em></article>
+      </div>
+      <article class="panel" style="margin-bottom:16px">
+        <div class="panel-head">
+          <div><h3>Référence Global Forest Watch · perte annuelle du couvert</h3><p class="panel-sub">Export TreeCoverLoss_owr.csv · zone de réserve approximée par la relation OSM 401017</p></div>
+          <a class="download-link" href="TreeCoverLoss_owr.csv" download>Télécharger les valeurs</a>
+        </div>
+        <div class="chart-wrap"><svg id="mining-gfw-chart" role="img" aria-label="Perte annuelle de couvert arboré issue de Global Forest Watch dans la zone de la réserve, de 2001 à 2025"></svg></div>
+        <div class="chart-note"><span>2000 est l’année de référence, pas une mesure de perte. 2026 n’est pas une estimation annuelle finalisée ; les alertes 2026 sont un indicateur distinct.</span><span>ha / an</span></div>
+      </article>
+      <div class="mining-status" role="note">
+        <span class="mining-status-icon" aria-hidden="true">↔</span>
+        <span><strong>Comment croiser ces données</strong>Comparez l’export GFW annuel avec les transitions candidates Landsat/Sentinel produites par le script et, pour 2001–2024, avec la couche UMD/Hansen v1.12 exportée séparément. La version actuelle de l’API GFW est v1.13 ; la version exacte ayant servi au CSV du dépôt doit être vérifiée avant une comparaison reproductible. Périodes, seuils, masques et résolutions diffèrent : n’additionnez pas et ne soustrayez pas directement ces produits. Le CSV du dépôt décrit la réserve approximée ; le script calcule aussi la couronne externe de 10 km.</span>
       </div>
       <div class="info-grid">
         <article class="info-card">
           <h3>Sources à mobiliser</h3>
           <p>Les images satellitaires montrent des changements de surface ; elles ne prouvent pas à elles seules qu’une mine est active ni n’en déterminent l’exploitant.</p>
           <ul class="reference-list">
-            <li><a href="https://www.usgs.gov/landsat-missions/landsat-collection-2" target="_blank" rel="noopener noreferrer">USGS · Landsat Collection 2</a><br>Archive multi-décennale pour établir la référence 2000 et suivre les changements jusqu’à aujourd’hui.</li>
-            <li><a href="https://dataspace.copernicus.eu/" target="_blank" rel="noopener noreferrer">Copernicus Data Space · Sentinel</a><br>Accès aux observations Sentinel-1 (radar) et Sentinel-2 (optique), disponibles à partir de 2014/2015.</li>
+            <li><a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LT05_C02_T1_L2" target="_blank" rel="noopener noreferrer">USGS · Landsat 5 Collection 2 niveau 2</a><br>Réflectance de surface pour la série historique dès 1984.</li>
+            <li><a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LE07_C02_T1_L2" target="_blank" rel="noopener noreferrer">USGS · Landsat 7 Collection 2 niveau 2</a> · <a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2" target="_blank" rel="noopener noreferrer">Landsat 8</a> · <a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC09_C02_T1_L2" target="_blank" rel="noopener noreferrer">Landsat 9</a><br>Produits harmonisés de réflectance de surface, 30 m ; masques de nuages et d’ombres appliqués par le script.</li>
+            <li><a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED" target="_blank" rel="noopener noreferrer">Copernicus · Sentinel-2A/B réflectance de surface harmonisée</a><br>Résolution native de 10 à 20 m ; indices calculés dans le script puis ramenés à l’analyse à 30 m.</li>
+            <li><a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S1_GRD" target="_blank" rel="noopener noreferrer">Copernicus · Sentinel-1 GRD</a><br>Radar VV/VH pour visualiser les observations par tous les temps ; les bandes radar ne sont pas fusionnées directement aux indices optiques. Le catalogue Earth Engine consulté indique actuellement des scènes jusqu’au 17 octobre 2025 : la disponibilité en 2026 doit être vérifiée.</li>
+            <li><a href="https://developers.google.com/earth-engine/datasets/catalog/ASTER_AST_L1T_003" target="_blank" rel="noopener noreferrer">NASA/USGS · ASTER L1T</a><br>Radiance multispectrale de scènes (2000–2025) pour inspection indépendante ; le produit brut n’est pas assimilé à de la réflectance de surface.</li>
+            <li><a href="https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD09A1" target="_blank" rel="noopener noreferrer">MODIS Terra MOD09A1</a> · <a href="https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MYD09A1" target="_blank" rel="noopener noreferrer">MODIS Aqua MYD09A1</a><br>Réflectance de surface en composites de 8 jours, 500 m ; contexte régional uniquement, pas une mesure de petites mines. Les fiches consultées s’arrêtent en 2025 ; toute couverture 2026 doit être confirmée par le comptage de scènes exporté.</li>
+            <li><a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">Global Forest Watch · UMD Tree Cover Loss, API actuellement v1.13</a><br>Le CSV du dépôt contient des valeurs annuelles jusqu’en 2025, mais ne consigne pas sa version source. Pour un contrôle séparé dans Earth Engine, le script exporte UMD/Hansen v1.12 (produit historique, jusqu’en 2024, seuil de couvert 2000 ≥ 30 %). Conservez les versions des deux extractions pour comparer.</li>
             <li><a href="https://www.globalforestwatch.org/" target="_blank" rel="noopener noreferrer">Global Forest Watch</a><br>Contexte forestier, alertes de perte et données de pression à confronter à un inventaire minier vérifié.</li>
             <li><a href="https://www.openstreetmap.org/relation/401017" target="_blank" rel="noopener noreferrer">OpenStreetMap · relation 401017</a><br>Périmètre utilisé ailleurs dans ce projet comme approximation de la réserve ; à valider avant le calcul du tampon de 10 km.</li>
           </ul>
@@ -492,17 +513,17 @@
         <article class="info-card">
           <h3>Indicateurs d’impact à calculer</h3>
           <ul class="process-list">
-            <li><strong>Empreinte minière.</strong> Localiser les sites avec plusieurs sources (registres officiels, inventaires géologiques et imagerie), puis confirmer visuellement les cas incertains. Séparer mines, carrières, routes et autres perturbations.</li>
-            <li><strong>Perte forestière.</strong> Quantifier la perte annuelle à l’intérieur des emprises minières validées et dans des zones de proximité définies ; utiliser une série cohérente de couvert/perte et documenter sa résolution.</li>
+            <li><strong>Empreinte minière.</strong> Localiser les sites avec plusieurs sources (registres officiels, inventaires géologiques et imagerie), puis confirmer visuellement les cas incertains. L’inventaire importé doit contenir les années numériques <code>start_year</code> et <code>end_year</code> pour activer le filtre temporel annuel.</li>
+            <li><strong>Perte forestière.</strong> Le script repère les transitions annuelles potentielles forêt → sol nu en combinant NDVI, NBR, indice de sol nu et eau (MNDWI). Il exporte les hectares candidats séparément par zone ; ce masque est un indicateur de dépistage, pas un produit validé de déforestation.</li>
             <li><strong>Comparaison spatiale.</strong> Calculer séparément les résultats dans la réserve et dans la couronne extérieure de 10 km, sans compter deux fois les pixels de la zone de chevauchement.</li>
-            <li><strong>Attribution prudente.</strong> Comparer les tendances à des zones témoins similaires et vérifier les dates d’ouverture ; signaler les incertitudes. La coïncidence spatiale ou temporelle n’établit pas, à elle seule, la causalité minière.</li>
+            <li><strong>Attribution prudente.</strong> Si un inventaire vérifié avec dates d’activité est fourni, le script calcule la perte candidate dans un rayon de 500 m autour des sites actifs pour chaque année. Comparer ensuite à des zones témoins : la proximité n’établit pas, à elle seule, la causalité minière.</li>
           </ul>
         </article>
       </div>
       <div class="check-grid">
         <div class="check-card"><strong>Emprise officielle à confirmer</strong><span>Le périmètre OSM est une approximation, pas une limite juridique validée pour cette analyse.</span></div>
         <div class="check-card"><strong>Inventaire minier manquant</strong><span>Aucun site minier géoréférencé vérifié n’est actuellement inclus dans le dépôt.</span></div>
-        <div class="check-card"><strong>Pas de résultats inventés</strong><span>Aucune superficie ou tendance d’impact minier n’est affichée sans traitement des données sources.</span></div>
+        <div class="check-card"><strong>Script reproductible</strong><span>Composites annuels interactifs dans Earth Engine et export CSV par année et par zone.</span></div>
       </div>
     </section>
 
@@ -515,6 +536,7 @@
             <li class="download-item"><span><strong>Météo quotidienne · 1986–2026</strong><small>14 908 jours · Tmax, Tmin et précipitations</small></span><a class="download-link" href="Meteo_owr.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Perte de couvert arboré · 2001–2025</strong><small>Estimations annuelles Global Forest Watch / UMD</small></span><a class="download-link" href="TreeCoverLoss_owr.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Alertes forestières · 2026</strong><small>Détections mensuelles provisoires, version v20261025</small></span><a class="download-link" href="ForestAlerts_2026_owr.csv" download>Télécharger le CSV</a></li>
+            <li class="download-item"><span><strong>Script d’analyse minière et forestière</strong><small>Google Earth Engine · Landsat, Sentinel, ASTER et MODIS</small></span><a class="download-link" href="earth_engine/okapi_mining_deforestation.js" download>Télécharger le script</a></li>
           </ul>
         </article>
         <article class="info-card"><h3>Projet et partage</h3><p>Le tableau de bord est autonome : téléchargez le fichier HTML et ouvrez-le dans un navigateur récent. Les graphiques météo utilisent des données intégrées dans la page ; les exports CSV restent accessibles séparément.</p>
@@ -712,6 +734,30 @@
       }
       return path;
     }
+    function renderMiningGfw() {
+      const svg=document.getElementById("mining-gfw-chart");
+      const width=980,height=260,pad={l:62,r:16,t:15,b:38};
+      svgSetup(svg,width,height);
+      const max=Math.ceil(Math.max(...FOREST_DATA.map(([,value])=>value))/500)*500;
+      const plotW=width-pad.l-pad.r,plotH=height-pad.t-pad.b;
+      const y=value=>height-pad.b-(value/max)*plotH;
+      const band=plotW/FOREST_DATA.length,bw=band*.66;
+      for(let i=0;i<=4;i++){
+        const value=max*i/4,yy=y(value);
+        svg.appendChild(svgEl("line",{x1:pad.l,y1:yy,x2:width-pad.r,y2:yy,class:"grid-line"}));
+        addText(svg,pad.l-8,yy+3,fmt.format(value),{"text-anchor":"end"});
+      }
+      svg.appendChild(svgEl("line",{x1:pad.l,y1:height-pad.b,x2:width-pad.r,y2:height-pad.b,class:"axis-line"}));
+      FOREST_DATA.forEach(([year,value],i)=>{
+        const x=pad.l+i*band+(band-bw)/2,yy=y(value);
+        const bar=svgEl("rect",{x,y:yy,width:bw,height:height-pad.b-yy,rx:2,
+          fill:year===2025?"#426d4c":"#8eae83",opacity:year===2025?1:.84});
+        bar.appendChild(svgEl("title",{},`${year} : ${fmt.format(value)} ha de perte de couvert arboré · GFW/UMD`));
+        svg.appendChild(bar);
+        if(year===2001||year%5===0||year===2025)
+          addText(svg,x+bw/2,height-13,String(year),{"text-anchor":"middle"});
+      });
+    }
     function renderForest() {
       const total=FOREST_DATA.reduce((sum,item)=>sum+item[1],0);
       const peak=FOREST_DATA.reduce((best,item)=>item[1]>best[1]?item:best,FOREST_DATA[0]);
@@ -884,6 +930,7 @@
       renderTrend(rows);
       renderSeason(rows);
       renderForest();
+      renderMiningGfw();
       document.getElementById("record-length").textContent=`${years[0]}–${years[years.length-1]}`;
     }
     startSelect.addEventListener("change",render);
