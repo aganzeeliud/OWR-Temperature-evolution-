@@ -1,0 +1,11 @@
+model OWR_Climate
+    culture: en-US
+    defaultPowerBIDataSourceVersion: powerBI_V3
+    sourceQueryCulture: en-US
+    dataAccessOptions
+        legacyRedirects
+        returnErrorValuesAsNull
+
+    ref table Weather
+    ref table TreeCoverLoss
+    ref table ForestAlerts

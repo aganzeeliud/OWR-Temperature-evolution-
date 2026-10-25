@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "total-loss",
+  "position": {
+    "x": 24,
+    "y": 24,
+    "z": 0,
+    "height": 140,
+    "width": 300,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TreeCoverLoss"
+                    }
+                  },
+                  "Property": "Tree-cover loss (ha)"
+                }
+              },
+              "queryRef": "TreeCoverLoss.Tree-cover loss (ha)",
+              "nativeQueryRef": "Tree-cover loss (ha)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Tree-cover loss, 2001–2025 (ha; not necessarily permanent deforestation)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

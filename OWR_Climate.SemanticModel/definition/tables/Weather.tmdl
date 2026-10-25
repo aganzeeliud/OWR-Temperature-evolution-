@@ -1,0 +1,82 @@
+table Weather
+    measure 'Mean Tmax (°C)' = AVERAGE('Weather'[Tmax (°C)])
+        formatString: 0.0
+
+    measure 'Mean Tmin (°C)' = AVERAGE('Weather'[Tmin (°C)])
+        formatString: 0.0
+
+    measure 'Mean Rainfall (mm)' = AVERAGE('Weather'[Rain (mm)])
+        formatString: 0.0
+
+    measure 'Complete Weather Days' =
+            COUNTROWS(
+                FILTER(
+                    'Weather',
+                    NOT ISBLANK('Weather'[Tmax (°C)])
+                        && NOT ISBLANK('Weather'[Tmin (°C)])
+                        && NOT ISBLANK('Weather'[Rain (mm)])
+                )
+            )
+        formatString: #,0
+
+    column Date
+        dataType: dateTime
+        formatString: Short Date
+        summarizeBy: none
+        sourceColumn: Date
+
+    column Year
+        dataType: int64
+        formatString: 0
+        summarizeBy: none
+        sourceColumn: Year
+
+    column Month
+        dataType: string
+        summarizeBy: none
+        sourceColumn: Month
+
+    column Day
+        dataType: int64
+        formatString: 0
+        summarizeBy: none
+        sourceColumn: Day
+
+    column 'Tmax (°C)'
+        dataType: double
+        formatString: 0.0
+        summarizeBy: average
+        sourceColumn: Tmax (°C)
+
+    column 'Tmin (°C)'
+        dataType: double
+        formatString: 0.0
+        summarizeBy: average
+        sourceColumn: Tmin (°C)
+
+    column 'Rain (mm)'
+        dataType: double
+        formatString: 0.0
+        summarizeBy: average
+        sourceColumn: Rain (mm)
+
+    partition Weather = m
+        mode: import
+        source =
+                let
+                    Source = Csv.Document(
+                        Web.Contents("https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/Meteo_owr.csv"),
+                        [Delimiter = ",", Columns = 7, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+                    ),
+                    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+                    Typed = Table.TransformColumnTypes(
+                        Promoted,
+                        {
+                            {"Date", type date}, {"Year", Int64.Type}, {"Month", type text},
+                            {"Day", Int64.Type}, {"Tmax (°C)", type number},
+                            {"Tmin (°C)", type number}, {"Rain (mm)", type number}
+                        },
+                        "en-US"
+                    )
+                in
+                    Typed

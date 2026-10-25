@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "complete-days",
+  "position": {
+    "x": 560,
+    "y": 24,
+    "z": 0,
+    "height": 132,
+    "width": 250,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather"
+                    }
+                  },
+                  "Property": "Complete Weather Days"
+                }
+              },
+              "queryRef": "Weather.Complete Weather Days",
+              "nativeQueryRef": "Complete Weather Days"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Complete weather days'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

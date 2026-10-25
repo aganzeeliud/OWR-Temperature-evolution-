@@ -1,0 +1,58 @@
+table ForestAlerts
+    measure 'Alert detections' = SUM('ForestAlerts'[Alert pixels])
+        formatString: #,0
+
+    column Month
+        dataType: string
+        summarizeBy: none
+        sourceColumn: Month
+        sortByColumn: 'Month Number'
+
+    column Year
+        dataType: int64
+        formatString: 0
+        summarizeBy: none
+        sourceColumn: Year
+
+    column 'Month Number'
+        dataType: int64
+        formatString: 0
+        summarizeBy: none
+        sourceColumn: Month Number
+
+    column 'Alert pixels'
+        dataType: int64
+        formatString: #,0
+        summarizeBy: sum
+        sourceColumn: Alert pixels
+
+    column 'Observation through'
+        dataType: dateTime
+        formatString: Short Date
+        summarizeBy: none
+        sourceColumn: Observation through
+
+    column Status
+        dataType: string
+        summarizeBy: none
+        sourceColumn: Status
+
+    partition ForestAlerts = m
+        mode: import
+        source =
+                let
+                    Source = Csv.Document(
+                        Web.Contents("https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/ForestAlerts_2026_owr.csv"),
+                        [Delimiter = ",", Columns = 6, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+                    ),
+                    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+                    Typed = Table.TransformColumnTypes(
+                        Promoted,
+                        {
+                            {"Year", Int64.Type}, {"Month", type text}, {"Month Number", Int64.Type},
+                            {"Alert pixels", Int64.Type}, {"Observation through", type date}, {"Status", type text}
+                        },
+                        "en-US"
+                    )
+                in
+                    Typed

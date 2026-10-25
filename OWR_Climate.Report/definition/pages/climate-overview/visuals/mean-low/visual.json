@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "mean-low",
+  "position": {
+    "x": 292,
+    "y": 24,
+    "z": 0,
+    "height": 132,
+    "width": 250,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather"
+                    }
+                  },
+                  "Property": "Mean Tmin (°C)"
+                }
+              },
+              "queryRef": "Weather.Mean Tmin (°C)",
+              "nativeQueryRef": "Mean Tmin (°C)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Mean daily low (°C)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

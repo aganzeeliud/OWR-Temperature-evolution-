@@ -1,0 +1,32 @@
+table TreeCoverLoss
+    measure 'Tree-cover loss (ha)' = SUM('TreeCoverLoss'[Loss (ha)])
+        formatString: #,0.0
+
+    column Year
+        dataType: int64
+        formatString: 0
+        summarizeBy: none
+        sourceColumn: Year
+
+    column 'Loss (ha)'
+        dataType: double
+        formatString: #,0.0
+        summarizeBy: sum
+        sourceColumn: Loss (ha)
+
+    partition TreeCoverLoss = m
+        mode: import
+        source =
+                let
+                    Source = Csv.Document(
+                        Web.Contents("https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/TreeCoverLoss_owr.csv"),
+                        [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+                    ),
+                    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+                    Typed = Table.TransformColumnTypes(
+                        Promoted,
+                        {{"Year", Int64.Type}, {"Loss (ha)", type number}},
+                        "en-US"
+                    )
+                in
+                    Typed
