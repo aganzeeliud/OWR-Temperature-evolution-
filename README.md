@@ -9,7 +9,7 @@ Tableau de bord autonome consacré à l’évolution du climat et du couvert arb
 - **Projet Power BI :** [OWR_Climate.pbip](https://github.com/aganzeeliud/OWR-Temperature-evolution-/blob/main/OWR_Climate.pbip)
 - **Guide Power BI :** [README_POWERBI.md](README_POWERBI.md)
 
-Le tableau de bord propose cinq onglets en français : **Vue d’ensemble**, **Activités minières**, **Téléchargements**, **Références scientifiques** et **Méthode & vérifications**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour utiliser aussi ses liens de téléchargement locaux, placez les fichiers CSV dans le même dossier que la page HTML. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès au fichier source ou à son téléchargement, et non à une page interactive hébergée.
+Le tableau de bord propose six onglets en français : **Vue d’ensemble**, **Perte forestière & alertes**, **Activités minières**, **Méthode & vérifications**, **Références scientifiques** et **Téléchargements**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour utiliser aussi ses liens de téléchargement locaux, placez les fichiers CSV dans le même dossier que la page HTML. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès au fichier source ou à son téléchargement, et non à une page interactive hébergée.
 
 ## Données téléchargeables
 
@@ -29,15 +29,16 @@ Le classeur Excel et le CSV météo contiennent la même série et les mêmes va
 
 ## Utiliser le tableau de bord
 
-La page est organisée en cinq onglets :
+La page est organisée en six onglets :
 
-1. **Vue d’ensemble** — filtres d’années, indicateurs météo, tendances annuelles et saisonnières, indicateurs de perte de couvert et alertes.
-2. **Activités minières** — série de perte du couvert GFW du dépôt et comparateur par zone pour les résultats exportés Landsat/Sentinel et UMD/Hansen.
-3. **Méthode & vérifications** — calcul des indicateurs, contrôles et limites d’interprétation.
-4. **Références scientifiques** — liens vers les documentations et sources de données.
-5. **Téléchargements** — CSV, classeur Excel, script Earth Engine, HTML et projet Power BI.
+1. **Vue d’ensemble** — filtres d’années, indicateurs météo, tendances annuelles et saisonnières.
+2. **Perte forestière & alertes** — perte annuelle GFW/UMD (2001–2025), alertes provisoires 2026, indicateurs et table des valeurs.
+3. **Activités minières** — comparateur par zone pour GFW, Hansen et transitions candidates ; estimation près des mines disponible uniquement après export Earth Engine avec inventaire vérifié.
+4. **Méthode & vérifications** — calcul des indicateurs, contrôles et limites d’interprétation.
+5. **Références scientifiques** — liens vers les documentations et sources de données.
+6. **Téléchargements** — CSV, classeur Excel, script Earth Engine, HTML et projet Power BI.
 
-Dans la vue d’ensemble, sélectionnez une plage d’années et choisissez d’afficher la température ou les précipitations. Les indicateurs et les graphiques climatiques sont recalculés à partir des jours disponibles. La comparaison forestière présente séparément les estimations annuelles de perte et les alertes provisoires de 2026.
+Dans la vue d’ensemble, sélectionnez une plage d’années et choisissez d’afficher la température ou les précipitations. Les indicateurs et les graphiques climatiques sont recalculés à partir des jours disponibles. L’onglet **Perte forestière & alertes** rassemble les estimations annuelles de perte et les alertes provisoires 2026, présentées comme des produits distincts.
 
 L’onglet **Activités minières** présente une chaîne reproductible Google Earth Engine et les sources satellitaires pour 2000–2026. Le calcul doit être lancé par un utilisateur Earth Engine après import de la limite de la réserve ; les résultats ne sont pas calculés ni fournis dans ce dépôt. Sans inventaire de sites vérifiés, les changements détectés restent des signaux candidats et ne sont pas attribués à l’exploitation minière.
 

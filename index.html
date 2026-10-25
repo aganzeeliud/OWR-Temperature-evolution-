@@ -449,6 +449,7 @@
   <main class="shell">
     <nav class="section-nav" role="tablist" aria-label="Sections du tableau de bord">
       <button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-tab-target="panel-overview"><svg class="icon"><use href="#i-chart"/></svg>Vue d’ensemble</button>
+      <button type="button" role="tab" id="tab-forest" aria-controls="panel-forest" aria-selected="false" data-tab-target="panel-forest" tabindex="-1"><svg class="icon"><use href="#i-tree"/></svg>Perte forestière &amp; alertes</button>
       <button type="button" role="tab" id="tab-mining" aria-controls="panel-mining" aria-selected="false" data-tab-target="panel-mining" tabindex="-1"><svg class="icon"><use href="#i-satellite"/></svg>Activités minières</button>
       <button type="button" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" data-tab-target="panel-method" tabindex="-1"><svg class="icon"><use href="#i-shield"/></svg>Méthode &amp; vérifications</button>
       <button type="button" role="tab" id="tab-references" aria-controls="panel-references" aria-selected="false" data-tab-target="panel-references" tabindex="-1"><svg class="icon"><use href="#i-book"/></svg>Références scientifiques</button>
@@ -512,6 +513,13 @@
       </article>
     </section>
 
+    <aside class="quality" aria-label="Note sur la qualité des données">
+      <span class="quality-icon" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></span>
+      <span><strong>À interpréter avec prudence.</strong> Les valeurs journalières sont des estimations de grille pour les coordonnées approximatives de la réserve, et non des mesures issues d’une station située dans la réserve. Les données manquantes sont exclues des moyennes ; aucune interpolation ni prévision n’est appliquée.</span>
+    </aside>
+    </section>
+
+    <section class="tab-panel" id="panel-forest" role="tabpanel" aria-labelledby="tab-forest" hidden>
     <section class="forest-section" aria-labelledby="forest-heading">
       <div class="forest-heading">
         <div>
@@ -561,11 +569,6 @@
         </div>
       </details>
     </section>
-
-    <aside class="quality" aria-label="Note sur la qualité des données">
-      <span class="quality-icon" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></span>
-      <span><strong>À interpréter avec prudence.</strong> Les valeurs journalières sont des estimations de grille pour les coordonnées approximatives de la réserve, et non des mesures issues d’une station située dans la réserve. Les données manquantes sont exclues des moyennes ; aucune interpolation ni prévision n’est appliquée.</span>
-    </aside>
     </section>
 
     <section class="tab-panel" id="panel-mining" role="tabpanel" aria-labelledby="tab-mining" hidden>
