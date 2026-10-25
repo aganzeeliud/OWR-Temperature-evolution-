@@ -9,7 +9,7 @@ Tableau de bord autonome consacré à l’évolution du climat et du couvert arb
 - **Projet Power BI :** [OWR_Climate.pbip](https://github.com/aganzeeliud/OWR-Temperature-evolution-/blob/main/OWR_Climate.pbip)
 - **Guide Power BI :** [README_POWERBI.md](README_POWERBI.md)
 
-Le tableau de bord propose quatre onglets en français : **Vue d’ensemble**, **Téléchargements**, **Références scientifiques** et **Méthode & vérifications**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour utiliser aussi ses liens de téléchargement locaux, placez les fichiers CSV dans le même dossier que la page HTML. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès au fichier source ou à son téléchargement, et non à une page interactive hébergée.
+Le tableau de bord propose cinq onglets en français : **Vue d’ensemble**, **Activités minières**, **Téléchargements**, **Références scientifiques** et **Méthode & vérifications**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour utiliser aussi ses liens de téléchargement locaux, placez les fichiers CSV dans le même dossier que la page HTML. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès au fichier source ou à son téléchargement, et non à une page interactive hébergée.
 
 ## Données téléchargeables
 
@@ -32,6 +32,8 @@ La page est organisée en quatre onglets :
 
 Dans la vue d’ensemble, sélectionnez une plage d’années et choisissez d’afficher la température ou les précipitations. Les indicateurs et les graphiques climatiques sont recalculés à partir des jours disponibles. La comparaison forestière présente séparément les estimations annuelles de perte et les alertes provisoires de 2026.
 
+L’onglet **Activités minières** présente les sources satellitaires envisageables pour 2000–2026 et une méthode d’évaluation distincte pour la réserve et sa zone tampon de 10 km. Il indique explicitement que l’inventaire vérifié des sites, la géométrie validée du tampon et les séries d’images traitées ne sont pas encore inclus dans ce dépôt ; aucun résultat quantitatif d’impact minier n’est donc revendiqué.
+
 ## Sources et périmètre
 
 - **Météo :** [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api) et données publiées dans [`Meteo_owr.csv`](Meteo_owr.csv). Les valeurs de grille sont des estimations pour les coordonnées approximatives de la réserve, et non des mesures provenant d’une station météo locale dans l’aire protégée.
@@ -39,6 +41,7 @@ Dans la vue d’ensemble, sélectionnez une plage d’années et choisissez d’
 - **Référence scientifique :** Hansen, M. C. et al. (2013). [High-Resolution Global Maps of 21st-Century Forest Cover Change](https://doi.org/10.1126/science.1244693) [Cartes mondiales à haute résolution de l’évolution du couvert forestier au XXIe siècle]. *Science*, 342(6160), 850–853.
 - **Zone d’étude fournie :** [Global Nature Watch](https://gfw.global/eWfDix). La géométrie de l’AOI n’étant pas exposée dans la réponse publique utilisée pour l’extraction, le périmètre substitutif est la [relation 401017 de la Réserve de faune à okapis dans OpenStreetMap](https://www.openstreetmap.org/relation/401017).
 - **Alertes forestières :** détections mensuelles intégrées de pixels d’alerte, fournies dans [`ForestAlerts_2026_owr.csv`](ForestAlerts_2026_owr.csv), version `v20261025`.
+- **Sources satellitaires proposées pour l’analyse minière :** [USGS Landsat Collection 2](https://www.usgs.gov/landsat-missions/landsat-collection-2) pour l’archive historique et [Copernicus Data Space](https://dataspace.copernicus.eu/) pour Sentinel-1/2. Sentinel ne couvre pas toute la période depuis 2000 ; Landsat est nécessaire pour la référence historique.
 
 ## Méthode et vérifications
 

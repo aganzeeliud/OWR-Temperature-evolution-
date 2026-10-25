@@ -197,6 +197,14 @@
     .check-card span { display: block; margin-top: 6px; color: #718078; font-size: 11px; }
     .tab-intro { margin: 0 0 18px; color: #65746b; font-size: 13px; }
     .pill { display: inline-flex; padding: 5px 9px; border-radius: 99px; background: #edf5ed; color: #3c7048; font-size: 10px; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; }
+    .mining-status { display: flex; align-items: start; gap: 12px; margin: 0 0 17px; padding: 15px 17px; border: 1px solid #ead9b5; border-radius: 12px; background: #fcf8ef; color: #6c5a37; font-size: 12px; }
+    .mining-status strong { display: block; margin-bottom: 3px; color: #634b20; }
+    .mining-status-icon { flex: 0 0 auto; display: grid; width: 28px; height: 28px; place-items: center; border-radius: 9px; background: #f3e8cd; color: #8b6826; font-weight: 800; }
+    .mining-timeline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+    .mining-period { padding: 15px; border: 1px solid #e4e9e2; border-radius: 12px; background: #fff; }
+    .mining-period strong { display: block; color: #2c5038; font-size: 13px; }
+    .mining-period span { display: block; margin-top: 5px; color: #728078; font-size: 11px; }
+    .mining-period em { display: inline-block; margin-top: 10px; color: #88703f; font-size: 10px; font-style: normal; font-weight: 700; }
     .forest-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
     .forest-table-details { margin-top: 12px; border: 1px solid #e1e8df; border-radius: 12px; background: #fff; }
     .forest-table-details summary { padding: 13px 16px; color: var(--forest); cursor: pointer; font-size: 12px; font-weight: 680; }
@@ -258,6 +266,7 @@
       .chart-key { white-space: normal; }
       .info-grid { grid-template-columns: 1fr; }
       .check-grid { grid-template-columns: 1fr; }
+      .mining-timeline { grid-template-columns: 1fr; }
       .download-item { align-items: start; flex-direction: column; }
     }
     @media print {
@@ -335,6 +344,7 @@
   <main class="shell">
     <nav class="section-nav" role="tablist" aria-label="Sections du tableau de bord">
       <button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-tab-target="panel-overview">Vue d’ensemble</button>
+      <button type="button" role="tab" id="tab-mining" aria-controls="panel-mining" aria-selected="false" data-tab-target="panel-mining" tabindex="-1">Activités minières</button>
       <button type="button" role="tab" id="tab-downloads" aria-controls="panel-downloads" aria-selected="false" data-tab-target="panel-downloads" tabindex="-1">Téléchargements</button>
       <button type="button" role="tab" id="tab-references" aria-controls="panel-references" aria-selected="false" data-tab-target="panel-references" tabindex="-1">Références scientifiques</button>
       <button type="button" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" data-tab-target="panel-method" tabindex="-1">Méthode &amp; vérifications</button>
@@ -451,6 +461,49 @@
       <span class="quality-icon" aria-hidden="true">ⓘ</span>
       <span><strong>À interpréter avec prudence.</strong> Les valeurs journalières sont des estimations de grille pour les coordonnées approximatives de la réserve, et non des mesures issues d’une station située dans la réserve. Les données manquantes sont exclues des moyennes ; aucune interpolation ni prévision n’est appliquée.</span>
     </aside>
+    </section>
+
+    <section class="tab-panel" id="panel-mining" role="tabpanel" aria-labelledby="tab-mining" hidden>
+      <header class="toolbar">
+        <div><p class="section-label">Surveillance satellitaire · 2000–2026</p><h2>Activités minières et pression sur les forêts</h2></div>
+        <span class="pill">Réserve + zone tampon de 10 km</span>
+      </header>
+      <div class="mining-status" role="note">
+        <span class="mining-status-icon" aria-hidden="true">!</span>
+        <span><strong>Analyse quantitative non encore disponible</strong>Ce dépôt ne contient pas encore d’inventaire géolocalisé et vérifié des sites miniers, de polygone de zone tampon calculé, ni de séries d’images satellitaires traitées. Les cartes et chiffres d’impact ne sont donc pas présentés comme des résultats. Cette section décrit les sources et la méthode requises, sans assimiler une perte forestière à une activité minière.</span>
+      </div>
+      <p class="tab-intro">L’évaluation doit comparer les changements observés dans les limites officielles de la réserve et dans une couronne externe de 10 km, en distinguant les mines confirmées, les indices à vérifier et les autres causes possibles de déforestation.</p>
+      <div class="mining-timeline" aria-label="Disponibilité temporelle des principales sources satellitaires">
+        <article class="mining-period"><strong>2000–2012 · Landsat 5/7</strong><span>Archives optiques historiques pour repérer les changements de couvert et les traces visibles d’exploitation. Nuages, résolution et qualité des scènes limitent l’interprétation locale.</span><em>Source historique nécessaire</em></article>
+        <article class="mining-period"><strong>2013–2014 · Landsat 8</strong><span>Continuité de l’observation optique Landsat ; Sentinel-1/2 commence à apporter des observations à partir de 2014–2015 selon le capteur.</span><em>Période de transition</em></article>
+        <article class="mining-period"><strong>2015–2026 · Sentinel-1/2 + Landsat</strong><span>Sentinel-2 apporte des images optiques plus fréquentes ; Sentinel-1 radar aide en présence de nuages. Les deux séries ne couvrent pas l’année 2000.</span><em>Sources complémentaires</em></article>
+      </div>
+      <div class="info-grid">
+        <article class="info-card">
+          <h3>Sources à mobiliser</h3>
+          <p>Les images satellitaires montrent des changements de surface ; elles ne prouvent pas à elles seules qu’une mine est active ni n’en déterminent l’exploitant.</p>
+          <ul class="reference-list">
+            <li><a href="https://www.usgs.gov/landsat-missions/landsat-collection-2" target="_blank" rel="noopener noreferrer">USGS · Landsat Collection 2</a><br>Archive multi-décennale pour établir la référence 2000 et suivre les changements jusqu’à aujourd’hui.</li>
+            <li><a href="https://dataspace.copernicus.eu/" target="_blank" rel="noopener noreferrer">Copernicus Data Space · Sentinel</a><br>Accès aux observations Sentinel-1 (radar) et Sentinel-2 (optique), disponibles à partir de 2014/2015.</li>
+            <li><a href="https://www.globalforestwatch.org/" target="_blank" rel="noopener noreferrer">Global Forest Watch</a><br>Contexte forestier, alertes de perte et données de pression à confronter à un inventaire minier vérifié.</li>
+            <li><a href="https://www.openstreetmap.org/relation/401017" target="_blank" rel="noopener noreferrer">OpenStreetMap · relation 401017</a><br>Périmètre utilisé ailleurs dans ce projet comme approximation de la réserve ; à valider avant le calcul du tampon de 10 km.</li>
+          </ul>
+        </article>
+        <article class="info-card">
+          <h3>Indicateurs d’impact à calculer</h3>
+          <ul class="process-list">
+            <li><strong>Empreinte minière.</strong> Localiser les sites avec plusieurs sources (registres officiels, inventaires géologiques et imagerie), puis confirmer visuellement les cas incertains. Séparer mines, carrières, routes et autres perturbations.</li>
+            <li><strong>Perte forestière.</strong> Quantifier la perte annuelle à l’intérieur des emprises minières validées et dans des zones de proximité définies ; utiliser une série cohérente de couvert/perte et documenter sa résolution.</li>
+            <li><strong>Comparaison spatiale.</strong> Calculer séparément les résultats dans la réserve et dans la couronne extérieure de 10 km, sans compter deux fois les pixels de la zone de chevauchement.</li>
+            <li><strong>Attribution prudente.</strong> Comparer les tendances à des zones témoins similaires et vérifier les dates d’ouverture ; signaler les incertitudes. La coïncidence spatiale ou temporelle n’établit pas, à elle seule, la causalité minière.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="check-grid">
+        <div class="check-card"><strong>Emprise officielle à confirmer</strong><span>Le périmètre OSM est une approximation, pas une limite juridique validée pour cette analyse.</span></div>
+        <div class="check-card"><strong>Inventaire minier manquant</strong><span>Aucun site minier géoréférencé vérifié n’est actuellement inclus dans le dépôt.</span></div>
+        <div class="check-card"><strong>Pas de résultats inventés</strong><span>Aucune superficie ou tendance d’impact minier n’est affichée sans traitement des données sources.</span></div>
+      </div>
     </section>
 
     <section class="tab-panel" id="panel-downloads" role="tabpanel" aria-labelledby="tab-downloads" hidden>
