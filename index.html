@@ -1834,7 +1834,7 @@
           <label for="cross-zone">Zone à comparer<select id="cross-zone"><option value="Reserve">Réserve</option><option value="Buffer_0_10km">Couronne externe · 0–10 km</option></select></label>
           <p id="cross-status" role="status" aria-live="polite">Les séries locales GFW/UMD et Hansen à proximité des sites IPIS historiques sont affichées. Les séries optiques candidates et Hansen sur toute la zone nécessitent un export Earth Engine.</p>
         </div>
-        <div class="chart-wrap"><svg id="mining-cross-chart" role="img" aria-label="Comparaison par année des valeurs Global Forest Watch, Hansen et des transitions candidates"></svg></div>
+        <div class="chart-wrap"><svg id="mining-cross-chart" role="img" aria-label="Comparaison par année des valeurs Global Forest Watch, Hansen et, si elles sont importées, des transitions candidates"></svg></div>
         <div class="chart-note"><span>Les séries GFW de la réserve, Hansen à proximité des sites IPIS (500 m) et les exports par zone ont des emprises différentes ; ne les interprétez pas comme des mesures équivalentes. Pointillés : tendances descriptives.</span><span>ha / an</span></div>
         <div class="chart-meta"><span class="chart-trend" id="cross-trend">Tendances linéaires par série affichées en pointillés</span><span class="chart-source">Sources : <a href="https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/latest" target="_blank" rel="noopener noreferrer">GFW/UMD</a> · <a href="https://developers.google.com/earth-engine/datasets/catalog/UMD_hansen_global_forest_change_2024_v1_12" target="_blank" rel="noopener noreferrer">Hansen v1.12</a> · <a href="earth_engine/mining_forest_change.js" download>script Earth Engine</a></span></div>
       </article>
@@ -1843,7 +1843,7 @@
           <div><h3><span class="card-icon"><svg class="icon"><use href="#i-pin"/></svg></span>Estimation préliminaire près des sites miniers</h3><p class="panel-sub">Perte forestière GFW/Hansen à moins de 500 m des localisations IPIS historiques, sans filtre annuel d’activité</p></div>
           <div><span class="forest-tag">Proxy spatial · non causal</span><div class="chart-key" aria-label="Légende du graphique de proximité minière"><span class="key-item"><i class="key-bar proxy"></i>Perte près des sites (ha/an)</span><span class="key-item"><i class="key-trend"></i>Tendance descriptive</span></div></div>
         </div>
-        <p class="panel-sub" style="margin:0 0 8px">Dépistage pré-calculé sur la perte annuelle UMD/Hansen v1.12 (couvert arboré 2000 ≥ 30 %), 2001–2024. Les points IPIS ont des dates de visite mais pas de périodes d’activité validées : le calcul montre une proximité spatiale, pas des sites actifs chaque année, ni une cause minière.</p>
+        <p class="panel-sub" style="margin:0 0 8px">Série locale pré-calculée sur la perte annuelle UMD/Hansen v1.12 (couvert arboré 2000 ≥ 30 %), 2001–2024. Elle s’affiche sans export Earth Engine. Les points IPIS ont des dates de visite mais pas de périodes d’activité validées : le calcul montre une proximité spatiale, pas des sites actifs chaque année, ni une cause minière.</p>
         <p id="mine-proxy-status" role="status" aria-live="polite">Chargement du dépistage de proximité Hansen…</p>
         <div class="chart-wrap"><svg id="mining-proxy-chart" role="img" aria-label="Perte annuelle de couvert GFW/Hansen à moins de 500 mètres des localisations IPIS historiques, selon la zone sélectionnée"></svg></div>
         <div class="chart-note"><span>Calcul distinct pour la réserve et la couronne externe sélectionnée ci-dessus. Couverture Hansen : 2001–2024 ; aucun chiffre pour 2000, 2025 ou 2026.</span><span>ha / an</span></div>
@@ -2000,7 +2000,7 @@
         <a class="conservation-source" href="https://whc.unesco.org/en/list/718/" target="_blank" rel="noopener noreferrer">Fiche UNESCO ↗</a>
       </aside>
       <div class="relation-callout" role="note">
-        <strong>Comment lire les cartes :</strong> Pearson mesure une association linéaire brute ; Spearman mesure une association monotone par rangs ; « après retrait de tendance » recalcule Pearson après avoir retiré séparément une droite temporelle à chaque série ; « variation annuelle » corrèle les différences entre années consécutives ; « sensibilité ±1 année » donne l’étendue de Pearson quand chaque année est retirée à tour de rôle. Ces contrôles sont descriptifs, non corrigés de l’autocorrélation, et ne constituent pas des tests de significativité. La série agricole a une provenance et une emprise non documentées ; la série minière n’est pas calculable sans export Earth Engine et inventaire vérifié.
+        <strong>Comment lire les cartes :</strong> Pearson mesure une association linéaire brute ; Spearman mesure une association monotone par rangs ; « après retrait de tendance » recalcule Pearson après avoir retiré séparément une droite temporelle à chaque série ; « variation annuelle » corrèle les différences entre années consécutives ; « sensibilité ±1 année » donne l’étendue de Pearson quand chaque année est retirée à tour de rôle. Ces contrôles sont descriptifs, non corrigés de l’autocorrélation, et ne constituent pas des tests de significativité. La série agricole a une provenance et une emprise non documentées ; la relation par défaut compare GFW et le proxy de proximité IPIS sans démontrer de causalité.
       </div>
       <div class="stats relation-overview" aria-label="Périmètre de la comparaison">
         <article class="stat"><span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span><div class="stat-label">Période réellement commune</div><div class="stat-value" id="relation-period">—</div><div class="stat-detail">Années complètes présentes dans les séries</div></article>
@@ -2034,10 +2034,10 @@
           <div class="relation-status" id="rel-tmin-status">Calcul sur années communes.</div>
         </article>
         <article class="relation-card relation-unavailable" id="rel-mining-card">
-          <h3>Perte forestière ↔ proxy minier</h3>
-          <p>Une relation minière ne peut être calculée qu’à partir d’un export Earth Engine comprenant la colonne `candidate_loss_within_500m_mines_ha` et un inventaire géolocalisé daté.</p>
+          <h3>Perte forestière ↔ proxy de proximité IPIS</h3>
+          <p>Comparaison descriptive de la perte GFW/UMD dans la réserve avec la perte Hansen à moins de 500 m des localisations IPIS historiques. Elle ne mesure pas l’activité minière et n’établit pas de causalité.</p>
           <div class="relation-stats"><div class="relation-stat"><span>Pearson r</span><strong id="rel-mining-pearson">—</strong></div><div class="relation-stat"><span>Spearman ρ</span><strong id="rel-mining-spearman">—</strong></div><div class="relation-stat"><span>Sans tendance</span><strong id="rel-mining-detrended">—</strong></div><div class="relation-stat"><span>Variations annuelles</span><strong id="rel-mining-delta">—</strong></div><div class="relation-stat"><span>Sensibilité ±1 an</span><strong id="rel-mining-loo">—</strong></div></div>
-          <div class="relation-status" id="rel-mining-status">Non calculable avec les fichiers actuels ; proximité à une mine ne prouve pas une causalité.</div>
+          <div class="relation-status" id="rel-mining-status">Calcul local sur les années communes ; interprétation descriptive uniquement.</div>
         </article>
       </div>
       <div class="relation-matrix-wrap">
@@ -2626,10 +2626,11 @@
       const series=[
         {key:"gfw",label:"GFW · dépôt",color:"#9aa96b",values:gfw},
         {key:"hansen",label:hasUploadedHansen?"Hansen · zone entière":"Hansen · ≤500 m des sites IPIS",color:"#4c8790",
-          values:hasUploadedHansen?uploadedHansen:proximityHansen},
-        {key:"candidate",label:"Transitions optiques candidates",color:"#b8754b",
-          values:new Map(selected.filter(row=>Number.isFinite(row.candidate)).map(row=>[row.year,row.candidate]))}
+          values:hasUploadedHansen?uploadedHansen:proximityHansen}
       ];
+      const candidateValues=new Map(selected.filter(row=>Number.isFinite(row.candidate)).map(row=>[row.year,row.candidate]));
+      if(candidateValues.size)
+        series.push({key:"candidate",label:"Transitions optiques candidates",color:"#b8754b",values:candidateValues});
       const allValues=series.flatMap(item=>[...item.values.values()]).filter(Number.isFinite);
       const width=980,height=300,pad={l:62,r:16,t:48,b:38};
       svgSetup(svg,width,height);
@@ -2648,7 +2649,7 @@
         series.forEach((item,seriesIndex)=>{
           const value=item.values.get(year);
           if(!Number.isFinite(value))return;
-          const yy=y(value),x=center+(seriesIndex-1)*bw;
+          const yy=y(value),x=center+(seriesIndex-(series.length-1)/2)*bw;
           const bar=svgEl("rect",{x,y:yy,width:bw*.88,height:Math.max(0,height-pad.b-yy),rx:1,fill:item.color});
           bar.appendChild(svgEl("title",{},`${year} · ${item.label} : ${fmt.format(value)} ha`));
           svg.appendChild(bar);
@@ -2800,7 +2801,15 @@
       }).join("");
 
       const zone=document.getElementById("cross-zone").value;
-      const miningRows=miningCrossRows.filter(row=>row.zone===zone&&Number.isFinite(row.gfw)&&Number.isFinite(row.mine));
+      const uploadedMiningRows=miningCrossRows.filter(row=>row.zone===zone&&Number.isFinite(row.gfw)&&Number.isFinite(row.mine));
+      const usesLocalMiningProxy=uploadedMiningRows.length===0&&zone==="Reserve";
+      const miningRows=usesLocalMiningProxy
+        ?MINING_DATA.proximity.filter(row=>row.zone==="Reserve").map(row=>({
+          year:Number(row.year),
+          gfw:FOREST_DATA.find(([year])=>year===Number(row.year))?.[1],
+          mine:Number(row.hansen_loss_ha)
+        })).filter(row=>Number.isFinite(row.gfw)&&Number.isFinite(row.mine))
+        :uploadedMiningRows;
       const mineStats=association(new Map(miningRows.map(row=>[row.year,row.gfw])),new Map(miningRows.map(row=>[row.year,row.mine])));
       const hasMineData=mineStats.n>=3;
       const miningCard=document.getElementById("rel-mining-card");
@@ -2812,8 +2821,8 @@
       document.getElementById("rel-mining-loo").textContent=hasMineData&&Number.isFinite(mineStats.leaveOneOutMin)&&Number.isFinite(mineStats.leaveOneOutMax)
         ?`${fmtMetric(mineStats.leaveOneOutMin)} à ${fmtMetric(mineStats.leaveOneOutMax)}`:"—";
       document.getElementById("rel-mining-status").textContent=hasMineData
-        ?`${mineStats.n} années appariées · ${zone} · comparaison avec la référence Hansen importée. ${associationSummary(mineStats)} Les candidats proches des sites ne prouvent pas un effet minier.`
-        :"Non calculable pour cette zone : chargez un export avec au moins trois années contenant les colonnes Hansen et candidate_loss_within_500m_mines_ha, calculées avec un inventaire daté.";
+        ?`${mineStats.n} années appariées · ${zone} · ${usesLocalMiningProxy?"GFW/UMD réserve ↔ Hansen près des sites IPIS historiques":"séries Hansen et proxy importées"}. ${associationSummary(mineStats)} Association descriptive entre produits et emprises différents ; elle ne prouve ni activité minière annuelle ni causalité.`
+        :"Pas de comparaison locale pour cette zone : le CSV GFW du dépôt couvre uniquement la réserve. Un export peut fournir au moins trois années appariées de référence Hansen et de proxy minier pour la zone choisie.";
       document.getElementById("relation-mining-status").textContent=hasMineData?`${mineStats.n} ans`:"Indisponible";
     }
     document.getElementById("cross-zone").addEventListener("change",()=>{renderMiningCross();renderMiningProxy();renderRelations();});
