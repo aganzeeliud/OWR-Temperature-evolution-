@@ -4,12 +4,12 @@ Tableau de bord autonome consacré à l’évolution du climat et du couvert arb
 
 ## Accès au projet
 
-- **Tableau de bord en français :** [consulter `index.html` dans le dépôt](https://github.com/aganzeeliud/OWR-Temperature-evolution-/blob/main/index.html) · [télécharger le fichier HTML autonome](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/index.html)
+- **Tableau de bord en français :** [consulter `index.html` dans le dépôt](https://github.com/aganzeeliud/OWR-Temperature-evolution-/blob/main/index.html) · [télécharger le fichier HTML](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/index.html)
 - **Dépôt et historique :** [aganzeeliud/OWR-Temperature-evolution-](https://github.com/aganzeeliud/OWR-Temperature-evolution-)
 - **Projet Power BI :** [OWR_Climate.pbip](https://github.com/aganzeeliud/OWR-Temperature-evolution-/blob/main/OWR_Climate.pbip)
 - **Guide Power BI :** [README_POWERBI.md](README_POWERBI.md)
 
-Le tableau de bord propose sept onglets en français : **Vue d’ensemble**, **Perte forestière & alertes**, **Activités minières**, **Relations entre facteurs**, **Méthode & vérifications**, **Références scientifiques** et **Téléchargements**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour utiliser aussi ses liens de téléchargement locaux, placez les fichiers CSV dans le même dossier que la page HTML. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès au fichier source ou à son téléchargement, et non à une page interactive hébergée.
+Le tableau de bord propose sept onglets en français : **Vue d’ensemble**, **Perte forestière & alertes**, **Activités minières**, **Relations entre facteurs**, **Méthode & vérifications**, **Références scientifiques** et **Téléchargements**. Le fichier HTML intègre les données météo utilisées par ses graphiques et peut être ouvert dans un navigateur récent. Pour conserver le logo dans la page téléchargée, placez `OWR_logo_HOR_COL.jpg` dans le même dossier que `index.html`. Pour utiliser aussi les liens de téléchargement locaux, placez les fichiers CSV dans ce dossier. GitHub Pages n’étant pas activé pour ce dépôt, ces liens donnent accès aux fichiers source ou à leur téléchargement, et non à une page interactive hébergée.
 
 ## Données téléchargeables
 
@@ -21,7 +21,8 @@ Le tableau de bord propose sept onglets en français : **Vue d’ensemble**, **P
 | [`ForestAlerts_2026_owr.csv`](ForestAlerts_2026_owr.csv) | Détections mensuelles provisoires de pixels d’alerte | 2026, observations jusqu’au 2026-10-04 | [CSV brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/ForestAlerts_2026_owr.csv) |
 | [`Zone agricole .csv`](Zone%20agricole%20.csv) | Valeurs annuelles de perte déclarées et colonnes détaillées par zone | 2001–2024 | [CSV brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/Zone%20agricole%20.csv) |
 | [`earth_engine/okapi_mining_deforestation.js`](earth_engine/okapi_mining_deforestation.js) | Script d’analyse exploratoire Landsat/Sentinel et export par zone | 2000–2026 | [Script Earth Engine](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/earth_engine/okapi_mining_deforestation.js) |
-| [`index.html`](index.html) | Tableau de bord autonome en français | Version courante du dépôt | [HTML brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/index.html) |
+| [`index.html`](index.html) | Tableau de bord en français (logo fourni séparément) | Version courante du dépôt | [HTML brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/index.html) |
+| [`OWR_logo_HOR_COL.jpg`](OWR_logo_HOR_COL.jpg) | Logo horizontal de la Réserve de faune à okapis utilisé dans l’en-tête | Logo institutionnel | [Image brute](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/OWR_logo_HOR_COL.jpg) |
 | [`OWR_Climate.pbip`](OWR_Climate.pbip) | Projet Power BI (à ouvrir avec Power BI Desktop) | Sources CSV du dépôt | [Projet PBIP](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/OWR_Climate.pbip) |
 
 Le classeur Excel et le CSV météo contiennent la même série et les mêmes valeurs ; le classeur fournit les colonnes de date, année, mois et jour dans des cellules Excel typées et conserve les valeurs absentes comme cellules vides. Les CSV utilisent des en-têtes explicites, des dates ISO (`AAAA-MM-JJ`) et des valeurs numériques directement exploitables dans un tableur, Python, R ou Power BI. Les en-têtes nécessaires au modèle Power BI sont conservés.

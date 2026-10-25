@@ -401,6 +401,289 @@
       .filters, .button, .section-nav { display: none !important; }
       .stat, .panel { box-shadow: none; break-inside: avoid; }
     }
+    :root {
+      --ink: #1d3028;
+      --muted: #66776c;
+      --paper: #f3f5ef;
+      --card: #fff;
+      --line: #dfe7dd;
+      --forest: #153c2e;
+      --forest-2: #2f684a;
+      --teal: #397d70;
+      --mint: #dbe8d2;
+      --gold: #c18a3d;
+      --blue: #4d8190;
+      --earth: #a86d48;
+      --leaf: #668653;
+      --shadow: 0 12px 32px rgba(24, 49, 35, .055);
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 8% 15%, rgba(219, 232, 210, .55), transparent 30rem),
+        #f3f5ef;
+      letter-spacing: .002em;
+    }
+    .shell { width: min(1320px, calc(100% - 56px)); }
+    .masthead {
+      border: 0;
+      background:
+        radial-gradient(ellipse at 76% 0%, rgba(159, 183, 116, .22), transparent 34rem),
+        linear-gradient(118deg, #102f25 0%, #1b4936 54%, #365b3b 100%);
+    }
+    .masthead::after {
+      top: -330px;
+      right: -150px;
+      width: 800px;
+      height: 800px;
+      border-color: rgba(232, 240, 219, .11);
+      box-shadow: 0 0 0 70px rgba(232, 240, 219, .025), 0 0 0 140px rgba(232, 240, 219, .018);
+    }
+    .topline { min-height: 72px; padding: 15px 0; }
+    .brand { gap: 12px; font-size: 11px; letter-spacing: .13em; }
+    .brand-logo {
+      display: block;
+      width: 126px;
+      height: 65px;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      background: #fff;
+      object-fit: contain;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-color: rgba(228, 239, 218, .28);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, .08);
+      color: #d8c982;
+    }
+    .primary-nav { gap: 21px; }
+    .primary-nav a { color: #d4e1d4; font-size: 11px; }
+    .primary-nav a:hover { color: #fff; }
+    .data-badge {
+      padding: 8px 12px;
+      border-color: rgba(231, 241, 224, .2);
+      background: rgba(7, 29, 21, .24);
+      color: #e5eddf;
+      font-variant-numeric: tabular-nums;
+    }
+    .status-dot { background: #c3d08e; }
+    .hero { gap: clamp(38px, 6vw, 82px); padding: 58px 0 64px; }
+    .eyebrow { color: #d5dda9; font-size: 10px; letter-spacing: .19em; }
+    h1 {
+      max-width: 720px;
+      font-size: clamp(44px, 5.5vw, 70px);
+      letter-spacing: -.055em;
+      line-height: .99;
+    }
+    .intro { max-width: 600px; margin-top: 21px; color: #d4e0d6; font-size: 15px; line-height: 1.75; }
+    .hero-meta { gap: 9px; margin-top: 27px; }
+    .hero-meta span {
+      padding: 8px 11px;
+      border-color: rgba(225, 240, 224, .19);
+      border-radius: 99px;
+      background: rgba(8, 35, 27, .23);
+      font-size: 10px;
+    }
+    .hero-art {
+      min-height: 300px;
+      border: 1px solid rgba(232, 241, 223, .46);
+      border-radius: 25px;
+      background: linear-gradient(145deg, #f0f1df, #c7d8b9);
+      box-shadow: 0 25px 65px rgba(4, 24, 16, .28);
+    }
+    .art-caption {
+      right: 18px;
+      bottom: 17px;
+      padding: 8px 11px;
+      border-color: rgba(225, 234, 216, .9);
+      border-radius: 99px;
+      color: #526658;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+    main { padding: 30px 0 64px; }
+    .section-nav {
+      top: 12px;
+      gap: 4px;
+      margin-bottom: 29px;
+      padding: 7px;
+      border-color: #dfe7dd;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 10px 28px rgba(25, 48, 34, .08);
+    }
+    .section-nav button {
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: #617166;
+      font-size: 11px;
+      font-weight: 690;
+    }
+    .section-nav button:hover { background: #f1f5ee; color: #264d37; }
+    .section-nav button[aria-selected="true"] {
+      background: #173f30;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(23, 63, 48, .2);
+    }
+    .section-nav button[aria-selected="true"] .icon { color: #d8dca8; }
+    .toolbar { margin-bottom: 21px; }
+    .section-label { color: #758276; font-size: 10px; letter-spacing: .15em; }
+    .toolbar h2, .forest-heading h2 { color: #1b3d2e; letter-spacing: -.035em; }
+    .toolbar h2 { font-size: clamp(20px, 2vw, 25px); }
+    select, .button {
+      min-height: 42px;
+      border-color: #d7e1d7;
+      border-radius: 10px;
+    }
+    select:focus-visible, a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline-color: rgba(47, 104, 74, .5);
+    }
+    .button { padding-inline: 15px; }
+    .stats, .forest-stats { gap: 14px; margin-bottom: 17px; }
+    .stat, .panel, .info-card {
+      border-color: #e1e8df;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 7px 22px rgba(29, 53, 39, .045);
+    }
+    .stat {
+      min-height: 145px;
+      padding: 20px 21px;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .stat:hover { border-color: #cbd9c9; box-shadow: 0 14px 30px rgba(29, 53, 39, .09); }
+    .stat::before { height: 3px; background: linear-gradient(90deg, #315e42, #9bb779); }
+    .forest-stats .stat::before { background: linear-gradient(90deg, #8b7147, #d4b66f); }
+    .agri-stats .stat::before { background: linear-gradient(90deg, #946047, #d2a17c); }
+    .stat-label { color: #65756a; font-size: 11px; }
+    .stat-value { color: #183c2d; font-size: 31px; }
+    .stat-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #e4ebdf;
+      border-radius: 12px;
+      background: #f0f5ec;
+      color: #477653;
+    }
+    .stat-detail { color: #7b897f; }
+    .content-grid, .forest-grid { gap: 17px; }
+    .panel { padding: 24px 25px 20px; }
+    .panel-head { margin-bottom: 11px; }
+    .panel h3, .info-card h3 { color: #244735; }
+    .panel-sub { color: #6c7b70; line-height: 1.6; }
+    .card-icon {
+      border-color: #e0e8d9;
+      border-radius: 11px;
+      background: #eff4e9;
+      color: #426b47;
+    }
+    .chart-wrap { border-radius: 10px; }
+    .axis-label { fill: #778579; }
+    .grid-line { stroke: #edf1eb; }
+    .axis-line { stroke: #d7e1d8; }
+    .chart-note { color: #78867c; line-height: 1.55; }
+    .chart-meta { border-color: #e9eee7; color: #6c7b70; line-height: 1.6; }
+    .chart-source a, .source-link, .reference-list a, .forest-note a { color: #2f684a; }
+    .chart-trend { color: #8b6140; }
+    .trend-line { stroke-width: 2.25; }
+    .forest-heading h2 { font-size: clamp(22px, 2.4vw, 29px); }
+    .forest-heading p:not(.section-label) { color: #64746a; line-height: 1.65; }
+    .forest-tag, .pill {
+      border: 1px solid #e7e9d9;
+      background: #f5f3e8;
+      color: #6d5c36;
+      letter-spacing: .045em;
+    }
+    .forest-note, .relation-callout {
+      border-color: #dfe8dc;
+      border-radius: 13px;
+      background: #f7f9f4;
+      color: #5e6e63;
+      line-height: 1.75;
+    }
+    .forest-note strong, .relation-callout strong { color: #294a36; }
+    .quality {
+      border-color: #e6e4d3;
+      border-radius: 13px;
+      background: #faf9f2;
+      color: #627064;
+      line-height: 1.7;
+    }
+    .relation-card, .check-card, .mining-period {
+      border-color: #e1e8df;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(29, 53, 39, .035);
+    }
+    .relation-card h3, .relation-stat strong { color: #254a35; }
+    .relation-stat { border: 1px solid #e8eee5; background: #f7f9f5; }
+    .relation-matrix-wrap, .forest-table-details { border-color: #e1e8df; border-radius: 13px; }
+    .relation-matrix thead th, .forest-table th { background: #f4f7f1; }
+    .mining-status {
+      border-color: #e7dfc7;
+      border-radius: 13px;
+      background: #faf8ef;
+      line-height: 1.7;
+    }
+    .mining-period { background: linear-gradient(145deg, #fff, #f8faf6); }
+    .info-grid { gap: 17px; }
+    .info-card { padding: 24px; }
+    .info-card h3 { font-size: 15px; }
+    .reference-list li, .process-list li {
+      border-color: #e7ece3;
+      border-left-color: #8ca276;
+      border-radius: 0 10px 10px 0;
+      background: #f8faf6;
+      color: #53665a;
+      line-height: 1.65;
+    }
+    .download-item {
+      border-color: #e4ebe2;
+      border-radius: 12px;
+      background: #fafcf9;
+    }
+    .download-link {
+      border-color: #d1dfce;
+      border-radius: 9px;
+      background: #edf4e9;
+      color: #28583b;
+    }
+    footer { border-color: #dfe7dd; color: #718075; }
+    @media (max-width: 900px) {
+      .shell { width: min(100% - 40px, 1320px); }
+      .primary-nav { gap: 13px; }
+      .brand-name { display: none; }
+      .brand-logo { width: 112px; height: 58px; }
+      .hero { gap: 28px; }
+      .hero-art { min-height: 240px; }
+      .section-nav { overflow-x: auto; }
+      .section-nav button { flex: 0 0 auto; }
+    }
+    @media (max-width: 540px) {
+      .shell { width: min(100% - 30px, 1320px); }
+      .topline { gap: 10px; }
+      .brand { max-width: none; font-size: 9px; }
+      .brand-logo { width: 90px; height: 47px; }
+      .hero { padding: 36px 0 40px; }
+      h1 { font-size: clamp(42px, 12vw, 56px); }
+      .hero-meta { gap: 7px; }
+      .hero-meta span { font-size: 9px; }
+      .hero-art { min-height: 185px; border-radius: 19px; }
+      main { padding-top: 18px; }
+      .section-nav { top: 5px; margin: 0 -3px 21px; }
+      .section-nav button { min-height: 39px; font-size: 10px; }
+      .stats, .forest-stats { gap: 9px; }
+      .stat { min-height: 112px; padding: 14px; }
+      .stat-value { margin-top: 11px; font-size: 25px; }
+      .stat-icon { top: 11px; right: 11px; width: 30px; height: 30px; }
+      .stat-detail { font-size: 10px; }
+      .content-grid .panel, .panel { padding: 17px 15px 14px; }
+      .chart-meta { align-items: flex-start; flex-direction: column; }
+      .chart-trend, .chart-source { flex-basis: auto; }
+      .relation-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .relation-overview .stat-value { font-size: 23px; }
+    }
   </style>
 </head>
 <body>
@@ -421,7 +704,7 @@
   <header class="masthead">
     <div class="shell">
       <div class="topline">
-        <div class="brand"><span class="brand-mark" aria-hidden="true"><svg class="icon"><use href="#i-leaf"/></svg></span><span>OBSERVATOIRE CLIMAT &amp; FORÊTS</span></div>
+        <div class="brand"><img class="brand-logo" src="OWR_logo_HOR_COL.jpg" width="126" height="65" alt="Okapi Wildlife Reserve"><span class="brand-name">OBSERVATOIRE CLIMAT &amp; FORÊTS</span></div>
         <nav class="primary-nav" aria-label="Thématiques principales">
           <a href="#panel-overview" data-tab-target="panel-overview"><svg class="icon"><use href="#i-thermometer"/></svg>Climat</a>
           <a href="#panel-forest" data-tab-target="panel-forest"><svg class="icon"><use href="#i-tree"/></svg>Forêt</a>
@@ -738,7 +1021,8 @@
         </article>
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-file"/></svg></span>Projet et partage</h3><p>Le tableau de bord est autonome : téléchargez le fichier HTML et ouvrez-le dans un navigateur récent. Les graphiques météo utilisent des données intégrées dans la page ; les exports CSV restent accessibles séparément.</p>
           <ul class="download-list">
-            <li class="download-item"><span><strong>Tableau de bord HTML</strong><small>Version source du tableau de bord</small></span><a class="download-link" href="index.html" download>Télécharger le HTML</a></li>
+            <li class="download-item"><span><strong>Tableau de bord HTML</strong><small>Gardez OWR_logo_HOR_COL.jpg dans le même dossier pour afficher le logo</small></span><a class="download-link" href="index.html" download>Télécharger le HTML</a></li>
+            <li class="download-item"><span><strong>Logo de la réserve</strong><small>Image à placer à côté du fichier HTML</small></span><a class="download-link" href="OWR_logo_HOR_COL.jpg" download>Télécharger le logo</a></li>
             <li class="download-item"><span><strong>Projet Power BI (PBIP)</strong><small>À ouvrir dans Power BI Desktop pour produire un PBIX</small></span><a class="download-link" href="OWR_Climate.pbip">Ouvrir le projet</a></li>
             <li class="download-item"><span><strong>Dépôt GitHub</strong><small>Code, sources, exports et historique des versions</small></span><a class="download-link" href="https://github.com/aganzeeliud/OWR-Temperature-evolution-" target="_blank" rel="noopener noreferrer">Voir le dépôt ↗</a></li>
           </ul>
