@@ -205,6 +205,12 @@
     .mining-period strong { display: block; color: #2c5038; font-size: 13px; }
     .mining-period span { display: block; margin-top: 5px; color: #728078; font-size: 11px; }
     .mining-period em { display: inline-block; margin-top: 10px; color: #88703f; font-size: 10px; font-style: normal; font-weight: 700; }
+    .cross-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin: 14px 0 8px; }
+    .cross-controls label { display: grid; gap: 5px; color: #68776e; font-size: 11px; font-weight: 650; }
+    .cross-controls input[type="file"], .cross-controls select { min-height: 39px; max-width: 100%; padding: 8px 10px; border: 1px solid #dce3db; border-radius: 9px; background: #fff; color: var(--ink); font-size: 12px; }
+    #cross-status { flex: 1 1 100%; margin: 2px 0 0; color: #718078; font-size: 11px; }
+    #cross-status[data-state="error"] { color: #9a3f35; }
+    #cross-status[data-state="success"] { color: #356746; }
     .forest-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
     .forest-table-details { margin-top: 12px; border: 1px solid #e1e8df; border-radius: 12px; background: #fff; }
     .forest-table-details summary { padding: 13px 16px; color: var(--forest); cursor: pointer; font-size: 12px; font-weight: 680; }
@@ -490,9 +496,22 @@
         <div class="chart-wrap"><svg id="mining-gfw-chart" role="img" aria-label="Perte annuelle de couvert arboré issue de Global Forest Watch dans la zone de la réserve, de 2001 à 2025"></svg></div>
         <div class="chart-note"><span>2000 est l’année de référence, pas une mesure de perte. 2026 n’est pas une estimation annuelle finalisée ; les alertes 2026 sont un indicateur distinct.</span><span>ha / an</span></div>
       </article>
+      <article class="panel" style="margin-bottom:16px">
+        <div class="panel-head">
+          <div><h3>Comparaison croisée · GFW et télédétection</h3><p class="panel-sub">Perte GFW/UMD du dépôt face aux transitions candidates et à la référence Hansen exportées par Earth Engine</p></div>
+          <span class="forest-tag">2000–2026 · hectares</span>
+        </div>
+        <div class="cross-controls">
+          <label for="cross-upload">Charger l’export Earth Engine (CSV)<input id="cross-upload" type="file" accept=".csv,text/csv"></label>
+          <label for="cross-zone">Zone à comparer<select id="cross-zone"><option value="Reserve">Réserve</option><option value="Buffer_0_10km">Couronne externe · 0–10 km</option></select></label>
+          <p id="cross-status" role="status" aria-live="polite">La série GFW du dépôt est affichée. Chargez l’export Earth Engine pour ajouter les séries optique et Hansen par zone.</p>
+        </div>
+        <div class="chart-wrap"><svg id="mining-cross-chart" role="img" aria-label="Comparaison par année des valeurs Global Forest Watch, Hansen et des transitions candidates"></svg></div>
+        <div class="chart-note"><span>2000 : année de référence. 2026 : transitions optiques candidates seulement ; pas de perte annuelle GFW/Hansen finalisée.</span><span>ha / an</span></div>
+      </article>
       <div class="mining-status" role="note">
         <span class="mining-status-icon" aria-hidden="true">↔</span>
-        <span><strong>Comment croiser ces données</strong>Comparez l’export GFW annuel avec les transitions candidates Landsat/Sentinel produites par le script et, pour 2001–2024, avec la couche UMD/Hansen v1.12 exportée séparément. La version actuelle de l’API GFW est v1.13 ; la version exacte ayant servi au CSV du dépôt doit être vérifiée avant une comparaison reproductible. Périodes, seuils, masques et résolutions diffèrent : n’additionnez pas et ne soustrayez pas directement ces produits. Le CSV du dépôt décrit la réserve approximée ; le script calcule aussi la couronne externe de 10 km.</span>
+        <span><strong>Comment croiser ces données</strong>Chargez le CSV exporté par le script Earth Engine dans le comparateur ci-dessus. Pour la réserve, il compare aussi l’export GFW du dépôt ; pour la couronne externe de 10 km, il affiche les valeurs Hansen calculées pour cette géométrie. L’API GFW consultée est actuellement v1.13, mais la version exacte du CSV du dépôt n’est pas consignée. Périodes, seuils, masques et résolutions diffèrent : n’additionnez pas et ne soustrayez pas directement ces produits. L’année 2000 est une référence ; il n’existe pas de perte annuelle GFW/Hansen finalisée pour 2026.</span>
       </div>
       <div class="info-grid">
         <article class="info-card">
@@ -758,6 +777,113 @@
           addText(svg,x+bw/2,height-13,String(year),{"text-anchor":"middle"});
       });
     }
+    let miningCrossRows = [];
+    function parseCsv(text) {
+      const rows=[];let row=[],field="",quoted=false;
+      for(let i=0;i<text.length;i++){
+        const char=text[i];
+        if(quoted){
+          if(char==='"'&&text[i+1]==='"'){field+='"';i++;}
+          else if(char==='"')quoted=false;
+          else field+=char;
+        }else if(char==='"')quoted=true;
+        else if(char===","){row.push(field);field="";}
+        else if(char==="\n"){row.push(field);rows.push(row);row=[];field="";}
+        else if(char!=="\r")field+=char;
+      }
+      if(field.length||row.length){row.push(field);rows.push(row);}
+      return rows;
+    }
+    function renderMiningCross() {
+      const svg=document.getElementById("mining-cross-chart");
+      const zone=document.getElementById("cross-zone").value;
+      const selected=miningCrossRows.filter(row=>row.zone===zone);
+      const byYear=new Map(selected.map(row=>[row.year,row]));
+      const gfw=zone==="Reserve"?new Map(FOREST_DATA):new Map();
+      const series=[
+        {key:"gfw",label:"GFW · dépôt",color:"#8eae83",values:gfw},
+        {key:"hansen",label:"GFW/Hansen v1.12 · export",color:"#4f7f94",
+          values:new Map(selected.filter(row=>Number.isFinite(row.gfw)).map(row=>[row.year,row.gfw]))},
+        {key:"candidate",label:"Transitions optiques candidates",color:"#d99149",
+          values:new Map(selected.filter(row=>Number.isFinite(row.candidate)).map(row=>[row.year,row.candidate]))}
+      ];
+      const allValues=series.flatMap(item=>[...item.values.values()]).filter(Number.isFinite);
+      const width=980,height=300,pad={l:62,r:16,t:48,b:38};
+      svgSetup(svg,width,height);
+      const plotW=width-pad.l-pad.r,plotH=height-pad.t-pad.b;
+      const years=Array.from({length:27},(_,index)=>2000+index);
+      const max=Math.max(1,Math.ceil(Math.max(0,...allValues)/500)*500);
+      const y=value=>height-pad.b-(value/max)*plotH;
+      for(let i=0;i<=4;i++){
+        const value=max*i/4,yy=y(value);
+        svg.appendChild(svgEl("line",{x1:pad.l,y1:yy,x2:width-pad.r,y2:yy,class:"grid-line"}));
+        addText(svg,pad.l-8,yy+3,fmt.format(value),{"text-anchor":"end"});
+      }
+      const band=plotW/years.length,bw=Math.min(7,band*.22);
+      years.forEach((year,index)=>{
+        const center=pad.l+(index+.5)*band;
+        series.forEach((item,seriesIndex)=>{
+          const value=item.values.get(year);
+          if(!Number.isFinite(value))return;
+          const yy=y(value),x=center+(seriesIndex-1)*bw;
+          const bar=svgEl("rect",{x,y:yy,width:bw*.88,height:Math.max(0,height-pad.b-yy),rx:1,fill:item.color});
+          bar.appendChild(svgEl("title",{},`${year} · ${item.label} : ${fmt.format(value)} ha`));
+          svg.appendChild(bar);
+        });
+        if(year===2000||year%5===0||year===2026)
+          addText(svg,center,height-13,String(year),{"text-anchor":"middle"});
+      });
+      series.forEach((item,index)=>{
+        const x=pad.l+index*215;
+        svg.appendChild(svgEl("rect",{x,y:15,width:10,height:10,rx:2,fill:item.color}));
+        addText(svg,x+16,24,item.label);
+      });
+      const status=document.getElementById("cross-status");
+      if(!miningCrossRows.length){
+        status.dataset.state="";
+        status.textContent="La série GFW du dépôt est affichée pour la réserve (2001–2025). Chargez l’export Earth Engine pour ajouter les séries optique et Hansen.";
+      }else if(!byYear.size){
+        status.dataset.state="error";
+        status.textContent=`Aucune ligne pour la zone « ${zone} » dans le CSV. Vérifiez qu’il s’agit de l’export Okapi (colonnes year, zone, candidate_forest_loss_ha et gfw_hansen_v1_12_loss_ha).`;
+      }else{
+        const hansenYears=selected.filter(row=>Number.isFinite(row.gfw)).length;
+        const candidateYears=selected.filter(row=>Number.isFinite(row.candidate)).length;
+        status.dataset.state="success";
+        status.textContent=`${selected.length} années-zone chargées · ${hansenYears} valeurs Hansen · ${candidateYears} valeurs optiques candidates.${zone==="Reserve"?" La série GFW du dépôt est affichée en parallèle.":" Aucune série GFW du dépôt n’est disponible pour la couronne ; Hansen est calculé sur sa géométrie."}`;
+      }
+    }
+    document.getElementById("cross-zone").addEventListener("change",renderMiningCross);
+    document.getElementById("cross-upload").addEventListener("change",async event=>{
+      const file=event.target.files&&event.target.files[0];
+      if(!file)return;
+      const status=document.getElementById("cross-status");
+      try{
+        const table=parseCsv(await file.text());
+        const headers=table.shift().map(value=>value.trim().replace(/^\uFEFF/,""));
+        const index=Object.fromEntries(headers.map((header,i)=>[header,i]));
+        const required=["year","zone","candidate_forest_loss_ha","gfw_hansen_v1_12_loss_ha"];
+        if(required.some(name=>index[name]===undefined))throw new Error("Colonnes attendues absentes : "+required.join(", ")+".");
+        const numberAt=(values,column)=>{
+          const raw=values[index[column]];
+          if(raw===undefined||raw.trim()==="")return null;
+          const value=Number(raw);
+          return Number.isFinite(value)?value:null;
+        };
+        miningCrossRows=table.filter(values=>values.length>1).map(values=>({
+          year:numberAt(values,"year"),
+          zone:(values[index.zone]||"").trim(),
+          candidate:numberAt(values,"candidate_forest_loss_ha"),
+          gfw:numberAt(values,"gfw_hansen_v1_12_loss_ha")
+        })).filter(row=>Number.isInteger(row.year)&&row.year>=2000&&row.year<=2026);
+        if(!miningCrossRows.length)throw new Error("Aucune ligne annuelle valide entre 2000 et 2026.");
+        renderMiningCross();
+      }catch(error){
+        miningCrossRows=[];
+        renderMiningCross();
+        status.dataset.state="error";
+        status.textContent=`Import impossible : ${error.message}`;
+      }
+    });
     function renderForest() {
       const total=FOREST_DATA.reduce((sum,item)=>sum+item[1],0);
       const peak=FOREST_DATA.reduce((best,item)=>item[1]>best[1]?item:best,FOREST_DATA[0]);
@@ -931,6 +1057,7 @@
       renderSeason(rows);
       renderForest();
       renderMiningGfw();
+      renderMiningCross();
       document.getElementById("record-length").textContent=`${years[0]}–${years[years.length-1]}`;
     }
     startSelect.addEventListener("change",render);

@@ -251,7 +251,11 @@ function makeAnnualRows(year) {
     var properties = ee.Dictionary({
       year: year,
       zone: zone.get('zone'),
-      candidate_forest_loss_ha: candidateArea.divide(10000),
+      candidate_forest_loss_ha: ee.Algorithms.If(
+        year.gt(CONFIG.firstYear).and(ee.Number(image.get('scene_count')).gt(0)),
+        candidateArea.divide(10000),
+        null
+      ),
       gfw_hansen_v1_12_loss_ha: hansenLossHectares,
       mean_optical_observations: stats.get('observations_mean'),
       optical_scene_count: image.get('scene_count'),
@@ -316,7 +320,7 @@ var yearSlider = ui.Slider({
   style: {stretch: 'horizontal'}
 });
 var layerSelect = ui.Select({
-  items: ['Perte candidate', 'NDVI optique', 'Sentinel-1 VV', 'Sentinel-1 VH', 'ASTER VNIR (scène)', 'MODIS Terra NDVI', 'MODIS Aqua NDVI'],
+  items: ['Perte candidate', 'Perte annuelle GFW/Hansen (2001–2024)', 'NDVI optique', 'Sentinel-1 VV', 'Sentinel-1 VH', 'ASTER VNIR (scène)', 'MODIS Terra NDVI', 'MODIS Aqua NDVI'],
   value: 'Perte candidate',
   style: {stretch: 'horizontal'}
 });
@@ -373,6 +377,19 @@ function updateMap() {
     map.addLayer(change.select('candidate').selfMask(),
       {min: 0, max: 1, palette: ['#dc7b35']},
       'Transition forestière candidate · ' + year);
+  } else if (selected === 'Perte annuelle GFW/Hansen (2001–2024)') {
+    if (year >= 2001 && year <= 2024) {
+      var hansenLoss = HANSEN_GFC.select('lossyear')
+        .eq(year - 2000)
+        .updateMask(HANSEN_GFC.select('treecover2000').gte(30))
+        .selfMask();
+      map.addLayer(hansenLoss,
+        {min: 1, max: 1, palette: ['#2f7893']},
+        'GFW / UMD-Hansen v1.12 · perte annuelle · couvert 2000 ≥ 30 % · ' + year);
+    } else {
+      map.addLayer(ee.Image.constant(0).updateMask(ee.Image.constant(0)),
+        {}, 'Aucune observation annuelle Hansen · ' + year);
+    }
   } else if (selected === 'NDVI optique') {
     map.addLayer(composite.select('ndvi'),
       {min: -0.2, max: 0.8, palette: ['#b78252', '#e7dba4', '#9ec47d', '#276342']},
