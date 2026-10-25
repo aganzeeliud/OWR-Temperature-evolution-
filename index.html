@@ -997,7 +997,7 @@
       </aside>
       <div class="mining-status" role="note">
         <span class="mining-status-icon" aria-hidden="true">↳</span>
-        <span><strong>Obtenir le script et lancer l’analyse</strong><a href="earth_engine/okapi_mining_deforestation.js" download>Télécharger le script Google Earth Engine</a> · Remplacez l’identifiant d’exemple par l’asset de limite de réserve dans votre compte, puis exécutez-le dans le <a href="https://code.earthengine.google.com/" target="_blank" rel="noopener noreferrer">Code Editor Earth Engine</a>. Lancez la tâche d’export pour créer le CSV annuel par zone. Les points IPIS historiques sont disponibles dans les CSV du dépôt, mais ils n’indiquent pas les périodes d’activité vérifiées nécessaires pour calculer un proxy minier annuel.</span>
+        <span><strong>Obtenir le script et lancer l’analyse</strong><a href="earth_engine/okapi_mining_deforestation.js" download>Télécharger le script Google Earth Engine</a> · Remplacez l’identifiant d’exemple par l’asset de limite de réserve dans votre compte, puis exécutez-le dans le <a href="https://code.earthengine.google.com/" target="_blank" rel="noopener noreferrer">Code Editor Earth Engine</a>. Lancez la tâche d’export pour créer le CSV annuel par zone. Pour un proxy conditionné aux sites actifs, importez un inventaire avec des périodes vérifiées : les points IPIS historiques du dépôt n’ont pas de dates d’activité.</span>
       </div>
       <div class="mining-timeline" aria-label="Disponibilité temporelle des principales sources satellitaires">
         <article class="mining-period"><strong>2000–2012 · Landsat 5/7</strong><span>Archive optique historique ; ASTER est disponible pour l’inspection de scènes à partir de 2000. MODIS Terra complète à 500 m à partir de 2000.</span><em>Référence historique · 30 m principal</em></article>
@@ -1032,6 +1032,12 @@
             <div class="table-scroll"><table class="mining-record-table"><caption>Sites IPIS localisés dans la zone · dates de visite et précision des coordonnées selon l’export source.</caption><thead><tr><th scope="col">Site · code</th><th scope="col">Minerais</th><th scope="col">Visites</th><th scope="col">Localisation</th></tr></thead><tbody id="mining-site-body"></tbody></table></div>
           </article>
         </div>
+        <article class="mining-record-panel">
+          <h4>Titulaires CAMI rapprochés du registre Mining Data Warehouse</h4>
+          <p>Recherche par nom dans le <a href="https://www.miningdatawarehouse.cd/operateur/all" target="_blank" rel="noopener noreferrer">registre des opérateurs présenté par le CTCPM</a>. Une correspondance de nom n’est pas une validation du statut juridique ou des titres CAMI ; l’absence de résultat exact ne prouve pas l’absence d’enregistrement.</p>
+          <p id="mining-operator-summary"></p>
+          <div class="table-scroll"><table class="mining-record-table"><caption id="mining-operator-caption">Province et statut tels qu’affichés dans les profils du registre Mining Data Warehouse.</caption><thead><tr><th scope="col">Titulaire CAMI</th><th scope="col">Opérateur du registre</th><th scope="col">Statut MDW</th><th scope="col">Province MDW</th><th scope="col">Catégorie</th></tr></thead><tbody id="mining-operator-body"></tbody></table></div>
+        </article>
         <p class="mining-evidence-note">Périmètre spatial : relation <a href="https://www.openstreetmap.org/relation/401017" target="_blank" rel="noopener noreferrer">OpenStreetMap 401017</a>, utilisée comme approximation et non comme limite juridique validée. Les données IPIS sont un inventaire de visites non exhaustif : cet extrait contient des observations localisées de 2010 à 2021, aucune observation à l’intérieur de la zone après 2021. CAMI publie un instantané de droits/demandes ; il ne donne pas ici un historique complet des titres expirés ou retirés, et les couches d’exploration protégées par authentification ne sont pas incluses. Neuf polygones figurent dans les couches cartographiques d’exploitation ; le <a href="https://cami.cd/wp-content/uploads/2026/10/REGISTRE-DES-DROITS-MINIERS-ET-DE-CARRIERES-ACTIFS-EN-DATE-DU-30-SEPT-2026.pdf" target="_blank" rel="noopener noreferrer">registre officiel au 30 septembre 2026</a> classe huit codes comme PE/PEPM et le code 15766 comme PR en transformation vers PEPM (statut différent de celui de la carte). Le registre classe aussi le code 7657 « Actif en Déchéance pour Non Commencement » ; les codes 8348 et 8350 ont une échéance en juin 2025 tout en portant le statut « Actif en Force Majeure ». Ces libellés et dates sont reproduits à titre documentaire, sans avis sur leur validité juridique. Les dates d’octroi et de visite ne prouvent pas l’exploitation réelle. Les extractions ne permettent donc pas de conclure sur une activité continue pour toutes les années 2000–2026. Sources : <a href="https://ipisresearch.be/home/maps-data/open-data/" target="_blank" rel="noopener noreferrer">IPIS Open Data</a> · <a href="https://drclicences.cami.cd/EN/" target="_blank" rel="noopener noreferrer">CAMI Mining Cadastre</a>.</p>
       </section>
       <article class="panel" style="margin-bottom:16px">
@@ -1059,14 +1065,14 @@
       </article>
       <article class="panel" style="margin-bottom:16px">
         <div class="panel-head">
-          <div><h3><span class="card-icon"><svg class="icon"><use href="#i-pin"/></svg></span>Estimation préliminaire près des sites miniers</h3><p class="panel-sub">Transitions forestières candidates dans un rayon de 500 m autour des sites actifs indiqués dans l’inventaire</p></div>
-          <div><span class="forest-tag">Proxy spatial · non causal</span><div class="chart-key" aria-label="Légende du graphique de proximité minière"><span class="key-item"><i class="key-bar proxy"></i>Perte candidate à proximité</span><span class="key-item"><i class="key-trend"></i>Tendance si calculable</span></div></div>
+          <div><h3><span class="card-icon"><svg class="icon"><use href="#i-pin"/></svg></span>Estimation préliminaire près des sites miniers</h3><p class="panel-sub">Perte forestière GFW/Hansen à moins de 500 m des localisations IPIS historiques, sans filtre annuel d’activité</p></div>
+          <div><span class="forest-tag">Proxy spatial · non causal</span><div class="chart-key" aria-label="Légende du graphique de proximité minière"><span class="key-item"><i class="key-bar proxy"></i>Perte GFW/Hansen à proximité</span><span class="key-item"><i class="key-trend"></i>Tendance descriptive</span></div></div>
         </div>
-        <p class="panel-sub" style="margin:0 0 8px">Importez un export Earth Engine créé avec un inventaire minier daté. Les valeurs sont des hectares candidats par année, pas une surface unique cumulée ni une preuve d’impact minier.</p>
-        <p id="mine-proxy-status" role="status" aria-live="polite">Non calculable : les fiches IPIS incluses documentent des visites historiques, pas des périodes d’activité vérifiées. Ajoutez un inventaire de sites avec start_year et end_year, exécutez l’export Earth Engine, puis chargez ce CSV.</p>
-        <div class="chart-wrap"><svg id="mining-proxy-chart" role="img" aria-label="Estimation annuelle des pertes forestières candidates à moins de 500 mètres des sites miniers actifs, selon la zone sélectionnée"></svg></div>
-        <div class="chart-note"><span>Calcul distinct pour la réserve et la couronne externe sélectionnée ci-dessus. 2026 est partiel ; 2000 est la référence.</span><span>ha candidats / an</span></div>
-        <div class="chart-meta"><span class="chart-trend" id="proxy-trend">Tendance indisponible sans export Earth Engine</span><span class="chart-source">Source : <a href="earth_engine/okapi_mining_deforestation.js" download>script Earth Engine</a> · inventaire minier requis et à vérifier</span></div>
+        <p class="panel-sub" style="margin:0 0 8px">Dépistage pré-calculé sur la perte annuelle UMD/Hansen v1.12 (couvert arboré 2000 ≥ 30 %), 2001–2024. Les points IPIS ont des dates de visite mais pas de périodes d’activité validées : le calcul montre une proximité spatiale, pas des sites actifs chaque année, ni une cause minière.</p>
+        <p id="mine-proxy-status" role="status" aria-live="polite">Chargement du dépistage de proximité Hansen…</p>
+        <div class="chart-wrap"><svg id="mining-proxy-chart" role="img" aria-label="Perte annuelle de couvert GFW/Hansen à moins de 500 mètres des localisations IPIS historiques, selon la zone sélectionnée"></svg></div>
+        <div class="chart-note"><span>Calcul distinct pour la réserve et la couronne externe sélectionnée ci-dessus. Couverture Hansen : 2001–2024 ; aucun chiffre pour 2000, 2025 ou 2026.</span><span>ha / an</span></div>
+        <div class="chart-meta"><span class="chart-trend" id="proxy-trend">Tendance descriptive, non causale</span><span class="chart-source">Source : <a href="https://developers.google.com/earth-engine/datasets/catalog/UMD_hansen_global_forest_change_2024_v1_12" target="_blank" rel="noopener noreferrer">UMD/Hansen v1.12</a> · <a href="IPIS_Hansen_mining_proximity.csv" download>CSV du dépistage</a> · <a href="earth_engine/okapi_mining_deforestation.js" download>script Earth Engine</a></span></div>
       </article>
       <div class="mining-status" role="note">
         <span class="mining-status-icon" aria-hidden="true">↔</span>
@@ -1125,10 +1131,12 @@
             <li class="download-item"><span><strong>Polygones et demande CAMI · zone OSM</strong><small>9 polygones de la couche exploitation (15766 est un PR au registre) et 1 demande intersectant OSM 401017</small></span><a class="download-link" href="CAMI_Okapi_licenses.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Sites miniers artisanaux IPIS</strong><small>8 sites distincts, dédupliqués par code de site</small></span><a class="download-link" href="IPIS_Okapi_mine_sites.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Visites de sites IPIS</strong><small>11 enregistrements historiques dans la zone</small></span><a class="download-link" href="IPIS_Okapi_mine_visits.csv" download>Télécharger le CSV</a></li>
+            <li class="download-item"><span><strong>Opérateurs CAMI · Mining Data Warehouse</strong><small>Rapprochement des cinq titulaires CAMI par nom dans le registre</small></span><a class="download-link" href="CAMI_Mining_Data_Warehouse_operators.csv" download>Télécharger le CSV</a></li>
+            <li class="download-item"><span><strong>Dépistage de perte forestière à proximité IPIS</strong><small>Hansen v1.12 · perte 2001–2024, rayon 500 m, sans années d’activité</small></span><a class="download-link" href="IPIS_Hansen_mining_proximity.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Script de mise à jour des données minières</strong><small>Requête IPIS/CAMI et jointure spatiale sur la limite OSM</small></span><a class="download-link" href="scripts/refresh_mining_data.py" download>Télécharger le script</a></li>
             <li class="download-item"><span><strong>Script d’analyse minière et forestière</strong><small>Google Earth Engine · Landsat, Sentinel, ASTER et MODIS</small></span><a class="download-link" href="earth_engine/okapi_mining_deforestation.js" download>Télécharger le script</a></li>
           </ul>
-          <p class="download-note">Le CSV et le classeur Excel météo sont synchronisés. Les titres CAMI et observations IPIS sont fournis dans des fichiers séparés avec leurs dates et limites. Les résultats satellitaires miniers ne sont pas calculés : configurez Earth Engine et un inventaire avec dates d’activité pour produire le proxy annuel.</p>
+          <p class="download-note">Le CSV et le classeur Excel météo sont synchronisés. Le dépistage Hansen autour des points IPIS est une proximité spatiale historique ; il ne prouve pas que les sites étaient actifs l’année de perte ni que la perte est liée aux mines.</p>
         </article>
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-file"/></svg></span>Projet et partage</h3><p>Le tableau de bord est autonome : téléchargez le fichier HTML et ouvrez-le dans un navigateur récent. Les graphiques météo utilisent des données intégrées dans la page ; les exports CSV restent accessibles séparément.</p>
           <ul class="download-list">
@@ -1607,6 +1615,50 @@
         ]);
       }
 
+      const operatorBody=document.getElementById("mining-operator-body");
+      operatorBody.replaceChildren();
+      const operators=MINING_DATA.warehouse_operators;
+      const exactMatches=operators.filter(
+        operator=>operator.warehouse_match==="Correspondance exacte du nom"
+      ).length;
+      const operatorSnapshot=operators[0]?.warehouse_snapshot_date||MINING_DATA.snapshot_date;
+      document.getElementById("mining-operator-summary").textContent=
+        `${exactMatches} correspondance(s) exacte(s) parmi ${operators.length} titulaires recherchés dans le registre Mining Data Warehouse, consulté le ${operatorSnapshot}. Les statuts et provinces sont reproduits tels qu’affichés ; un résultat absent ou une différence d’emplacement ne détermine pas la validité d’un titre CAMI.`;
+      document.getElementById("mining-operator-caption").textContent=
+        `Recherche consultée le ${operatorSnapshot} · province et statut tels qu’affichés dans les profils du registre.`;
+      for(const operator of operators){
+        const row=document.createElement("tr");
+        const holderCell=document.createElement("td");
+        holderCell.textContent=operator.CAMI_holder;
+        const codes=document.createElement("small");
+        codes.textContent=`Codes CAMI : ${operator.CAMI_codes}`;
+        holderCell.appendChild(document.createElement("br"));
+        holderCell.appendChild(codes);
+        row.appendChild(holderCell);
+        const nameCell=document.createElement("td");
+        if(operator.operator_name){
+          const link=document.createElement("a");
+          link.href=operator.warehouse_url;
+          link.target="_blank";
+          link.rel="noopener noreferrer";
+          link.textContent=operator.operator_name;
+          nameCell.appendChild(link);
+        }else{
+          nameCell.textContent=operator.warehouse_match;
+        }
+        row.appendChild(nameCell);
+        for(const value of [
+          operator.warehouse_status,
+          operator.warehouse_province,
+          operator.warehouse_category
+        ]){
+          const cell=document.createElement("td");
+          cell.textContent=value||"—";
+          row.appendChild(cell);
+        }
+        operatorBody.appendChild(row);
+      }
+
       const siteBody=document.getElementById("mining-site-body");
       siteBody.replaceChildren();
       for(const site of sites){
@@ -1764,7 +1816,15 @@
     function renderMiningProxy() {
       const svg=document.getElementById("mining-proxy-chart");
       const zone=document.getElementById("cross-zone").value;
-      const selected=miningCrossRows.filter(row=>row.zone===zone&&Number.isFinite(row.mine));
+      const hasUploadedProxy=miningCrossRows.some(row=>Number.isFinite(row.mine));
+      const selected=hasUploadedProxy
+        ?miningCrossRows.filter(row=>row.zone===zone&&Number.isFinite(row.mine))
+        :MINING_DATA.proximity.filter(row=>row.zone===zone).map(row=>({
+          year:Number(row.year),
+          zone:row.zone,
+          mine:Number(row.hansen_loss_ha),
+          lossPixels:Number(row.hansen_loss_pixels)
+        }));
       const width=980,height=260,pad={l:62,r:16,t:18,b:38};
       svgSetup(svg,width,height);
       const plotW=width-pad.l-pad.r,plotH=height-pad.t-pad.b;
@@ -1785,7 +1845,10 @@
         if(Number.isFinite(value)){
           const yy=y(value);
           const bar=svgEl("rect",{x:center-bw/2,y:yy,width:bw,height:Math.max(0,height-pad.b-yy),rx:2,fill:"#b8754b",opacity:year===2026 ? .5 : .88});
-          bar.appendChild(svgEl("title",{},`${year}${year===2026?" · année partielle":""} · perte candidate à ≤ 500 m de sites miniers actifs : ${fmt.format(value)} ha · ${zone}`));
+          const description=hasUploadedProxy
+            ?"perte candidate à ≤ 500 m de sites miniers actifs selon l’inventaire Earth Engine"
+            :"perte GFW/Hansen à ≤ 500 m des localisations IPIS historiques, sans filtre d’activité";
+          bar.appendChild(svgEl("title",{},`${year} · ${description} : ${fmt.format(value)} ha · ${zone}`));
           svg.appendChild(bar);
         }
         if(year===2000||year%5===0||year===2026)addText(svg,center,height-13,String(year),{"text-anchor":"middle"});
@@ -1799,6 +1862,11 @@
         status.dataset.state="";
         status.textContent="Non calculable pour cette zone : chargez un export contenant « candidate_loss_within_500m_mines_ha ». Pour le produire, renseignez dans le script un inventaire géolocalisé vérifié avec start_year et end_year, puis relancez l’export.";
         addText(svg,width/2,height/2,"Aucune estimation de proximité disponible",{"text-anchor":"middle",class:"empty"});
+      }else if(!hasUploadedProxy){
+        const total=selected.reduce((sum,row)=>sum+row.mine,0);
+        const nonzeroYears=selected.filter(row=>row.mine>0).length;
+        status.dataset.state="success";
+        status.textContent=`Dépistage UMD/Hansen v1.12 pré-calculé : ${fmt.format(total)} ha cumulés sur ${nonzeroYears} années avec perte détectée, à moins de 500 m de ${MINING_DATA.ipis_sites.length} localisations IPIS (${zone}, 2001–2024). Les années de visite ne sont pas des périodes d’activité ; ce total n’est pas une perte attribuable aux mines.`;
       }else{
         status.dataset.state="success";
         status.textContent=`${selected.length} valeurs annuelles disponibles pour « ${zone} » (${Math.min(...selected.map(row=>row.year))}–${Math.max(...selected.map(row=>row.year))}). Estimation fondée sur la proximité aux sites de l’inventaire ; elle ne démontre ni l’activité minière effective ni un lien causal.`;

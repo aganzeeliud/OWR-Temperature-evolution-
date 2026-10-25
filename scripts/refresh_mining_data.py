@@ -4,9 +4,12 @@
 import csv
 import datetime as dt
 import json
+import math
 import re
 import urllib.parse
 import urllib.request
+import unicodedata
+from html.parser import HTMLParser
 from pathlib import Path
 
 
@@ -15,6 +18,21 @@ USER_AGENT = "OWR-Temperature-evolution public data refresh (GitHub repository)"
 IPIS_URL = (
     "https://ipisresearch.be/wp-content/uploads/2026/05/"
     "cod_mines_curated_all_opendata_p_ipis.csv"
+)
+HANSEN_RASTER_BASE = (
+    "https://storage.googleapis.com/earthenginepartners-hansen/"
+    "GFC-2024-v1.12/"
+)
+HANSEN_VERSION = "UMD/Hansen Global Forest Change v1.12 (2001–2024)"
+HANSEN_URL = (
+    "https://developers.google.com/earth-engine/datasets/catalog/"
+    "UMD_hansen_global_forest_change_2024_v1_12"
+)
+HANSEN_TILE = "10N_020E"
+MINE_BUFFER_METERS = 500
+MINING_DATA_WAREHOUSE_URL = "https://www.miningdatawarehouse.cd"
+MINING_DATA_WAREHOUSE_SEARCH = (
+    f"{MINING_DATA_WAREHOUSE_URL}/home/operateur/search/all"
 )
 OSM_BOUNDARY_URL = (
     "https://nominatim.openstreetmap.org/lookup"
@@ -191,6 +209,354 @@ def download_ipis(polygons):
     return sorted(matches, key=lambda row: (row["visit_date"], row["site_code"]))
 
 
+def pixel_area_hectares(latitude):
+    semi_major_axis = 6378137
+    eccentricity_squared = 0.00669437999014
+    latitude_radians = math.radians(latitude)
+    denominator = 1 - eccentricity_squared * math.sin(latitude_radians) ** 2
+    prime_vertical_radius = semi_major_axis / math.sqrt(denominator)
+    meridional_radius = (
+        semi_major_axis
+        * (1 - eccentricity_squared)
+        / denominator**1.5
+    )
+    pixel_width = (
+        prime_vertical_radius
+        * math.cos(latitude_radians)
+        * 0.00025
+        * math.pi
+        / 180
+    )
+    pixel_height = (
+        meridional_radius
+        * 0.00025
+        * math.pi
+        / 180
+    )
+    return pixel_width * pixel_height / 10000
+
+
+def download_mining_proximity(sites, polygons):
+    try:
+        import numpy as np
+        import rasterio
+        from rasterio.windows import Window
+    except ImportError as error:
+        raise RuntimeError(
+            "Hansen proximity calculation requires rasterio; run "
+            "'python3 -m pip install -r requirements-mining.txt'."
+        ) from error
+
+    base = HANSEN_RASTER_BASE
+    loss_url = (
+        f"/vsicurl/{base}Hansen_GFC-2024-v1.12_lossyear_{HANSEN_TILE}.tif"
+    )
+    canopy_url = (
+        f"/vsicurl/{base}Hansen_GFC-2024-v1.12_treecover2000_{HANSEN_TILE}.tif"
+    )
+    pixels = {}
+    with rasterio.open(loss_url) as loss_dataset, rasterio.open(
+        canopy_url
+    ) as canopy_dataset:
+        if (
+            loss_dataset.bounds != canopy_dataset.bounds
+            or loss_dataset.transform != canopy_dataset.transform
+            or loss_dataset.bounds.left != 20
+            or loss_dataset.bounds.bottom != 0
+        ):
+            raise RuntimeError("Unexpected Hansen raster tile or grid.")
+
+        for site in sites:
+            longitude = site["longitude"]
+            latitude = site["latitude"]
+            if not (20 <= longitude < 30 and 0 <= latitude < 10):
+                raise RuntimeError(
+                    f"IPIS site {site['site_code']} lies outside Hansen tile "
+                    f"{HANSEN_TILE}; the proximity tile needs updating."
+                )
+            lat_radius = MINE_BUFFER_METERS / 110000
+            lon_radius = lat_radius / math.cos(math.radians(latitude))
+            raw_window = loss_dataset.window(
+                longitude - lon_radius,
+                latitude - lat_radius,
+                longitude + lon_radius,
+                latitude + lat_radius,
+            )
+            col_start = max(0, math.floor(raw_window.col_off))
+            row_start = max(0, math.floor(raw_window.row_off))
+            col_stop = min(
+                loss_dataset.width,
+                math.ceil(raw_window.col_off + raw_window.width),
+            )
+            row_stop = min(
+                loss_dataset.height,
+                math.ceil(raw_window.row_off + raw_window.height),
+            )
+            window = Window(
+                col_start,
+                row_start,
+                col_stop - col_start,
+                row_stop - row_start,
+            )
+            loss = loss_dataset.read(1, window=window)
+            canopy = canopy_dataset.read(1, window=window)
+            transform = loss_dataset.window_transform(window)
+            columns = transform.c + (
+                np.arange(loss.shape[1]) + 0.5
+            ) * transform.a
+            latitudes = transform.f + (
+                np.arange(loss.shape[0]) + 0.5
+            ) * transform.e
+            longitude_grid, latitude_grid = np.meshgrid(columns, latitudes)
+            site_latitude_radians = math.radians(latitude)
+            delta_latitude = np.radians(latitude_grid - latitude)
+            delta_longitude = np.radians(longitude_grid - longitude)
+            haversine = (
+                np.sin(delta_latitude / 2) ** 2
+                + math.cos(site_latitude_radians)
+                * np.cos(np.radians(latitude_grid))
+                * np.sin(delta_longitude / 2) ** 2
+            )
+            distance = 2 * 6371008.8 * np.arcsin(
+                np.sqrt(np.clip(haversine, 0, 1))
+            )
+            candidate_rows, candidate_columns = np.where(
+                (distance <= MINE_BUFFER_METERS)
+                & (loss >= 1)
+                & (loss <= 24)
+                & (canopy >= 30)
+            )
+            for row_index, column_index in zip(
+                candidate_rows, candidate_columns
+            ):
+                pixel_row = row_start + int(row_index)
+                pixel_column = col_start + int(column_index)
+                pixel_longitude = longitude_grid[row_index, column_index]
+                pixel_latitude = latitude_grid[row_index, column_index]
+                in_reserve_proxy = point_in_boundary(
+                    pixel_longitude, pixel_latitude, polygons
+                )
+                zone = "Reserve" if in_reserve_proxy else "Buffer_0_10km"
+                pixels[(pixel_row, pixel_column)] = (
+                    int(loss[row_index, column_index]),
+                    zone,
+                    pixel_area_hectares(pixel_latitude),
+                )
+
+    totals = {
+        (year, zone): {"hansen_loss_pixels": 0, "hansen_loss_ha": 0.0}
+        for year in range(2001, 2025)
+        for zone in ("Reserve", "Buffer_0_10km")
+    }
+    for loss_year, zone, area_hectares in pixels.values():
+        record = totals[(2000 + loss_year, zone)]
+        record["hansen_loss_pixels"] += 1
+        record["hansen_loss_ha"] += area_hectares
+    records = [
+        {
+            "year": year,
+            "zone": zone,
+            **totals[(year, zone)],
+            "site_count": len(sites),
+            "buffer_meters": MINE_BUFFER_METERS,
+            "activity_years_known": False,
+            "method": HANSEN_VERSION,
+            "source_url": HANSEN_URL,
+            "site_source_url": IPIS_URL,
+            "boundary_source_url": (
+                "https://www.openstreetmap.org/relation/401017"
+            ),
+        }
+        for year in range(2001, 2025)
+        for zone in ("Reserve", "Buffer_0_10km")
+    ]
+    return records
+
+
+class HtmlTableParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.rows = []
+        self.current_row = None
+        self.current_cell = None
+        self.cell_text = []
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        if tag == "tr":
+            self.current_row = {"cells": [], "links": []}
+        elif tag in ("td", "th") and self.current_row is not None:
+            self.current_cell = []
+            self.cell_text = []
+        elif tag == "a" and self.current_row is not None:
+            href = attributes.get("href")
+            if href:
+                self.current_row["links"].append(href)
+
+    def handle_data(self, data):
+        if self.current_cell is not None:
+            self.cell_text.append(data)
+
+    def handle_endtag(self, tag):
+        if tag in ("td", "th") and self.current_row is not None:
+            self.current_row["cells"].append(
+                " ".join(" ".join(self.cell_text).split())
+            )
+            self.current_cell = None
+        elif tag == "tr" and self.current_row is not None:
+            self.rows.append(self.current_row)
+            self.current_row = None
+
+
+def normalize_operator_name(value):
+    value = unicodedata.normalize("NFKD", value)
+    value = "".join(character for character in value if not unicodedata.combining(character))
+    value = re.sub(r"\s*\([^)]*%\)\s*", " ", value)
+    value = re.sub(r"[^A-Za-z0-9]+", " ", value).upper()
+    legal_suffixes = {"SARL", "SPRL", "SAS", "SA", "LTD", "LIMITED"}
+    tokens = value.split()
+    while tokens and tokens[-1] in legal_suffixes:
+        tokens.pop()
+    return " ".join(tokens)
+
+
+def parse_html_tables(html):
+    parser = HtmlTableParser()
+    parser.feed(html)
+    return parser.rows
+
+
+def fetch_warehouse_operator(holder):
+    search_term = normalize_operator_name(holder)
+    request = urllib.request.Request(
+        MINING_DATA_WAREHOUSE_SEARCH,
+        data=urllib.parse.urlencode({"data": search_term}).encode(),
+        headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Referer": f"{MINING_DATA_WAREHOUSE_URL}/operateur/all",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=90) as response:
+        html = response.read().decode("utf-8", errors="replace")
+    rows = parse_html_tables(html)
+    header_index = next(
+        (
+            index
+            for index, row in enumerate(rows)
+            if "Nom / Raison sociale" in row["cells"]
+        ),
+        None,
+    )
+    if header_index is None:
+        raise RuntimeError(
+            f"Could not parse Mining Data Warehouse search for {holder!r}."
+        )
+    headers = rows[header_index]["cells"]
+    matches = []
+    for row in rows[header_index + 1 :]:
+        if not row["cells"] or row["cells"][0] == "Aucun opérateur trouvé pour cette recherche.":
+            continue
+        operator = dict(zip(headers, row["cells"]))
+        if normalize_operator_name(operator.get("Nom / Raison sociale", "")) != normalize_operator_name(holder):
+            continue
+        profile_path = next(
+            (
+                href
+                for href in row["links"]
+                if re.fullmatch(r"/operateur/\d+/all", href)
+            ),
+            "",
+        )
+        if not profile_path:
+            raise RuntimeError(
+                f"Warehouse match for {holder!r} has no operator profile link."
+            )
+        profile_url = urllib.parse.urljoin(
+            f"{MINING_DATA_WAREHOUSE_URL}/", profile_path
+        )
+        profile_html = fetch(profile_url).decode("utf-8", errors="replace")
+        profile = {}
+        for detail_row in parse_html_tables(profile_html):
+            cells = detail_row["cells"]
+            if len(cells) >= 2:
+                profile[cells[0]] = cells[1]
+        matches.append(
+            {
+                "operator_name": operator.get("Nom / Raison sociale", ""),
+                "warehouse_id": profile_path.split("/")[2],
+                "warehouse_status": profile.get("Statut", operator.get("Statut", "")),
+                "warehouse_province": profile.get("Province", operator.get("Province", "")),
+                "warehouse_category": profile.get("Catégorie", operator.get("Catégorie", "")),
+                "warehouse_sector": profile.get("Secteur", operator.get("Secteur", "")),
+                "warehouse_created": profile.get("Date de création", ""),
+                "warehouse_url": profile_url,
+            }
+        )
+    return matches
+
+
+def download_warehouse_operators(cami_records, snapshot_date):
+    holder_groups = {}
+    for record in cami_records:
+        key = normalize_operator_name(record["holder"])
+        holder_groups.setdefault(key, []).append(record)
+    records = []
+    for holder_group in holder_groups.values():
+        holder = holder_group[0]["holder"]
+        matches = fetch_warehouse_operator(holder)
+        if len(matches) == 1:
+            match_status = "Correspondance exacte du nom"
+            operator = matches[0]
+        elif len(matches) > 1:
+            match_status = "Correspondances multiples — à vérifier"
+            operator = {
+                "operator_name": " | ".join(
+                    match["operator_name"] for match in matches
+                ),
+                "warehouse_id": "",
+                "warehouse_status": "",
+                "warehouse_province": "",
+                "warehouse_category": "",
+                "warehouse_sector": "",
+                "warehouse_created": "",
+                "warehouse_url": MINING_DATA_WAREHOUSE_URL + "/operateur/all",
+            }
+        else:
+            match_status = "Aucune correspondance exacte retournée"
+            operator = {
+                "operator_name": "",
+                "warehouse_id": "",
+                "warehouse_status": "",
+                "warehouse_province": "",
+                "warehouse_category": "",
+                "warehouse_sector": "",
+                "warehouse_created": "",
+                "warehouse_url": MINING_DATA_WAREHOUSE_URL + "/operateur/all",
+            }
+        records.append(
+            {
+                "CAMI_holder": re.sub(
+                    r"\s*\([^)]*%\)\s*", "", holder
+                ).strip(),
+                "CAMI_codes": ", ".join(
+                    sorted(
+                        record["CAMI_code"]
+                        for record in holder_group
+                    )
+                ),
+                "warehouse_match": match_status,
+                **operator,
+                "warehouse_snapshot_date": snapshot_date,
+                "match_method": (
+                    "Recherche du nom dans le registre MDW; égalité après "
+                    "normalisation des accents, ponctuations et formes juridiques"
+                ),
+                "source_url": MINING_DATA_WAREHOUSE_URL + "/operateur/all",
+            }
+        )
+    return records
+
+
 def cami_portal_updated():
     html = fetch(CAMI_PAGE_URL).decode("utf-8", errors="replace")
     match = re.search(r'''MainPage\.Init\('(.+?)', "Map",''', html)
@@ -327,6 +693,9 @@ def main():
     portal_updated = cami_portal_updated()
     ipis_visits = download_ipis(polygons)
     cami_records = download_cami(polygons, portal_updated, snapshot_date)
+    warehouse_operators = download_warehouse_operators(
+        cami_records, snapshot_date
+    )
 
     sites_by_code = {}
     for visit in ipis_visits:
@@ -360,6 +729,7 @@ def main():
                 location_origin=visit["location_origin"],
             )
     sites = sorted(sites_by_code.values(), key=lambda row: row["site_name"].casefold())
+    proximity = download_mining_proximity(sites, polygons)
 
     write_csv(
         ROOT / "CAMI_Okapi_licenses.csv",
@@ -392,6 +762,26 @@ def main():
             "location_origin", "boundary_match", "source_url",
         ],
     )
+    write_csv(
+        ROOT / "IPIS_Hansen_mining_proximity.csv",
+        proximity,
+        [
+            "year", "zone", "hansen_loss_pixels", "hansen_loss_ha",
+            "site_count", "buffer_meters", "activity_years_known", "method",
+            "source_url", "site_source_url", "boundary_source_url",
+        ],
+    )
+    write_csv(
+        ROOT / "CAMI_Mining_Data_Warehouse_operators.csv",
+        warehouse_operators,
+        list(warehouse_operators[0]) if warehouse_operators else [
+            "CAMI_holder", "CAMI_codes", "warehouse_match", "operator_name",
+            "warehouse_id", "warehouse_status", "warehouse_province",
+            "warehouse_category", "warehouse_sector", "warehouse_created",
+            "warehouse_url", "warehouse_snapshot_date", "match_method",
+            "source_url",
+        ],
+    )
     dashboard_data = {
         "boundary": {
             "name": boundary["display_name"],
@@ -404,6 +794,8 @@ def main():
         "licenses": cami_records,
         "ipis_sites": sites,
         "ipis_visits": ipis_visits,
+        "proximity": proximity,
+        "warehouse_operators": warehouse_operators,
     }
     (ROOT / "mining-data.js").write_text(
         "const MINING_DATA = "
@@ -413,7 +805,10 @@ def main():
     )
     print(
         f"Saved {len(cami_records)} CAMI records, {len(sites)} unique IPIS sites, "
-        f"and {len(ipis_visits)} IPIS visit records. "
+        f"{len(ipis_visits)} IPIS visit records, {len(proximity)} "
+        "Hansen proximity rows, and "
+        f"{sum(record['warehouse_match'] == 'Correspondance exacte du nom' for record in warehouse_operators)} "
+        "exact Mining Data Warehouse operator matches. "
         f"OSM boundary relation 401017; CAMI portal updated: {portal_updated}."
     )
 
