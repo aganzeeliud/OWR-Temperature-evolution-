@@ -13,13 +13,19 @@ Le tableau de bord propose cinq onglets en français : **Vue d’ensemble**, **A
 
 ## Données téléchargeables
 
-| Fichier | Contenu | Période / couverture |
-|---|---|---|
-| [`Meteo_owr.csv`](Meteo_owr.csv) | Date, année, mois, jour, températures maximales et minimales, précipitations | 1986-01-01 – 2026-10-25 |
-| [`TreeCoverLoss_owr.csv`](TreeCoverLoss_owr.csv) | Estimation de la perte annuelle de couvert arboré en hectares | 2001–2025 |
-| [`ForestAlerts_2026_owr.csv`](ForestAlerts_2026_owr.csv) | Détections mensuelles de pixels d’alerte, date d’observation et statut | 2026, observations jusqu’au 2026-10-04 |
+| Fichier | Contenu | Période / couverture | Téléchargement |
+|---|---|---|---|
+| [`Meteo_owr.csv`](Meteo_owr.csv) | Date, année, mois, jour, Tmax, Tmin et précipitations | 1986-01-01 – 2026-10-25 | [CSV brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/Meteo_owr.csv) |
+| [`Meteo_owr.xlsx`](Meteo_owr.xlsx) | Même série journalière en classeur Excel, avec feuille de notes sur les colonnes et la provenance | 1986-01-01 – 2026-10-25 | [Classeur Excel](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/Meteo_owr.xlsx) |
+| [`TreeCoverLoss_owr.csv`](TreeCoverLoss_owr.csv) | Estimation annuelle de perte de couvert arboré en hectares | 2001–2025 | [CSV brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/TreeCoverLoss_owr.csv) |
+| [`ForestAlerts_2026_owr.csv`](ForestAlerts_2026_owr.csv) | Détections mensuelles provisoires de pixels d’alerte | 2026, observations jusqu’au 2026-10-04 | [CSV brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/ForestAlerts_2026_owr.csv) |
+| [`earth_engine/okapi_mining_deforestation.js`](earth_engine/okapi_mining_deforestation.js) | Script d’analyse exploratoire Landsat/Sentinel et export par zone | 2000–2026 | [Script Earth Engine](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/earth_engine/okapi_mining_deforestation.js) |
+| [`index.html`](index.html) | Tableau de bord autonome en français | Version courante du dépôt | [HTML brut](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/index.html) |
+| [`OWR_Climate.pbip`](OWR_Climate.pbip) | Projet Power BI (à ouvrir avec Power BI Desktop) | Sources CSV du dépôt | [Projet PBIP](https://raw.githubusercontent.com/aganzeeliud/OWR-Temperature-evolution-/main/OWR_Climate.pbip) |
 
-Les fichiers utilisent des en-têtes de colonnes explicites, des dates ISO (`AAAA-MM-JJ`) et des valeurs numériques directement exploitables dans un tableur, Python, R ou Power BI. Les en-têtes CSV d’origine sont conservés pour assurer la compatibilité avec le modèle Power BI.
+Le classeur Excel et le CSV météo contiennent la même série et les mêmes valeurs ; le classeur fournit les colonnes de date, année, mois et jour dans des cellules Excel typées et conserve les valeurs absentes comme cellules vides. Les CSV utilisent des en-têtes explicites, des dates ISO (`AAAA-MM-JJ`) et des valeurs numériques directement exploitables dans un tableur, Python, R ou Power BI. Les en-têtes nécessaires au modèle Power BI sont conservés.
+
+**Résultats miniers Earth Engine :** aucun CSV de résultats calculés n’est distribué ici. Téléchargez le script, configurez une limite de réserve et, si un proxy de proximité est souhaité, un inventaire minier daté ; lancez ensuite l’export dans Earth Engine. Le fichier généré est importable depuis l’onglet **Activités minières** du tableau de bord. Sans inventaire minier, les seuls CSV forestiers disponibles ne permettent pas d’attribuer une perte aux mines.
 
 ## Utiliser le tableau de bord
 
@@ -27,9 +33,9 @@ La page est organisée en cinq onglets :
 
 1. **Vue d’ensemble** — filtres d’années, indicateurs météo, tendances annuelles et saisonnières, indicateurs de perte de couvert et alertes.
 2. **Activités minières** — série de perte du couvert GFW du dépôt et comparateur par zone pour les résultats exportés Landsat/Sentinel et UMD/Hansen.
-3. **Téléchargements** — liens vers les exports CSV, le fichier HTML et le projet Power BI.
+3. **Méthode & vérifications** — calcul des indicateurs, contrôles et limites d’interprétation.
 4. **Références scientifiques** — liens vers les documentations et sources de données.
-5. **Méthode & vérifications** — calcul des indicateurs, contrôles et limites d’interprétation.
+5. **Téléchargements** — CSV, classeur Excel, script Earth Engine, HTML et projet Power BI.
 
 Dans la vue d’ensemble, sélectionnez une plage d’années et choisissez d’afficher la température ou les précipitations. Les indicateurs et les graphiques climatiques sont recalculés à partir des jours disponibles. La comparaison forestière présente séparément les estimations annuelles de perte et les alertes provisoires de 2026.
 

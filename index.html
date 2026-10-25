@@ -203,6 +203,8 @@
     .download-item strong { display: block; color: #274b37; font-size: 13px; }
     .download-item small { display: block; margin-top: 3px; color: #7a8980; font-size: 11px; }
     .download-link { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 8px 13px; border: 1px solid #cbdccc; border-radius: 9px; background: #f1f7ef; color: #285339; font-size: 11px; font-weight: 720; text-decoration: none; transition: background .16s ease, transform .16s ease; }
+    .download-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+    .download-note { margin: 12px 0 0; color: #718078; font-size: 11px; line-height: 1.6; }
     .download-link:hover { transform: translateY(-1px); background: #e6f0e3; }
     .reference-list li, .process-list li { padding: 12px 13px; border-left: 3px solid #9dbb8f; border-radius: 0 9px 9px 0; background: #f6f8f4; color: #52645a; font-size: 12px; }
     .reference-list a { color: #27583d; font-weight: 700; text-decoration: none; }
@@ -448,9 +450,9 @@
     <nav class="section-nav" role="tablist" aria-label="Sections du tableau de bord">
       <button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-tab-target="panel-overview"><svg class="icon"><use href="#i-chart"/></svg>Vue d’ensemble</button>
       <button type="button" role="tab" id="tab-mining" aria-controls="panel-mining" aria-selected="false" data-tab-target="panel-mining" tabindex="-1"><svg class="icon"><use href="#i-satellite"/></svg>Activités minières</button>
-      <button type="button" role="tab" id="tab-downloads" aria-controls="panel-downloads" aria-selected="false" data-tab-target="panel-downloads" tabindex="-1"><svg class="icon"><use href="#i-download"/></svg>Téléchargements</button>
-      <button type="button" role="tab" id="tab-references" aria-controls="panel-references" aria-selected="false" data-tab-target="panel-references" tabindex="-1"><svg class="icon"><use href="#i-book"/></svg>Références scientifiques</button>
       <button type="button" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" data-tab-target="panel-method" tabindex="-1"><svg class="icon"><use href="#i-shield"/></svg>Méthode &amp; vérifications</button>
+      <button type="button" role="tab" id="tab-references" aria-controls="panel-references" aria-selected="false" data-tab-target="panel-references" tabindex="-1"><svg class="icon"><use href="#i-book"/></svg>Références scientifiques</button>
+      <button type="button" role="tab" id="tab-downloads" aria-controls="panel-downloads" aria-selected="false" data-tab-target="panel-downloads" tabindex="-1"><svg class="icon"><use href="#i-download"/></svg>Téléchargements</button>
     </nav>
 
     <section class="tab-panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
@@ -659,11 +661,12 @@
       <div class="info-grid">
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-download"/></svg></span>Données téléchargeables</h3><p>Enregistrements météorologiques journaliers, perte annuelle de couvert et alertes satellitaires provisoires.</p>
           <ul class="download-list">
-            <li class="download-item"><span><strong>Météo quotidienne · 1986–2026</strong><small>14 908 jours · Tmax, Tmin et précipitations</small></span><a class="download-link" href="Meteo_owr.csv" download>Télécharger le CSV</a></li>
+            <li class="download-item"><span><strong>Météo quotidienne · 1986–2026</strong><small>14 908 jours · Tmax, Tmin et précipitations</small></span><span class="download-actions"><a class="download-link" href="Meteo_owr.csv" download>Télécharger le CSV</a><a class="download-link" href="Meteo_owr.xlsx" download>Télécharger Excel</a></span></li>
             <li class="download-item"><span><strong>Perte de couvert arboré · 2001–2025</strong><small>Estimations annuelles Global Forest Watch / UMD</small></span><a class="download-link" href="TreeCoverLoss_owr.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Alertes forestières · 2026</strong><small>Détections mensuelles provisoires, version v20261025</small></span><a class="download-link" href="ForestAlerts_2026_owr.csv" download>Télécharger le CSV</a></li>
             <li class="download-item"><span><strong>Script d’analyse minière et forestière</strong><small>Google Earth Engine · Landsat, Sentinel, ASTER et MODIS</small></span><a class="download-link" href="earth_engine/okapi_mining_deforestation.js" download>Télécharger le script</a></li>
           </ul>
+          <p class="download-note">Le CSV et le classeur Excel météo sont synchronisés. Les résultats miniers ne sont pas inclus : configurez et exécutez le script Earth Engine pour générer un export par zone ; avec inventaire minier, le fichier inclut le proxy annuel à 500 m.</p>
         </article>
         <article class="info-card"><h3><span class="card-icon"><svg class="icon"><use href="#i-file"/></svg></span>Projet et partage</h3><p>Le tableau de bord est autonome : téléchargez le fichier HTML et ouvrez-le dans un navigateur récent. Les graphiques météo utilisent des données intégrées dans la page ; les exports CSV restent accessibles séparément.</p>
           <ul class="download-list">
